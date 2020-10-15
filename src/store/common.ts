@@ -1,0 +1,1 @@
+export const RESET_ALL_STORE = 'RESET_ALL_STORE'
