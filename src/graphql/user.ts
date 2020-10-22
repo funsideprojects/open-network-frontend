@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 import { userPayload } from './types'
 
-// *_: Queries
+// * Queries
 
 /** Get users with whom authUser had a conversation */
 export const GET_CONVERSATIONS = gql`

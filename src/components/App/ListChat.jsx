@@ -5,7 +5,7 @@ import { Tooltip } from 'antd'
 
 import { useStore } from 'store'
 
-import { SET_CHAT } from 'store/chat'
+// import { SET_CHAT } from 'store/messenger'
 
 import Avatar from 'components/Avatar'
 import { Spacing } from 'components/Layout'
@@ -111,13 +111,13 @@ const ListChat = memo(({ pathname }) => {
   const [{ chat }, dispatch] = useStore()
 
   const openMessageBox = () => {
-    dispatch({
-      type: SET_CHAT,
-      payload: {
-        isShowMessageBox: true,
-        infoUser: null,
-      },
-    })
+    // dispatch({
+    //   type: SET_CHAT,
+    //   payload: {
+    //     isShowMessageBox: true,
+    //     infoUser: null,
+    //   },
+    // })
   }
 
   return (

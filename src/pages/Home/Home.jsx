@@ -107,7 +107,7 @@ const Home = memo(() => {
 
                     <ButtonReload renewData={renewData} />
 
-                    {posts.map((post) => {
+                    {posts?.map((post) => {
                       return (
                         <LazyLoad once key={post.id} throttle={200} height={400} offset={[0, 0]}>
                           <Modal open={modalPostId === post.id} onClose={closeModal}>

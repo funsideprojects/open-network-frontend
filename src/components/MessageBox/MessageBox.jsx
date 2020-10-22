@@ -6,7 +6,7 @@ import ImagePreview from 'components/ImagePreview'
 
 import { useStore } from 'store'
 
-import { SET_CHAT } from 'store/chat'
+// import { SET_CHAT } from 'store/chat'
 
 // import { MAX_POST_IMAGE_SIZE } from 'constants/ImageSize'
 
@@ -240,13 +240,13 @@ const MessageBox = () => {
   const [images, setImages] = useState([])
 
   const closeMessageBox = () => {
-    dispatch({
-      type: SET_CHAT,
-      payload: {
-        isShowMessageBox: false,
-        infoUser: null,
-      },
-    })
+    // dispatch({
+    //   type: SET_CHAT,
+    //   payload: {
+    //     isShowMessageBox: false,
+    //     infoUser: null,
+    //   },
+    // })
   }
 
   const handlePostImageUpload = (e) => {
@@ -340,7 +340,7 @@ const MessageBox = () => {
       </FootBox>
       {images.length ? (
         <ListImageUpload>
-          {images.map((image, index) => {
+          {images?.map((image, index) => {
             return (
               <ImagePreview key={index} image={image} index={index} deleteImage={deleteImage} width={84} height={84} />
             )

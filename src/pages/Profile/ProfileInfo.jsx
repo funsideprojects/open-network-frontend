@@ -17,7 +17,7 @@ import ProfileImageUpload from './ProfileImageUpload'
 import ProfileCoverUpload from './ProfileCoverUpload'
 
 import { useStore } from 'store'
-import { OPEN_FOLLOWED_DRAWER } from 'store/follow'
+import { OPEN_FOLLOW_DRAWER } from 'store/follow'
 
 // import * as Routes from 'routes'
 
@@ -184,7 +184,7 @@ const ProfileInfo = ({ user, getUserPosts = false }) => {
         </List>
         <List>
           {auth.user.id === user.id ? (
-            <Count text='following' clickable onClick={() => dispatch({ type: OPEN_FOLLOWED_DRAWER })}>
+            <Count text='following' clickable onClick={() => dispatch({ type: OPEN_FOLLOW_DRAWER })}>
               <b>
                 <AnimatedCount to={follow.followed.count} />
               </b>

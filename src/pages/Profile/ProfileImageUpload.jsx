@@ -10,7 +10,7 @@ import { UPDATE_USER_PHOTO } from 'graphql/user'
 
 import { MAX_USER_PROFILE_IMAGE_SIZE } from 'constants/ImageSize'
 
-import { useGlobalMessage } from 'hooks/useGlobalMessage'
+import { useAppNotification } from 'hooks/useAppNotification'
 
 import { useStore } from 'store'
 
@@ -69,7 +69,7 @@ const ProfileImageUpload = ({ username, userId, image, getUserPosts = false }) =
   const [{ auth }] = useStore()
   const [loading, setLoading] = useState(false)
 
-  const message = useGlobalMessage()
+  const message = useAppNotification()
 
   const handleImageChange = async (e) => {
     setLoading(true)

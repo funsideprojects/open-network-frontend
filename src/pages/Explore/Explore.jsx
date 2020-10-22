@@ -94,7 +94,7 @@ const Explore = memo(() => {
                 return (
                   <Fragment>
                     <PostsContainer>
-                      {posts.map((post) => (
+                      {posts?.map((post) => (
                         <Fragment key={post.id}>
                           <Modal open={modalPostId === post.id} onClose={closeModal}>
                             <PostPopup postId={post.id} closeModal={closeModal} />

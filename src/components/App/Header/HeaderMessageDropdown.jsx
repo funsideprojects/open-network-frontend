@@ -101,7 +101,7 @@ const HeaderMessageDropdown = ({ messageRef, dropdownData }) => {
         </Link>
       </Heading>
 
-      {dropdownData.map((user) => (
+      {dropdownData?.map((user) => (
         <User
           key={user.id}
           to={generatePath(Routes.MESSAGES, { userId: user.id })}

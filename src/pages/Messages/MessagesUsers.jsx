@@ -198,7 +198,7 @@ const MessagesUsers = ({ location, authUser }) => {
 
       {!loading && (
         <UserContainer>
-          {data.getConversations.map((user) => {
+          {data.getConversations?.map((user) => {
             const unseen = !user.lastMessageSender && !user.seen
 
             return (

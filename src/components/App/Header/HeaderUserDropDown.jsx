@@ -7,7 +7,7 @@ import SignOut from 'components/App/SignOut'
 import { A } from 'components/Text'
 
 import { useStore } from 'store'
-import { OPEN_FOLLOWED_DRAWER } from 'store/follow'
+import { OPEN_FOLLOW_DRAWER } from 'store/follow'
 
 import * as Routes from 'routes'
 
@@ -66,7 +66,7 @@ const HeaderUserDropDown = ({ userRef }) => {
         My Profile
       </Link>
 
-      <Item onClick={() => dispatch({ type: OPEN_FOLLOWED_DRAWER })}>
+      <Item onClick={() => dispatch({ type: OPEN_FOLLOW_DRAWER })}>
         Following
       </Item>
 

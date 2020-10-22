@@ -10,7 +10,7 @@ import { Spacing } from 'components/Layout'
 import { A } from 'components/Text'
 
 import { useStore } from 'store'
-import { CLOSE_FOLLOWED_DRAWER } from 'store/follow'
+import { CLOSE_FOLLOW_DRAWER } from 'store/follow'
 
 import * as Routes from 'routes'
 
@@ -64,7 +64,7 @@ const FollowedUsersDrawer = memo(() => {
       closable
       width={350}
       bodyStyle={{ overflowX: 'hidden', overflowY: 'scroll', boxSizing: 'border-box' }}
-      onClose={() => dispatch({ type: CLOSE_FOLLOWED_DRAWER })}
+      onClose={() => dispatch({ type: CLOSE_FOLLOW_DRAWER })}
     >
       <List>
         <Transition

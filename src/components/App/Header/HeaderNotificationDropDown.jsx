@@ -76,7 +76,7 @@ const HeaderNotificationDropDown = ({
       {!dropdownData?.length ? (
         <Empty>No new notifications.</Empty>
       ) : (
-        dropdownData.map((notification) => (
+        dropdownData?.map((notification) => (
           <Notification
             key={notification.id}
             notification={notification}

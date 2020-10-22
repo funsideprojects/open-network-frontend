@@ -24,7 +24,7 @@ const PostPopupImages = ({ images = [] }) => {
 
   return (
     <Carousel showThumbs={false} showIndicators={images.length > 1} showStatus={images.length > 1}>
-      {images.map((image, i) => (
+      {images?.map((image, i) => (
         <ImageContainer key={i}>
           <Image width='100%' src={getImageLink(image.image)} alt={i.toString()} />
         </ImageContainer>

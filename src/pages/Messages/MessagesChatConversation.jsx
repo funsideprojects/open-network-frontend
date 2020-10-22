@@ -162,7 +162,7 @@ const MessagesChatConversation = ({
   return (
     <Root>
       <Conversation>
-        {messages.map((message) => {
+        {messages?.map((message) => {
           const isAuthUserReceiver = authUser.id === message.sender.id
 
           return (

@@ -14,7 +14,7 @@ import { MAX_POST_IMAGE_SIZE } from 'constants/ImageSize'
 
 import { CREATE_POST } from 'graphql/post'
 
-import { useGlobalMessage } from 'hooks/useGlobalMessage'
+import { useAppNotification } from 'hooks/useAppNotification'
 
 import PostImageUpload from 'pages/Home/PostImageUpload'
 
@@ -121,7 +121,7 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
 
   const inputRef = useRef(null)
 
-  const message = useGlobalMessage()
+  const message = useAppNotification()
 
   const handleReset = () => {
     setTitle('')
@@ -217,7 +217,7 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
                 {!!images.length && isFocused && (
                   <Spacing bottom='sm'>
                     <ImagesPreviewContainer>
-                      {images.map((image, index) => {
+                      {images?.map((image, index) => {
                         return <ImagePreview key={index} image={image} index={index} deleteImage={deleteImage} />
                       })}
                     </ImagesPreviewContainer>

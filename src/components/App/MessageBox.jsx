@@ -210,10 +210,10 @@ const MessageBox = () => {
   const [{ chat }, dispatch] = useStore()
 
   const openMessageBox = () => {
-    dispatch({ type: SET_CHAT, payload: {
-      isShowMessageBox: true,
-      infoUser: null
-    }})
+    // dispatch({ type: SET_CHAT, payload: {
+    //   isShowMessageBox: true,
+    //   infoUser: null
+    // }})
   }
 
   return (

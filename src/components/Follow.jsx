@@ -7,7 +7,7 @@ import { GET_FOLLOWED_USERS, CREATE_FOLLOW, DELETE_FOLLOW } from 'graphql/follow
 
 import { useStore } from 'store'
 
-import { SET_FOLLOWED } from 'store/follow'
+import { SET_FOLLOW } from 'store/follow'
 
 const Button = styled.button`
   height: 27px;
@@ -47,7 +47,7 @@ const Follow = memo(({ user }) => {
         await client
           .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
           .then(({ data }) => {
-            dispatch({ type: SET_FOLLOWED, payload: data.getFollowedUsers })
+            dispatch({ type: SET_FOLLOW, payload: data.getFollowedUsers })
           })
           .catch(() => {})
       })

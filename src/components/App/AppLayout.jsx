@@ -30,7 +30,7 @@ import { useClickOutside } from 'hooks/useClickOutside'
 
 import { useStore } from 'store'
 import { SET_AUTH_USER } from 'store/auth'
-import { SET_FOLLOWED } from 'store/follow'
+import { SET_FOLLOW } from 'store/follow'
 
 import * as Routes from 'routes'
 
@@ -81,7 +81,7 @@ const SessionContent = styled.div`
 
 const AppLayout = memo(({ location, authUser }) => {
   const client = useApolloClient()
-  const [{ auth, chat }, dispatch] = useStore()
+  const [{ auth }, dispatch] = useStore()
 
   //
   const windowSize = useWindowSize()
@@ -98,7 +98,7 @@ const AppLayout = memo(({ location, authUser }) => {
     client
       .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
       .then(({ data }) => {
-        dispatch({ type: SET_FOLLOWED, payload: data.getFollowedUsers })
+        dispatch({ type: SET_FOLLOW, payload: data.getFollowedUsers })
       })
       .catch(() => {})
   }, [client, dispatch])
@@ -143,32 +143,32 @@ const AppLayout = memo(({ location, authUser }) => {
 
         <SessionContent hideChat={hideChat}>
           <Switch>
-            <Route exact path={Routes.HOME} component={Home} />
+            {/* <Route exact path={Routes.HOME} component={Home} /> */}
 
-            <Route exact path={Routes.EXPLORE} component={Explore} />
+            {/* <Route exact path={Routes.EXPLORE} component={Explore} /> */}
 
-            <Route exact path={Routes.NOTIFICATIONS} component={Notifications} />
+            {/* <Route exact path={Routes.NOTIFICATIONS} component={Notifications} /> */}
 
             {/* <Route exact path={Routes.MESSAGES} component={Messages} /> */}
 
-            <Route exact path={Routes.PEOPLE} component={People} />
+            {/* <Route exact path={Routes.PEOPLE} component={People} /> */}
 
-            <Route exact path={Routes.POST} component={Post} />
+            {/* <Route exact path={Routes.POST} component={Post} /> */}
 
-            <Route exact path={Routes.USER_PROFILE} component={Profile} />
+            {/* <Route exact path={Routes.USER_PROFILE} component={Profile} /> */}
 
             <Route component={NotFound} />
           </Switch>
         </SessionContent>
 
-        {!hideChat ? (
+        {/* {!hideChat ? (
           <SessionRight>
             <ListUser pathname={location.pathname} />
             {chat.isShowMessageBox ? <MessageBox /> : <React.Fragment />}
           </SessionRight>
         ) : (
           <React.Fragment />
-        )}
+        )} */}
 
         <FollowedUsersDrawer />
       </Root>

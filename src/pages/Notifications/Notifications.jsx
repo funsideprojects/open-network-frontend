@@ -84,7 +84,7 @@ const Notifications = () => {
                   return (
                     <>
                       <List>
-                        {data.map((notification) => (
+                        {data?.map((notification) => (
                           <Notification key={notification.id} notification={notification} close={() => false} />
                         ))}
                       </List>

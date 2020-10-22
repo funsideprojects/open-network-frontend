@@ -77,7 +77,7 @@ const Likes = ({ likeCount, likes, getPostsFromFollowedUsers = false }) => {
     <Fragment>
       <Modal onClose={closeModal} open={isModalOpen}>
         <ModalContent>
-          {likes.map(({ user }) => {
+          {likes?.map(({ user }) => {
             const pathToProfile = generatePath(Routes.USER_PROFILE, { username: user.username })
             return (
               <Row key={user.id}>

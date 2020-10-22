@@ -14,7 +14,7 @@ import { UPDATE_USER_PHOTO } from 'graphql/user'
 
 import { useStore } from 'store'
 
-import { useGlobalMessage } from 'hooks/useGlobalMessage'
+import { useAppNotification } from 'hooks/useAppNotification'
 
 import { getImageLink } from 'utils/image-link'
 
@@ -81,7 +81,7 @@ const ProfileCoverUpload = ({ username, coverImage, userId }) => {
 
   const [loading, setLoading] = useState(false)
 
-  const message = useGlobalMessage()
+  const message = useAppNotification()
 
   const handleImageChange = async (e) => {
     setLoading(true)

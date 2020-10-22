@@ -65,7 +65,7 @@ const SearchResult = ({ users, forMessage }) => {
 
   return (
     <Root>
-      {users.map((user) => (
+      {users?.map((user) => (
         <StyledA
           key={user.id}
           to={

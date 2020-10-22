@@ -1,9 +1,9 @@
 import { RESET_ALL_STORE } from './common'
 
 // ? Actions types
-export const SET_FOLLOWING = 'SET_FOLLOWING'
-export const OPEN_FOLLOWING_DRAWER = 'OPEN_FOLLOWING_DRAWER'
-export const CLOSE_FOLLOWING_DRAWER = 'CLOSE_FOLLOWING_DRAWER'
+export const SET_FOLLOW = 'SET_FOLLOW'
+export const OPEN_FOLLOW_DRAWER = 'OPEN_FOLLOW_DRAWER'
+export const CLOSE_FOLLOW_DRAWER = 'CLOSE_FOLLOW_DRAWER'
 export const CLEAR_FOLLOW_STORE = 'CLEAR_FOLLOW_STORE'
 
 // ? Initial state
@@ -17,9 +17,9 @@ export const followInitialState = {
 
 // * Types
 export type FollowActionType =
-  | typeof SET_FOLLOWING
-  | typeof OPEN_FOLLOWING_DRAWER
-  | typeof CLOSE_FOLLOWING_DRAWER
+  | typeof SET_FOLLOW
+  | typeof OPEN_FOLLOW_DRAWER
+  | typeof CLOSE_FOLLOW_DRAWER
   | typeof CLEAR_FOLLOW_STORE
   | typeof RESET_ALL_STORE
 interface IAction {
@@ -30,19 +30,19 @@ interface IAction {
 // ? Reducer
 export const followReducer = (state = followInitialState, action: IAction): typeof followInitialState => {
   switch (action.type) {
-    case SET_FOLLOWING:
+    case SET_FOLLOW:
       return {
         ...state,
         following: action.payload,
       }
 
-    case OPEN_FOLLOWING_DRAWER:
+    case OPEN_FOLLOW_DRAWER:
       return {
         ...state,
         isDrawerVisible: true,
       }
 
-    case CLOSE_FOLLOWING_DRAWER:
+    case CLOSE_FOLLOW_DRAWER:
       return {
         ...state,
         isDrawerVisible: false,

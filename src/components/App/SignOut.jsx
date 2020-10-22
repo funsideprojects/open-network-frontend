@@ -8,7 +8,7 @@ import { Button } from 'components/Form'
 import * as Routes from 'routes'
 
 import { useStore } from 'store'
-import { CLEAR_AUTH_USER } from 'store/auth'
+import { RESET_AUTH_STORE } from 'store/auth'
 
 import { closeSubscription } from 'utils/apollo-client'
 
@@ -23,7 +23,7 @@ const SignOut = ({ client, history }) => {
     localStorage.removeItem('token')
 
     client.resetStore()
-    dispatch({ type: CLEAR_AUTH_USER })
+    dispatch({ type: RESET_AUTH_STORE })
     history.push(Routes.HOME)
   }
 

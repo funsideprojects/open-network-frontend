@@ -28,7 +28,7 @@ const Comments = styled.div`
 const PostPopupComments = ({ usedInModal, comments, postAuthor, refetchPost }) => (
   <Root usedInModal={usedInModal}>
     <Comments usedInModal={usedInModal}>
-      {comments.map((comment) => (
+      {comments?.map((comment) => (
         <Comment key={comment.id} comment={comment} postAuthor={postAuthor} refetchPost={refetchPost} />
       ))}
     </Comments>
