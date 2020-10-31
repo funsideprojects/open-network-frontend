@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, generatePath, withRouter } from 'react-router-dom'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 
 import { GET_CONVERSATIONS } from 'graphql/user'
 import { GET_NEW_CONVERSATIONS_SUBSCRIPTION } from 'graphql/messages'
@@ -178,7 +178,7 @@ const MessagesUsers = ({ location, authUser }) => {
 
         <NewMessage
           exact
-          activeClassName='selected'
+          activeClassName="selected"
           to={generatePath(Routes.MESSAGES, { userId: Routes.NEW_ID_VALUE })}
         >
           <PencilIcon />
@@ -186,15 +186,10 @@ const MessagesUsers = ({ location, authUser }) => {
       </HeadingContainer>
 
       <SearchContainer>
-        <Search
-          location={location}
-          backgroundColor='white'
-          forMessage
-          placeholder='Search message'
-        />
+        <Search location={location} backgroundColor="white" forMessage placeholder="Search message" />
       </SearchContainer>
 
-      {loading && <LoadingDots top='xl' />}
+      {loading && <LoadingDots top="xl" />}
 
       {!loading && (
         <UserContainer>
@@ -202,12 +197,7 @@ const MessagesUsers = ({ location, authUser }) => {
             const unseen = !user.lastMessageSender && !user.seen
 
             return (
-              <User
-                key={user.id}
-                activeClassName='selected'
-                to={`/messages/${user.id}`}
-                seen={unseen ? 0 : 1}
-              >
+              <User key={user.id} activeClassName="selected" to={`/messages/${user.id}`} seen={unseen ? 0 : 1}>
                 <span>
                   <Avatar image={user.image} size={50} />
                 </span>

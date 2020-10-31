@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 import { generatePath } from 'react-router-dom'
 
 import Skeleton from 'components/Skeleton'
@@ -40,27 +40,27 @@ const ProfilePosts = ({ username }) => {
     <Query
       query={GET_USER_POSTS}
       variables={queryVariables}
-      fetchPolicy='cache-and-network'
+      fetchPolicy="cache-and-network"
       notifyOnNetworkStatusChange
     >
       {({ data, loading, refetch, fetchMore, networkStatus }) => {
         if (loading && networkStatus === 1) {
-          return <Skeleton height={500} bottom='lg' top='lg' count={PROFILE_PAGE_POSTS_LIMIT} />
+          return <Skeleton height={500} bottom="lg" top="lg" count={PROFILE_PAGE_POSTS_LIMIT} />
         }
 
         if (!data.getPosts.posts.length > 0) {
           return (
-            <Spacing bottom='lg'>
-              <Empty text='No posts yet.' />
+            <Spacing bottom="lg">
+              <Empty text="No posts yet." />
             </Spacing>
           )
         }
 
         return (
           <InfiniteScroll
-            queryName='getPosts'
+            queryName="getPosts"
             data={data?.getPosts?.posts}
-            dataKey='posts'
+            dataKey="posts"
             dataLimit={PROFILE_PAGE_POSTS_LIMIT}
             count={+data.getPosts?.count}
             variables={queryVariables}
@@ -71,7 +71,7 @@ const ProfilePosts = ({ username }) => {
 
               return (
                 <Fragment>
-                  <Spacing top='sm' />
+                  <Spacing top="sm" />
 
                   {posts?.map((post) => (
                     <Fragment key={post.id}>
@@ -79,7 +79,7 @@ const ProfilePosts = ({ username }) => {
                         <PostPopup postId={post.id} closeModal={closeModal} />
                       </Modal>
 
-                      <Spacing bottom='lg' top='lg'>
+                      <Spacing bottom="lg" top="lg">
                         <PostCard
                           {...post}
                           postId={post.id}
@@ -90,7 +90,7 @@ const ProfilePosts = ({ username }) => {
                     </Fragment>
                   ))}
 
-                  {showNextLoading && <Loading top='lg' />}
+                  {showNextLoading && <Loading top="lg" />}
                 </Fragment>
               )
             }}

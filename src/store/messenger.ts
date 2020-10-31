@@ -14,7 +14,7 @@ interface IAction {
 }
 
 // ? Reducer
-export const messengerReducer = (state = messengerInitialState, action: IAction) => {
+export const messengerReducer = (state = messengerInitialState, action: IAction): typeof messengerInitialState => {
   switch (action.type) {
     case CLEAR_MESSENGER_STORE:
     case RESET_ALL_STORE: {

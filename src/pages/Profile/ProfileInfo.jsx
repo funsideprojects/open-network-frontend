@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 // import { Link, generatePath } from 'react-router-dom'
-import { Query } from 'react-apollo'
-import { useSubscription } from '@apollo/react-hooks'
+import { Query } from '@apollo/client/react/components'
+import { useSubscription } from '@apollo/client'
 
 import { GET_FOLLOWED_USERS_COUNT, GET_USER_FOLLOWERS } from 'graphql/follow'
 import { GET_USER_POSTS_COUNT } from 'graphql/post'
@@ -142,7 +142,7 @@ const ProfileInfo = ({ user, getUserPosts = false }) => {
             <FollowAndMessage>
               <Follow user={user} />
 
-              <Spacing left='sm' />
+              <Spacing left="sm" />
               {/* <Message to={generatePath(Routes.MESSAGES, { userId: user.id })}>Message</Message> */}
             </FollowAndMessage>
           )}
@@ -151,13 +151,13 @@ const ProfileInfo = ({ user, getUserPosts = false }) => {
 
       <Info>
         <List>
-          <Query query={GET_USER_POSTS_COUNT} fetchPolicy='no-cache' variables={{ username: user.username }}>
+          <Query query={GET_USER_POSTS_COUNT} fetchPolicy="no-cache" variables={{ username: user.username }}>
             {({ data, loading, error }) => {
               if (loading) return 'loading'
               if (error || !data) return 'error'
 
               return (
-                <Count text='posts'>
+                <Count text="posts">
                   <b>
                     <AnimatedCount to={data.getPosts.count} />
                   </b>
@@ -167,13 +167,13 @@ const ProfileInfo = ({ user, getUserPosts = false }) => {
           </Query>
         </List>
         <List>
-          <Query query={GET_USER_FOLLOWERS} fetchPolicy='no-cache' variables={{ username: user.username }}>
+          <Query query={GET_USER_FOLLOWERS} fetchPolicy="no-cache" variables={{ username: user.username }}>
             {({ data, loading, error }) => {
               if (loading) return 'loading'
               if (error || !data) return 'error'
 
               return (
-                <Count text='followers'>
+                <Count text="followers">
                   <b>
                     <AnimatedCount to={data.getUserFollowers.count} />
                   </b>
@@ -184,19 +184,19 @@ const ProfileInfo = ({ user, getUserPosts = false }) => {
         </List>
         <List>
           {auth.user.id === user.id ? (
-            <Count text='following' clickable onClick={() => dispatch({ type: OPEN_FOLLOW_DRAWER })}>
+            <Count text="following" clickable onClick={() => dispatch({ type: OPEN_FOLLOW_DRAWER })}>
               <b>
                 <AnimatedCount to={follow.followed.count} />
               </b>
             </Count>
           ) : (
-            <Query query={GET_FOLLOWED_USERS_COUNT} fetchPolicy='no-cache' variables={{ username: user.username }}>
+            <Query query={GET_FOLLOWED_USERS_COUNT} fetchPolicy="no-cache" variables={{ username: user.username }}>
               {({ data, loading, error }) => {
                 if (loading) return 'loading'
                 if (error || !data) return 'error'
 
                 return (
-                  <Count text='following'>
+                  <Count text="following">
                     <b>
                       <AnimatedCount to={data.getFollowedUsers.count} />
                     </b>

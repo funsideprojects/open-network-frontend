@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Input, Button, Tooltip } from 'antd'
 
 import { PostTitleSkeleton } from 'components/Skeletons/PostTitleSkeleton'
@@ -108,7 +108,7 @@ const PostTitle = ({
           autoFocus
           onFocus={onFocus}
           onBlur={() => setIsEditing(false)}
-          placeholder='Add caption here...'
+          placeholder="Add caption here..."
           disabled={loading}
         />
       </TextContainer>
@@ -117,7 +117,7 @@ const PostTitle = ({
   if (!isPostBelongsToAuthUser) return <Title usedInModal={usedInModal}>{title}</Title>
 
   return title ? (
-    <Tooltip title='Double-click to edit' mouseEnterDelay={1} placement='left'>
+    <Tooltip title="Double-click to edit" mouseEnterDelay={1} placement="left">
       <Title
         usedInModal={usedInModal}
         isPostBelongsToAuthUser={isPostBelongsToAuthUser}
@@ -128,7 +128,7 @@ const PostTitle = ({
     </Tooltip>
   ) : (
     <TextContainer usedInModal={usedInModal}>
-      <Button type='link' onClick={() => setIsEditing(true)}>
+      <Button type="link" onClick={() => setIsEditing(true)}>
         Add caption...
       </Button>
     </TextContainer>

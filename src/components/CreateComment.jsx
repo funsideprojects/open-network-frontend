@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Input } from 'antd'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { CREATE_COMMENT } from 'graphql/comment'
 
@@ -163,14 +163,14 @@ const CreateComment = ({
         onKeyDown={onKeyDown}
         autoFocus
         ref={inputRef}
-        placeholder='Add a comment...'
+        placeholder="Add a comment..."
         disabled={loading}
       />
 
       <WrapperAction>
         <RadiusButton>
-          <InputFile id='message-image' type='file' accept='image/x-png,image/jpeg' onChange={handlePostImageUpload} />
-          <Label htmlFor='message-image'>
+          <InputFile id="message-image" type="file" accept="image/x-png,image/jpeg" onChange={handlePostImageUpload} />
+          <Label htmlFor="message-image">
             <UploadImageIcon size={10} />
           </Label>
         </RadiusButton>

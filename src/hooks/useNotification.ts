@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { CREATE_NOTIFICATION, DELETE_NOTIFICATION } from 'graphql/notification'
 import { useStore } from 'store'
 

@@ -1,4 +1,4 @@
-// *: User
+// ? User
 export const userPayload = `
   id
   fullName
@@ -15,7 +15,7 @@ export const userPayload = `
   updatedAt
 `
 
-// *: Comment
+// ? Comment
 export const commentPayload = `
   id
   comment
@@ -35,7 +35,7 @@ export const commentPayload = `
   updatedAt
 `
 
-// *: Like
+// ? Like
 export const likePayload = `
   user {
     ${userPayload}
@@ -45,7 +45,7 @@ export const likePayload = `
   updatedAt
 `
 
-// *: Post
+// ? Post
 export const postPayload = `
   id
   title
@@ -79,7 +79,7 @@ export const postPayload = `
   updatedAt
 `
 
-// *: Notification
+// ? Notification
 export const notificationPayload = `
   id
   type

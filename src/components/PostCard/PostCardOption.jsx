@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { generatePath } from 'react-router-dom'
-import { useApolloClient } from 'react-apollo'
+import { useApolloClient } from '@apollo/client/react/components'
 import { Button, Dropdown, Menu } from 'antd'
 
 import { GET_FOLLOWED_USERS, CREATE_FOLLOW, DELETE_FOLLOW } from 'graphql/follow'
@@ -18,7 +18,7 @@ const StyledFollowItem = styled.span`
   ${(p) => (p.isFollowing ? `color: ${p.theme.colors.error.light};` : '')}
 
   &:after {
-    content: "${(p) => (p.isFollowing ? 'Unfollow' : 'Follow')}";
+    content: '${(p) => (p.isFollowing ? 'Unfollow' : 'Follow')}';
   }
 `
 
@@ -93,21 +93,21 @@ const PostCardOption = memo(({ postId, author, deletePost }) => {
       overlay={
         <Menu onClick={onMenuItemClicked}>
           {auth.user.id !== author.id && (
-            <Menu.Item key='follow'>
+            <Menu.Item key="follow">
               <StyledFollowItem isFollowing={isFollowing} />
             </Menu.Item>
           )}
-          <Menu.Item key='copyLink'>Copy link</Menu.Item>
+          <Menu.Item key="copyLink">Copy link</Menu.Item>
           {auth.user.id === author.id && (
-            <Menu.Item key='deletePost'>
+            <Menu.Item key="deletePost">
               <StyledDeleteItem />
             </Menu.Item>
           )}
         </Menu>
       }
     >
-      <Button type='link' size='small'>
-        <DotsIcon width='16' />
+      <Button type="link" size="small">
+        <DotsIcon width="16" />
       </Button>
     </Dropdown>
   )

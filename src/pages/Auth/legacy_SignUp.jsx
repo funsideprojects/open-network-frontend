@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { Form, Input, Button, Tag } from 'antd'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { Spacing, Container } from 'components/Layout'
 import { H1 } from 'components/Text'
@@ -87,19 +87,19 @@ const SignUp = ({ history, refetch }) => {
     }
 
     return (
-      <Tag visible={!!message} color='red'>
+      <Tag visible={!!message} color="red">
         {message}
       </Tag>
     )
   }
 
   return (
-    <Root maxWidth='lg'>
+    <Root maxWidth="lg">
       <Head />
 
       <Welcome>
         <div>
-          <Heading color='white'>Connect with friends and the world around you.</Heading>
+          <Heading color="white">Connect with friends and the world around you.</Heading>
         </div>
 
         <p>See photos and updates from your friends.</p>
@@ -108,33 +108,33 @@ const SignUp = ({ history, refetch }) => {
       </Welcome>
 
       <FormContainer>
-        <Spacing bottom='md'>
+        <Spacing bottom="md">
           <H1>Sign Up</H1>
         </Spacing>
 
-        <Form name='signupform' onFinish={onFinish}>
+        <Form name="signupform" onFinish={onFinish}>
           <Form.Item
-            name='fullName'
+            name="fullName"
             rules={[
               { required: true, whitespace: true, message: 'Please input your full name!' },
               { min: 4, max: 40, message: 'Full name length should be between 4-40 characters.' },
             ]}
           >
-            <Input placeholder='Full name' />
+            <Input placeholder="Full name" />
           </Form.Item>
 
           <Form.Item
-            name='email'
+            name="email"
             rules={[
               { required: true, message: 'Please input your email!' },
               { type: 'email', message: 'Please enter a valid email address.' },
             ]}
           >
-            <Input placeholder='Email' />
+            <Input placeholder="Email" />
           </Form.Item>
 
           <Form.Item
-            name='username'
+            name="username"
             rules={[
               { required: true, message: 'Please input your username!' },
               { min: 3, max: 20, message: 'Username length should be between 3-20 characters.' },
@@ -144,22 +144,22 @@ const SignUp = ({ history, refetch }) => {
               },
             ]}
           >
-            <Input placeholder='Username' />
+            <Input placeholder="Username" />
           </Form.Item>
 
           <Form.Item
-            name='password'
+            name="password"
             hasFeedback
             rules={[
               { required: true, message: 'Please input your password!' },
               { min: 6, message: 'Minimum password length should be 6 characters.' },
             ]}
           >
-            <Input.Password placeholder='Password' />
+            <Input.Password placeholder="Password" />
           </Form.Item>
 
           <Form.Item
-            name='confirm'
+            name="confirm"
             dependencies={['password']}
             hasFeedback
             rules={[
@@ -174,11 +174,11 @@ const SignUp = ({ history, refetch }) => {
               }),
             ]}
           >
-            <Input.Password placeholder='Confirm password' />
+            <Input.Password placeholder="Confirm password" />
           </Form.Item>
 
           <Form.Item>
-            <Button type='primary' htmlType='submit'>
+            <Button type="primary" htmlType="submit">
               Complete
             </Button>
           </Form.Item>

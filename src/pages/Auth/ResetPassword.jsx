@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { Form } from 'antd'
 import { LockOutlined } from '@ant-design/icons'
 
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { VERIFY_RESET_PASSWORD_TOKEN, RESET_PASSWORD } from 'graphql/user'
 
 import { WrapperLoading, Loading } from 'components/Loading'
@@ -82,11 +82,11 @@ const ResetPassword = ({ history, location, refetch }) => {
       <>
         <Description>You will get redirected to the homepage after your password successfully resetted</Description>
 
-        <CustomForm name='normal_login' className='login-form' onFinish={onFinish}>
+        <CustomForm name="normal_login" className="login-form" onFinish={onFinish}>
           <ErrorContainer>{hasError}</ErrorContainer>
 
           <CustomFormItem
-            name='password'
+            name="password"
             rules={[
               {
                 required: true,
@@ -95,13 +95,13 @@ const ResetPassword = ({ history, location, refetch }) => {
             ]}
           >
             <CustomInput
-              type='password'
-              prefix={<LockOutlined className='site-form-item-icon' />}
-              placeholder='Password'
+              type="password"
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Password"
             />
           </CustomFormItem>
           <CustomFormItem
-            name='confirm'
+            name="confirm"
             rules={[
               {
                 required: true,
@@ -118,14 +118,14 @@ const ResetPassword = ({ history, location, refetch }) => {
             ]}
           >
             <CustomInput
-              type='password'
-              prefix={<LockOutlined className='site-form-item-icon' />}
-              placeholder='Confirm Password'
+              type="password"
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Confirm Password"
             />
           </CustomFormItem>
 
           <Form.Item>
-            <LoginButton type='primary' htmlType='submit' className='login-form-button'>
+            <LoginButton type="primary" htmlType="submit" className="login-form-button">
               RESET
             </LoginButton>
           </Form.Item>

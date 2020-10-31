@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 
 import { CloseIcon } from 'components/icons'
 import CreateComment from 'components/CreateComment'
@@ -113,9 +113,9 @@ const PostPopup = ({ postId, closeModal, usedInModal = true, refetchExplorePosts
   const [{ auth }] = useStore()
 
   return (
-    <Query query={GET_POST} variables={{ postId }} fetchPolicy='no-cache'>
+    <Query query={GET_POST} variables={{ postId }} fetchPolicy="no-cache">
       {({ data, refetch, loading, error }) => {
-        if (loading) return <Loading top='lg' />
+        if (loading) return <Loading top="lg" />
         if (error) return <NotFound />
 
         const post = data.getPost
@@ -128,7 +128,7 @@ const PostPopup = ({ postId, closeModal, usedInModal = true, refetchExplorePosts
 
             {closeModal && (
               <CloseModal onClick={closeModal}>
-                <CloseIcon width='16' color='white' />
+                <CloseIcon width="16" color="white" />
               </CloseModal>
             )}
 

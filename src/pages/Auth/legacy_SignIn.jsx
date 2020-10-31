@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { withRouter } from 'react-router-dom'
 import { Form, Input, Button, Tag } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
@@ -77,7 +77,7 @@ const SignIn = ({ history, location, refetch }) => {
 
     return (
       <ErrorMessage style={{ opacity: message ? 1 : 0 }}>
-        <Tag visible={!!message} color='red'>
+        <Tag visible={!!message} color="red">
           {message}
         </Tag>
       </ErrorMessage>
@@ -88,20 +88,20 @@ const SignIn = ({ history, location, refetch }) => {
     <>
       <Root>
         {renderError()}
-        <Form form={form} name='signinform' layout='inline' onFinish={onFinish}>
-          <Form.Item name='emailOrUsername'>
-            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Email or Username' />
+        <Form form={form} name="signinform" layout="inline" onFinish={onFinish}>
+          <Form.Item name="emailOrUsername">
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email or Username" />
           </Form.Item>
 
-          <Form.Item name='password'>
-            <Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='Password' />
+          <Form.Item name="password">
+            <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
           </Form.Item>
 
           <Form.Item shouldUpdate={true}>
             {() => (
               <Button
-                type='primary'
-                htmlType='submit'
+                type="primary"
+                htmlType="submit"
                 disabled={
                   !form.isFieldsTouched(true) || form.getFieldsError().filter(({ errors }) => errors.length).length
                 }

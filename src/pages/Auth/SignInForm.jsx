@@ -5,7 +5,7 @@ import { Form } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { SIGN_IN } from 'graphql/user'
 
@@ -43,7 +43,7 @@ const SignInForm = ({ history, refetch }) => {
         },
       })
       .then(async ({ data }) => {
-        localStorage.setItem('token', data.signin.token)
+        // localStorage.setItem('token', data.signin)
         await refetch()
         history.push(Routes.HOME)
       })
@@ -57,8 +57,8 @@ const SignInForm = ({ history, refetch }) => {
       <Title>SIGN IN</Title>
 
       <CustomForm
-        name='normal_login'
-        className='login-form'
+        name="normal_login"
+        className="login-form"
         initialValues={{
           remember: true,
         }}
@@ -67,7 +67,7 @@ const SignInForm = ({ history, refetch }) => {
         <ErrorContainer>{hasError}</ErrorContainer>
 
         <CustomFormItem
-          name='emailOrUsername'
+          name="emailOrUsername"
           rules={[
             {
               required: true,
@@ -75,10 +75,10 @@ const SignInForm = ({ history, refetch }) => {
             },
           ]}
         >
-          <CustomInput prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Email or Username' />
+          <CustomInput prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email or Username" />
         </CustomFormItem>
         <CustomFormItem
-          name='password'
+          name="password"
           rules={[
             {
               required: true,
@@ -87,9 +87,9 @@ const SignInForm = ({ history, refetch }) => {
           ]}
         >
           <CustomInput
-            prefix={<LockOutlined className='site-form-item-icon' />}
-            type='password'
-            placeholder='Password'
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
           />
         </CustomFormItem>
         <CustomFormItem>
@@ -97,7 +97,7 @@ const SignInForm = ({ history, refetch }) => {
         </CustomFormItem>
 
         <Form.Item>
-          <LoginButton type='primary' htmlType='submit' className='login-form-button'>
+          <LoginButton type="primary" htmlType="submit" className="login-form-button">
             SIGN IN
           </LoginButton>
         </Form.Item>

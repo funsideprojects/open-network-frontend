@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { generatePath, withRouter, Link } from 'react-router-dom'
-import { useSubscription } from '@apollo/react-hooks'
+import { useSubscription } from '@apollo/client'
 
 import Search from 'components/Search'
 import Avatar from 'components/Avatar'
@@ -97,10 +97,10 @@ const MessagesChatHeading = ({ location, match, chatUser }) => {
           <To>To:</To>
           <Search
             location={location}
-            backgroundColor='white'
+            backgroundColor="white"
             hideIcon
             forMessage
-            placeholder='Type the name of a person'
+            placeholder="Type the name of a person"
             autoFocus
           />
         </InputContainer>

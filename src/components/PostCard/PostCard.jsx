@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { generatePath } from 'react-router-dom'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { animated } from 'react-spring'
 
 import { PostCommentIcon } from 'components/icons'
@@ -144,8 +144,8 @@ const PostCard = ({
             <Avatar image={author.image} isOnline={author.isOnline} size={40} />
           </Author>
 
-          <Spacing left='xs'>
-            <Username to={pathToProfile} weight='bold'>
+          <Spacing left="xs">
+            <Username to={pathToProfile} weight="bold">
               {author.fullName}
             </Username>
             <CreatedAtAndPrivacy>
@@ -164,7 +164,7 @@ const PostCard = ({
         <PostCardOption postId={postId} author={author} deletePost={deletePost} />
       </TopRow>
 
-      <Spacing left='sm' bottom='sm' top='xs' right='sm'>
+      <Spacing left="sm" bottom="sm" top="xs" right="sm">
         <PostTitle
           postId={postId}
           title={title}
@@ -196,7 +196,7 @@ const PostCard = ({
             />
 
             <StyledButton active={isCommentOpen} text onClick={toggleComment}>
-              <PostCommentIcon {...(isCommentOpen && { color: 'white' })} /> <Spacing inline left='xxs' />{' '}
+              <PostCommentIcon {...(isCommentOpen && { color: 'white' })} /> <Spacing inline left="xxs" />{' '}
               <b>Comment</b>
             </StyledButton>
           </Icons>

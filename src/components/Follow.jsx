@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Mutation, useApolloClient } from 'react-apollo'
+import { Mutation, useApolloClient } from '@apollo/client/react/components'
 
 import { GET_FOLLOWED_USERS, CREATE_FOLLOW, DELETE_FOLLOW } from 'graphql/follow'
 

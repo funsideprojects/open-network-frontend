@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Form, Button, Input, Tag } from 'antd'
 import { MailOutlined } from '@ant-design/icons'
 
@@ -94,25 +94,25 @@ const ForgotPassword = () => {
 
   return (
     <Root>
-      <Head title='Forgot Password' />
+      <Head title="Forgot Password" />
 
       <Container>
-        <Spacing bottom='sm'>
+        <Spacing bottom="sm">
           <H1>Reset Password</H1>
           <Text>
             Enter the email address associated with your account, and we’ll email you a link to reset your password.
           </Text>
         </Spacing>
 
-        <Form name='forgotpassword' form={form} onFinish={onFinish}>
+        <Form name="forgotpassword" form={form} onFinish={onFinish}>
           <Form.Item
-            name='email'
+            name="email"
             rules={[
               { type: 'email', message: 'Please input a valid email address' },
               { required: true, message: 'Please input your email address' },
             ]}
           >
-            <Input prefix={<MailOutlined className='site-form-item-icon' />} placeholder='Email' />
+            <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
           </Form.Item>
 
           {renderResponse()}
@@ -120,8 +120,8 @@ const ForgotPassword = () => {
           <Form.Item shouldUpdate={true}>
             {() => (
               <Button
-                type='primary'
-                htmlType='submit'
+                type="primary"
+                htmlType="submit"
                 disabled={
                   !form.isFieldsTouched(true) || form.getFieldsError().filter(({ errors }) => errors.length).length
                 }
@@ -131,7 +131,7 @@ const ForgotPassword = () => {
             )}
           </Form.Item>
 
-          <Spacing top='sm'>
+          <Spacing top="sm">
             <A to={Routes.HOME}>&larr; Back to Sign Up</A>
           </Spacing>
         </Form>

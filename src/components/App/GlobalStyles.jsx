@@ -3,34 +3,32 @@ import { createGlobalStyle, css } from 'styled-components'
 import theme from 'theme'
 
 const Scroll = css`
-  /* width */
+  // ? Width
   ::-webkit-scrollbar {
     width: 4px;
     height: 8px;
     background: transparent !important;
   }
 
-  /* Track */
+  // ? Track
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 
-  /* Handle */
+  // ? Handle
   ::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
     height: 3px;
   }
 
-  /* Handle on hover */
+  // ? Handle on hover
   ::-webkit-scrollbar-thumb:hover {
     background: #ccc;
   }
 `
 
-/**
- * Global styles for the application
- */
+/** Global styles for the application */
 export const GlobalStyle = createGlobalStyle`
   ${Scroll}
 
@@ -50,9 +48,9 @@ export const GlobalStyle = createGlobalStyle`
     color: ${theme.colors.text.primary};
     background-color: ${theme.colors.body};
 
-    &::-webkit-scrollbar {
+    /* &::-webkit-scrollbar {
       display: none;
-    }
+    } */
   }
 
   #root {

@@ -1,5 +1,5 @@
 import React, { memo, Fragment, useEffect } from 'react'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { NOTIFICATION_UPDATED } from 'graphql/notification'
 

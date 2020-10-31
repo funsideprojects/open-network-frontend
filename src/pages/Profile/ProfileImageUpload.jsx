@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { Loading } from 'components/Loading'
 import { UserIcon } from 'components/icons'
@@ -103,12 +103,12 @@ const ProfileImageUpload = ({ username, userId, image, getUserPosts = false }) =
   }
 
   const renderProfileImage = () => {
-    if (loading) return <Loading top='xl' />
+    if (loading) return <Loading top="xl" />
 
     return image ? (
-      <Image src={getImageLink(image)} alt='profile' accept='image/x-png,image/jpeg' />
+      <Image src={getImageLink(image)} alt="profile" accept="image/x-png,image/jpeg" />
     ) : (
-      <UserIcon width='172' />
+      <UserIcon width="172" />
     )
   }
 
@@ -117,10 +117,10 @@ const ProfileImageUpload = ({ username, userId, image, getUserPosts = false }) =
   return (
     <>
       {authUser && (
-        <Input name='image' type='file' id='image' accept='image/x-png,image/jpeg' onChange={handleImageChange} />
+        <Input name="image" type="file" id="image" accept="image/x-png,image/jpeg" onChange={handleImageChange} />
       )}
 
-      <Label authUser={authUser} htmlFor='image'>
+      <Label authUser={authUser} htmlFor="image">
         {authUser && <Overlay>{image ? 'Update' : 'Upload'}</Overlay>}
 
         {renderProfileImage()}

@@ -1,11 +1,4 @@
-/**
- * Theme for applying consistent styling to the app
- */
-
 export default {
-  /**
-   * Font
-   */
   font: {
     family: `'Open Sans', sans-serif`,
     weight: {
@@ -24,11 +17,8 @@ export default {
     },
   },
 
-  /**
-   * Colors
-   */
   colors: {
-    black: '#000000',
+    black: '#000',
     white: '#fff',
     body: '#f7f7f7',
 
@@ -52,17 +42,6 @@ export default {
       secondary: 'rgba(0, 0, 0, 0.54)',
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
-    },
-
-    border: {
-      light: '#f5f5f5',
-      main: '#e0e0e0',
-      dark: '#bdbdbd',
-    },
-
-    skeleton: {
-      background: '#f3f3f3',
-      foreground: '#ecebeb',
     },
 
     error: {
@@ -89,11 +68,25 @@ export default {
       800: '#424242',
       900: '#212121',
     },
+
+    border: {
+      light: '#f5f5f5',
+      main: '#e0e0e0',
+      dark: '#bdbdbd',
+    },
+
+    skeleton: {
+      background: '#f3f3f3',
+      foreground: '#ecebeb',
+    },
+
+    overlay: {
+      translucent: 'rgba(0, 0, 0, 0.25)',
+      hazy: 'rgba(0, 0, 0, 0.45)',
+      opaque: 'rgba(0, 0, 0, 0.75)',
+    },
   },
 
-  /**
-   * Shadows
-   */
   shadows: {
     sm: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
     md: 'rgba(0, 0, 0, 0.3) 0px 1px 8px 0px',
@@ -101,9 +94,6 @@ export default {
     xl: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
   },
 
-  /**
-   * Breakpoints
-   */
   screen: {
     xs: '540px',
     sm: '640px',
@@ -112,9 +102,6 @@ export default {
     xl: '1230px',
   },
 
-  /**
-   * Spacing
-   */
   spacing: {
     none: 0,
     xxs: '5px',
@@ -125,18 +112,13 @@ export default {
     xl: '60px',
   },
 
-  /**
-   * Border radius
-   */
   radius: {
+    none: 0,
     sm: '3px',
     md: '6px',
     lg: '12px',
   },
 
-  /**
-   * z-index
-   */
   zIndex: {
     xs: 10,
     sm: 20,
@@ -145,9 +127,13 @@ export default {
     xl: 50,
   },
 
-  /**
-   * Transition
-   */
+  opacity: {
+    none: 0,
+    translucent: 0.2,
+    hazy: 0.5,
+    opaque: 0.8,
+  },
+
   transition: {
     duration: '0.5s',
   },

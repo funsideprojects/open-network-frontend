@@ -1,30 +1,24 @@
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { onError } from 'apollo-link-error'
-import { ApolloLink, Observable, split } from 'apollo-link'
+import { ApolloLink, from, Observable, split } from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { InMemoryCache, makeVar } from '@apollo/client/cache'
 import { createUploadLink } from 'apollo-upload-client'
-import { getMainDefinition } from 'apollo-utilities'
-import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from '@apollo/client/utilities'
+import { ApolloClient } from '@apollo/client/core'
 
-/** Creates a Apollo Link, that attach authentication token to each request */
+export const serverAvailable = makeVar(true)
+
+// ? Create a Auth Link, that attach credentials to each request
 const createAuthLink = () => {
-  const request = (operation) => {
-    // todo: Get token to cookie
-    const token = localStorage.getItem('token')
-
-    operation.setContext({
-      headers: {
-        authorization: token,
-      },
-    })
-  }
-
   return new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
         let handle
+
         Promise.resolve(operation)
-          .then((oper) => request(oper))
+          .then((op) => {
+            op.setContext({ fetchOptions: { credentials: 'include' } })
+          })
           .then(() => {
             handle = forward(operation).subscribe({
               next: observer.next.bind(observer),
@@ -41,27 +35,32 @@ const createAuthLink = () => {
   )
 }
 
-/** Helper functions that handles error cases */
-const handleErrors = () => {
+// ? Create a Error Link that handles error cases
+const createErrorLink = () => {
   return onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors && process.env.NODE_ENV === 'development') {
-      console.log('graphQLErrors', graphQLErrors)
+    if (graphQLErrors) {
+      console.debug('graphQLErrors', graphQLErrors)
+      setTimeout(() => {
+        console.log('trigger')
+        serverAvailable(false)
+      }, 2000)
     }
+
     if (networkError) {
-      console.log('networkError', networkError)
+      console.debug('networkError', networkError)
     }
   })
 }
 
-// GraphQL HTTP URL
-const API_URL = process.env.REACT_APP_API_URL
+// ? GraphQL HTTP URL
+const apiUrl = process.env.REACT_APP_API_URL
 
-// GraphQL WebSocket (subscriptions) URL.
-// If its url is not set in .env then it has same url, host and pathname
+// ? GraphQL WebSocket (subscriptions) URL.
+// ? If its url is not set in .env then it has same url, host and pathname
 const WEBSOCKET_API_URL = process.env.REACT_APP_WEBSOCKET_API_URL
 const websocketApiUrl = WEBSOCKET_API_URL
   ? WEBSOCKET_API_URL
-  : API_URL!.replace('https://', 'wss://').replace('http://', 'ws://')
+  : apiUrl!.replace('https://', 'wss://').replace('http://', 'ws://')
 
 // ? WebSocket link
 const wsLink = new WebSocketLink({
@@ -85,19 +84,19 @@ export const closeSubscription = () => {
   wsLink['subscriptionClient'].close()
 }
 
-export const createApolloClient = () => {
-  const cache = new InMemoryCache({ addTypename: false })
+const cache = new InMemoryCache({ addTypename: false })
 
-  const errorLink = handleErrors()
+export const createApolloClient = () => {
   const authLink = createAuthLink()
-  const uploadLink = createUploadLink({ uri: API_URL }) // ? Create upload link also create an HTTP link
+  const errorLink = createErrorLink()
+  const uploadLink = createUploadLink({ uri: apiUrl }) // ? Create upload link as well as an HTTP link
 
   // ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
   // ! https://github.com/apollographql/subscriptions-transport-ws/issues/377
   wsLink['subscriptionClient'].maxConnectTimeGenerator.duration = () =>
     wsLink['subscriptionClient'].maxConnectTimeGenerator.max
 
-  // Split links, so we can send data to each link depending on what kind of operation is being sent
+  // ? Split links, so we can send data to each link depending on what kind of operation is being sent
   const terminatingLink = split(
     ({ query }) => {
       const { kind, operation }: any = getMainDefinition(query)
@@ -105,11 +104,12 @@ export const createApolloClient = () => {
       return kind === 'OperationDefinition' && operation === 'subscription'
     },
     wsLink,
-    uploadLink as any
+    uploadLink
   )
 
   return new ApolloClient({
-    link: ApolloLink.from([errorLink, authLink, terminatingLink]),
+    link: from([errorLink, authLink, terminatingLink]),
     cache,
+    connectToDevTools: process.env.NODE_ENV === 'development',
   })
 }

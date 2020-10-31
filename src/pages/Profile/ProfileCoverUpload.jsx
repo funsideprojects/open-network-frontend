@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Button } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 
@@ -125,23 +125,23 @@ const ProfileCoverUpload = ({ username, coverImage, userId }) => {
   return (
     <Root image={getImageLink(coverImage)}>
       <Input
-        name='coverImage'
-        type='file'
-        id='coverImage'
+        name="coverImage"
+        type="file"
+        id="coverImage"
         onChange={handleImageChange}
-        accept='image/x-png,image/jpeg'
+        accept="image/x-png,image/jpeg"
       />
 
-      {loading && <Loading top='xl' size='xl' />}
+      {loading && <Loading top="xl" size="xl" />}
 
       {auth.user.id === userId && (
         <>
-          <Label htmlFor='coverImage'>
-            <UploadImageIcon width='14' color='white' />
+          <Label htmlFor="coverImage">
+            <UploadImageIcon width="14" color="white" />
           </Label>
 
           {coverImage && (
-            <StyledButton type='danger' onClick={handleDeleteCover}>
+            <StyledButton type="danger" onClick={handleDeleteCover}>
               <DeleteOutlined />
             </StyledButton>
           )}

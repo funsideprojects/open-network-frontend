@@ -1,20 +1,20 @@
 import React, { Dispatch, createContext, useContext, useReducer } from 'react'
 
-import { appNotiReducer, appNotiInitialState, AppNotiActionType } from './app-notification'
+import { appReducer, appInitialState, ApplicationActionType } from './application'
 import { authReducer, authInitialState, AuthActionType } from './auth'
 import { followReducer, followInitialState, FollowActionType } from './follow'
 import { messengerReducer, messengerInitialState, MessengerActionType } from './messenger'
 
 /** Combine initial states */
 const combinedStore = {
-  appNoti: appNotiInitialState,
+  app: appInitialState,
   auth: authInitialState,
   follow: followInitialState,
   messenger: messengerInitialState,
 }
 
 /** Combine action types */
-type CombinedActionTypes = AppNotiActionType | AuthActionType | FollowActionType | MessengerActionType
+type CombinedActionTypes = ApplicationActionType | AuthActionType | FollowActionType | MessengerActionType
 
 // * Types
 interface IAction<ActionTypes> {
@@ -30,7 +30,7 @@ const StoreContext = createContext<[typeof combinedStore, Dispatch<IAction<Combi
 
 /** Combine reducers */
 const reducers = (selectedStore: typeof combinedStore, action: IAction<CombinedActionTypes>) => ({
-  appNoti: appNotiReducer(selectedStore.appNoti, action as IAction<AppNotiActionType>),
+  app: appReducer(selectedStore.app, action as IAction<ApplicationActionType>),
   auth: authReducer(selectedStore.auth, action as IAction<AuthActionType>),
   follow: followReducer(selectedStore.follow, action as IAction<FollowActionType>),
   messenger: messengerReducer(selectedStore.messenger, action as IAction<MessengerActionType>),

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Mutation } from 'react-apollo'
+import { Mutation } from '@apollo/client/react/components'
 
 import { LikeIcon } from 'components/icons'
 import { Spacing } from './Layout'
@@ -35,7 +35,7 @@ const Like = ({
 
   return (
     <Mutation
-      key='xx'
+      key="xx"
       mutation={hasLiked ? DELETE_LIKE : CREATE_LIKE}
       variables={{ input: { postId } }}
       refetchQueries={() => [...(getUserPosts ? [`getUserPosts`] : [])]}
@@ -50,7 +50,7 @@ const Like = ({
             active={hasLiked}
           >
             <LikeIcon {...(hasLiked ? { color: 'white' } : {})} />
-            <Spacing inline left='xxs' />
+            <Spacing inline left="xxs" />
             {withText && <b>Like</b>}
           </StyledButton>
         )

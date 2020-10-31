@@ -1,29 +1,31 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { hot } from 'react-hot-loader/root'
+import { useQuery } from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { LoadingOutlined } from '@ant-design/icons'
 
 import { GET_AUTH_USER } from 'graphql/user'
 
-import { LoadingScreenWrapper } from 'components/Loading'
+import { Loading } from 'components/Loading'
 import { GlobalStyle } from './GlobalStyles'
 import ScrollToTop from './ScrollToTop'
 import AppLayout from './AppLayout'
 import AuthLayout from 'pages/Auth/AuthLayout'
 
-const App = () => {
-  const { loading, data, refetch } = useQuery(GET_AUTH_USER, { errorPolicy: 'ignore' })
+import { serverAvailable } from '_apollo-client'
 
-  if (loading)
-    return (
-      <LoadingScreenWrapper>
-        <LoadingOutlined style={{ fontSize: 30 }} />
-      </LoadingScreenWrapper>
-    )
+const App = () => {
+  const { loading, data, refetch } = useQuery(GET_AUTH_USER)
+
+  const x = serverAvailable()
+
+  console.log('serverAvailable', x)
+  console.log('object')
 
   return (
     <Router>
       <GlobalStyle />
+
+      {loading ? <Loading overlay /> : <></>}
 
       <ScrollToTop>
         <Switch>
@@ -38,4 +40,4 @@ const App = () => {
   )
 }
 
-export default App
+export default hot(App)

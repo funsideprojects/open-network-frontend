@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Form, Button, Input, Tag } from 'antd'
 
 import { Spacing } from 'components/Layout'
@@ -92,11 +92,11 @@ const ResetPassword = ({ history, location, refetch }) => {
     }
 
     if (!tokenValidity) {
-      return <Error size='sm'>{message}</Error>
+      return <Error size="sm">{message}</Error>
     }
 
     return (
-      <Tag visible={!!message} color='red' style={{ marginBottom: 10 }}>
+      <Tag visible={!!message} color="red" style={{ marginBottom: 10 }}>
         {message}
       </Tag>
     )
@@ -104,29 +104,29 @@ const ResetPassword = ({ history, location, refetch }) => {
 
   return (
     <Root>
-      <Head title='Reset Password' />
+      <Head title="Reset Password" />
 
       <Container>
         {tokenValidity ? (
           <>
-            <Spacing bottom='md'>
+            <Spacing bottom="md">
               <H1>Password Reset</H1>
             </Spacing>
 
-            <Form form={form} name='resetpassword' onFinish={onFinish}>
+            <Form form={form} name="resetpassword" onFinish={onFinish}>
               <Form.Item
-                name='password'
+                name="password"
                 hasFeedback
                 rules={[
                   { required: true, message: 'Please input your password!' },
                   { min: 6, message: 'Minimum password length should be 6 characters.' },
                 ]}
               >
-                <Input.Password placeholder=' New password' />
+                <Input.Password placeholder=" New password" />
               </Form.Item>
 
               <Form.Item
-                name='confirm'
+                name="confirm"
                 dependencies={['password']}
                 hasFeedback
                 rules={[
@@ -141,7 +141,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                   }),
                 ]}
               >
-                <Input.Password placeholder='Confirm new password' />
+                <Input.Password placeholder="Confirm new password" />
               </Form.Item>
 
               {renderError()}
@@ -149,8 +149,8 @@ const ResetPassword = ({ history, location, refetch }) => {
               <Form.Item shouldUpdate={true}>
                 {() => (
                   <Button
-                    type='primary'
-                    htmlType='submit'
+                    type="primary"
+                    htmlType="submit"
                     disabled={
                       !form.isFieldsTouched(true) || form.getFieldsError().filter(({ errors }) => errors.length).length
                     }

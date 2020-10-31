@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 import { userPayload } from './types'
 
@@ -84,9 +84,7 @@ export const SEARCH_USERS = gql`
 /** Sign up user */
 export const SIGN_UP = gql`
   mutation($input: SignUpInput!) {
-    signup(input: $input) {
-      token
-    }
+    signup(input: $input)
   }
 `
 
@@ -94,9 +92,7 @@ export const SIGN_UP = gql`
 /** Sign in user */
 export const SIGN_IN = gql`
   mutation($input: SignInInput!) {
-    signin(input: $input) {
-      token
-    }
+    signin(input: $input)
   }
 `
 

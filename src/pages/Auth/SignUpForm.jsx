@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { Form } from 'antd'
 import { UserOutlined, LockOutlined, MailOutlined, FileTextOutlined } from '@ant-design/icons'
 
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import { SIGN_UP } from 'graphql/user'
 
@@ -55,11 +55,11 @@ const SignUpForm = ({ history, refetch }) => {
     <WrapperForm>
       <Title>SIGN UP</Title>
 
-      <CustomForm name='normal_login' className='login-form' onFinish={onFinish}>
+      <CustomForm name="normal_login" className="login-form" onFinish={onFinish}>
         <ErrorContainer>{hasError}</ErrorContainer>
 
         <CustomFormItem
-          name='fullName'
+          name="fullName"
           rules={[
             {
               required: true,
@@ -67,11 +67,11 @@ const SignUpForm = ({ history, refetch }) => {
             },
           ]}
         >
-          <CustomInput prefix={<FileTextOutlined className='site-form-item-icon' />} placeholder='Fullname' />
+          <CustomInput prefix={<FileTextOutlined className="site-form-item-icon" />} placeholder="Fullname" />
         </CustomFormItem>
 
         <CustomFormItem
-          name='email'
+          name="email"
           rules={[
             {
               required: true,
@@ -79,10 +79,10 @@ const SignUpForm = ({ history, refetch }) => {
             },
           ]}
         >
-          <CustomInput type='email' prefix={<MailOutlined className='site-form-item-icon' />} placeholder='Email' />
+          <CustomInput type="email" prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
         </CustomFormItem>
         <CustomFormItem
-          name='username'
+          name="username"
           rules={[
             {
               required: true,
@@ -90,10 +90,10 @@ const SignUpForm = ({ history, refetch }) => {
             },
           ]}
         >
-          <CustomInput prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+          <CustomInput prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </CustomFormItem>
         <CustomFormItem
-          name='password'
+          name="password"
           rules={[
             {
               required: true,
@@ -102,13 +102,13 @@ const SignUpForm = ({ history, refetch }) => {
           ]}
         >
           <CustomInput
-            prefix={<LockOutlined className='site-form-item-icon' />}
-            type='password'
-            placeholder='Password'
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
           />
         </CustomFormItem>
         <CustomFormItem
-          name='confirm'
+          name="confirm"
           rules={[
             {
               required: true,
@@ -125,13 +125,13 @@ const SignUpForm = ({ history, refetch }) => {
           ]}
         >
           <CustomInput
-            prefix={<LockOutlined className='site-form-item-icon' />}
-            type='password'
-            placeholder='Confirm Password'
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Confirm Password"
           />
         </CustomFormItem>
         <Form.Item>
-          <LoginButton type='primary' htmlType='submit' className='login-form-button'>
+          <LoginButton type="primary" htmlType="submit" className="login-form-button">
             SIGN UP
           </LoginButton>
         </Form.Item>

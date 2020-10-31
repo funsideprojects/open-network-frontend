@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { generatePath } from 'react-router-dom'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 import { Button, Tooltip } from 'antd'
 import { ReloadOutlined } from '@ant-design/icons'
 import { Transition, animated, config } from 'react-spring/renderprops'
@@ -107,7 +107,7 @@ const UserSuggestions = ({ pathname }) => {
   const [buttonLoading, setButtonLoading] = useState(false)
 
   return (
-    <Query query={USER_SUGGESTIONS} fetchPolicy='no-cache'>
+    <Query query={USER_SUGGESTIONS} fetchPolicy="no-cache">
       {({ data, loading, refetch }) => {
         if (loading)
           return (
@@ -156,13 +156,13 @@ const UserSuggestions = ({ pathname }) => {
                           <Avatar image={user.image} size={42} />
                         </A>
 
-                        <Spacing left='xs'>
+                        <Spacing left="xs">
                           <A to={pathToProfile}>
-                            <Tooltip title={user.fullName} placement='topLeft'>
+                            <Tooltip title={user.fullName} placement="topLeft">
                               <FullName>{user.fullName}</FullName>
                             </Tooltip>
 
-                            <Tooltip title={`@${user.username}`} placement='topLeft'>
+                            <Tooltip title={`@${user.username}`} placement="topLeft">
                               <UserName>@{user.username}</UserName>
                             </Tooltip>
                           </A>

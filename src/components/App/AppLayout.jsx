@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, matchPath, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import NotificationComponent from 'react-notifications-component'
 
 import Header from 'components/App/Header'
@@ -79,7 +79,7 @@ const SessionContent = styled.div`
   height: auto;
 `
 
-const AppLayout = memo(({ location, authUser }) => {
+const AppLayout = ({ location, authUser }) => {
   const client = useApolloClient()
   const [{ auth }, dispatch] = useStore()
 
@@ -174,7 +174,7 @@ const AppLayout = memo(({ location, authUser }) => {
       </Root>
     </>
   )
-})
+}
 
 AppLayout.propTypes = {
   location: PropTypes.object.isRequired,

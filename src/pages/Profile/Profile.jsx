@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 import styled from 'styled-components'
 
 import Skeleton from 'components/Skeleton'
@@ -40,10 +40,10 @@ const Profile = ({ match }) => {
         {({ data, loading, error }) => {
           if (loading) {
             return (
-              <Container padding='xxs'>
+              <Container padding="xxs">
                 <Skeleton height={350} />
-                <Container maxWidth='sm'>
-                  <Spacing top='lg' bottom='lg'>
+                <Container maxWidth="sm">
+                  <Spacing top="lg" bottom="lg">
                     <Skeleton height={82} />
                   </Spacing>
                 </Container>
@@ -54,11 +54,11 @@ const Profile = ({ match }) => {
           if (error || !data.getUser) return <NotFound />
 
           return (
-            <Container padding='xxs'>
+            <Container padding="xxs">
               <ProfileInfo user={data.getUser} getUserPosts />
 
-              <Container maxWidth='sm'>
-                <Spacing top='lg' bottom='lg'>
+              <Container maxWidth="sm">
+                <Spacing top="lg" bottom="lg">
                   {username === auth.user.username && <CreatePost getUserPosts />}
                 </Spacing>
 

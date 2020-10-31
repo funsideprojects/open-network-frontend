@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withApollo } from 'react-apollo'
+import { useApolloClient } from '@apollo/client'
 import { withRouter } from 'react-router-dom'
 
 import { Button } from 'components/Form'
@@ -10,12 +10,13 @@ import * as Routes from 'routes'
 import { useStore } from 'store'
 import { RESET_AUTH_STORE } from 'store/auth'
 
-import { closeSubscription } from 'utils/apollo-client'
+import { closeSubscription } from '_apollo-client'
 
 /**
  * Component that signs out the user
  */
-const SignOut = ({ client, history }) => {
+const SignOut = ({ history }) => {
+  const client = useApolloClient()
   const [, dispatch] = useStore()
 
   const handleSignOut = () => {
@@ -39,4 +40,4 @@ SignOut.propTypes = {
   client: PropTypes.object.isRequired,
 }
 
-export default withRouter(withApollo(SignOut))
+export default withRouter(SignOut)

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Form } from 'antd'
 import { MailOutlined } from '@ant-design/icons'
 
@@ -124,9 +124,9 @@ const ForgotPassword = () => {
           Please enter your email address. You will receive an email contains link to reset your password.
         </Description>
 
-        <CustomForm name='normal_login' className='login-form' onFinish={onFinish}>
+        <CustomForm name="normal_login" className="login-form" onFinish={onFinish}>
           <CustomFormItem
-            name='email'
+            name="email"
             rules={[
               {
                 required: true,
@@ -135,14 +135,14 @@ const ForgotPassword = () => {
             ]}
           >
             <CustomInput
-              type='email'
-              prefix={<MailOutlined className='site-form-item-icon' />}
-              placeholder='Email Address'
+              type="email"
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Email Address"
             />
           </CustomFormItem>
 
           <Form.Item>
-            <LoginButton type='primary' htmlType='submit' className='login-form-button'>
+            <LoginButton type="primary" htmlType="submit" className="login-form-button">
               SEND
             </LoginButton>
           </Form.Item>

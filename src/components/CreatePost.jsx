@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Mutation } from 'react-apollo'
+import { Mutation } from '@apollo/client/react/components'
 import styled from 'styled-components'
 import { Select } from 'antd'
 
@@ -188,21 +188,21 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
           <>
             {isFocused && <Overlay onClick={() => setIsFocused(false)} />}
 
-            <Root zIndex={isFocused ? 'md' : 'xs'} color='white' radius='sm' padding='sm'>
+            <Root zIndex={isFocused ? 'md' : 'xs'} color="white" radius="sm" padding="sm">
               <form onSubmit={(e) => handleSubmit(e, createPost)}>
                 <Wrapper>
                   <Avatar image={auth.user.image} size={40} />
 
                   <Textarea
                     ref={inputRef}
-                    type='textarea'
-                    name='title'
+                    type="textarea"
+                    name="title"
                     {...(isFocused && { style: { marginRight: 0 } })}
                     focus={isFocused}
                     value={title}
                     onFocus={handleOnFocus}
                     onChange={handleTitleChange}
-                    placeholder='Add a post'
+                    placeholder="Add a post"
                     onKeyDown={(e) => {
                       if (e.key === 'Escape') {
                         setIsFocused(false)
@@ -215,7 +215,7 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
                 </Wrapper>
 
                 {!!images.length && isFocused && (
-                  <Spacing bottom='sm'>
+                  <Spacing bottom="sm">
                     <ImagesPreviewContainer>
                       {images?.map((image, index) => {
                         return <ImagePreview key={index} image={image} index={index} deleteImage={deleteImage} />
@@ -227,7 +227,7 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
                 {isFocused && (
                   <Options>
                     <ButtonGroup>
-                      <PostImageUpload label='Photo' handleChange={handlePostImageUpload} />
+                      <PostImageUpload label="Photo" handleChange={handlePostImageUpload} />
 
                       <StyledSelect value={isPrivate} onChange={(selected) => setIsPrivate(selected)}>
                         <Select.Option value={false}>
@@ -242,10 +242,10 @@ const CreatePost = ({ getUserPosts = false, getPostsFromFollowedUsers = false })
                     </ButtonGroup>
 
                     <ButtonGroup>
-                      <CustomButton text type='button' onClick={handleReset}>
+                      <CustomButton text type="button" onClick={handleReset}>
                         Cancel
                       </CustomButton>
-                      <CustomButton disabled={isShareDisabled} type='submit'>
+                      <CustomButton disabled={isShareDisabled} type="submit">
                         Share
                       </CustomButton>
                     </ButtonGroup>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { generatePath } from 'react-router-dom'
 import styled from 'styled-components'
-import { withApollo } from 'react-apollo'
+import { useApolloClient } from '@apollo/client'
 
 import { A } from 'components/Text'
 import { Spacing } from 'components/Layout'
@@ -67,7 +67,8 @@ const Action = styled.div`
 /**
  * Renders user notifications
  */
-const Notification = ({ notification, close, client }) => {
+const Notification = ({ notification, close }) => {
+  const client = useApolloClient()
   const [{ auth }] = useStore()
 
   const ref = React.useRef(null)
@@ -104,7 +105,7 @@ const Notification = ({ notification, close, client }) => {
         <LeftSide>
           <Avatar image={notification.from[0].image} size={48} />
 
-          <Spacing left='xs' />
+          <Spacing left="xs" />
 
           <Name>{notification.from[0].fullName}</Name>
         </LeftSide>
@@ -134,4 +135,4 @@ Notification.propTypes = {
   close: PropTypes.func,
 }
 
-export default withApollo(Notification)
+export default Notification

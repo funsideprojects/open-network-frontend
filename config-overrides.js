@@ -43,7 +43,8 @@ module.exports = override(
     ['@babel/plugin-proposal-optional-chaining', { loose: false }],
     '@babel/plugin-proposal-logical-assignment-operators',
     '@babel/plugin-proposal-do-expressions',
-    ...(process.env.REMOVE_CONSOLE ? [['transform-remove-console', { exclude: ['error', 'warn'] }]] : [])
+    ...(process.env.NODE_ENV === 'production' ? [['transform-remove-console', { exclude: ['error', 'warn'] }]] : []),
+    'react-hot-loader/babel'
   ),
   fixBabelImports('import', {
     libraryName: 'antd',
@@ -58,7 +59,7 @@ module.exports = override(
       }),
       javascriptEnabled: true,
     },
-    sourceMap: false
+    sourceMap: false,
   }),
   addWebpackAlias({
     '@layouts': resolve(__dirname, './src/layouts'),

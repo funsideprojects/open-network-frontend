@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 
 import { Container } from 'components/Layout'
 import { Loading } from 'components/Loading'
@@ -53,7 +53,7 @@ const Notifications = () => {
 
   return (
     <WrapperNotification>
-      <Root maxWidth='md'>
+      <Root maxWidth="md">
         <HeaderNotification>
           <span>Notifications</span>
         </HeaderNotification>
@@ -61,19 +61,19 @@ const Notifications = () => {
         <Query query={GET_NOTIFICATION} variables={variables} notifyOnNetworkStatusChange>
           {({ data, loading, fetchMore, networkStatus }) => {
             if (loading && networkStatus === 1) {
-              return <Skeleton height={56} bottom='xxs' count={NOTIFICATIONS_PAGE_NOTIFICATION_LIMIT} />
+              return <Skeleton height={56} bottom="xxs" count={NOTIFICATIONS_PAGE_NOTIFICATION_LIMIT} />
             }
 
             const { notifications, count } = data?.getNotifications
 
             if (!notifications.length) {
-              return <Empty text='No notifications yet.' />
+              return <Empty text="No notifications yet." />
             }
 
             return (
               <InfiniteScroll
                 data={notifications}
-                dataKey='getNotifications.notifications'
+                dataKey="getNotifications.notifications"
                 count={parseInt(count)}
                 variables={variables}
                 fetchMore={fetchMore}
@@ -89,7 +89,7 @@ const Notifications = () => {
                         ))}
                       </List>
 
-                      {showNextLoading && <Loading top='lg' />}
+                      {showNextLoading && <Loading top="lg" />}
                     </>
                   )
                 }}

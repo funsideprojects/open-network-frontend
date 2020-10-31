@@ -1,7 +1,7 @@
 import React, { memo, useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { generatePath } from 'react-router-dom'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 
 import Empty from 'components/Empty'
 import HtmlHeader from 'components/Head'
@@ -58,13 +58,13 @@ const Explore = memo(() => {
   }
 
   return (
-    <Root maxWidth='md'>
-      <HtmlHeader title='Explore New Posts and Users' />
+    <Root maxWidth="md">
+      <HtmlHeader title="Explore New Posts and Users" />
 
       <Query
         query={EXPLORE_POSTS}
         variables={queryVariables}
-        fetchPolicy='cache-and-network'
+        fetchPolicy="cache-and-network"
         notifyOnNetworkStatusChange
       >
         {({ data, loading, fetchMore, networkStatus }) => {
@@ -76,13 +76,13 @@ const Explore = memo(() => {
             )
           }
 
-          if (!data?.getPosts?.posts.length > 0) return <Empty text='No posts yet.' />
+          if (!data?.getPosts?.posts.length > 0) return <Empty text="No posts yet." />
 
           return (
             <InfiniteScroll
-              queryName='getPosts'
+              queryName="getPosts"
               data={data?.getPosts?.posts}
-              dataKey='posts'
+              dataKey="posts"
               dataLimit={EXPLORE_PAGE_POSTS_LIMIT}
               count={+data.getPosts?.count}
               variables={queryVariables}
@@ -110,7 +110,7 @@ const Explore = memo(() => {
                       ))}
                     </PostsContainer>
 
-                    {showNextLoading && <Loading top='lg' />}
+                    {showNextLoading && <Loading top="lg" />}
                   </Fragment>
                 )
               }}

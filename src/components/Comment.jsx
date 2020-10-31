@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { generatePath } from 'react-router-dom'
-import { Mutation } from 'react-apollo'
+import { Mutation } from '@apollo/client/react/components'
 import { Menu, Dropdown, Tooltip } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
@@ -189,12 +189,12 @@ const Comment = ({
 
             <CommentSection>
               <Section>
-                <Username to={pathToProfile} weight='bold'>
+                <Username to={pathToProfile} weight="bold">
                   {comment.author.fullName}
                 </Username>
 
                 <TimeAgo>
-                  <img src={timeIcon} alt='icon_item' />
+                  <img src={timeIcon} alt="icon_item" />
                   <span>
                     {isEdited ? 'Edited' : ''} {timeAgo(isEdited ? comment.updatedAt : comment.createdAt)}
                   </span>
@@ -218,14 +218,14 @@ const Comment = ({
                     overlay={
                       <Menu onClick={(e) => OnMenuItemClick(e, deleteComment)}>
                         {editable && (
-                          <Menu.Item key='EDIT'>
+                          <Menu.Item key="EDIT">
                             <Item>
                               <EditOutlined /> Edit
                             </Item>
                           </Menu.Item>
                         )}
 
-                        <Menu.Item key='DELETE'>
+                        <Menu.Item key="DELETE">
                           <Item danger>
                             <DeleteOutlined color={theme.colors.error.main} /> Delete
                           </Item>
@@ -235,7 +235,7 @@ const Comment = ({
                     trigger={['click']}
                   >
                     <ButtonOption>
-                      <DotsIcon width='14' />
+                      <DotsIcon width="14" />
                     </ButtonOption>
                   </Dropdown>
                 )}

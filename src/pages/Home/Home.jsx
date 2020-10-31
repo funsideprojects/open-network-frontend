@@ -1,7 +1,7 @@
 import React, { memo, Fragment, useState } from 'react'
 import styled from 'styled-components'
 import { generatePath } from 'react-router-dom'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 import LazyLoad from 'react-lazyload'
 
 import PostCardSkeleton from 'components/PostCard/PostCardSkeleton'
@@ -61,7 +61,7 @@ const Home = memo(() => {
   }
 
   return (
-    <Root id='postsContainer' maxWidth='sm'>
+    <Root id="postsContainer" maxWidth="sm">
       <HtmlHeader />
 
       <CreatePost getPostsFromFollowedUsers />
@@ -69,7 +69,7 @@ const Home = memo(() => {
       <Query
         query={GET_POSTS_FROM_FOLLOWED_USERS}
         variables={queryVariables}
-        fetchPolicy='cache-and-network'
+        fetchPolicy="cache-and-network"
         notifyOnNetworkStatusChange
       >
         {({ data, loading, fetchMore, networkStatus }) => {
@@ -89,10 +89,10 @@ const Home = memo(() => {
 
           return (
             <InfiniteScroll
-              containerId='postsContainer'
-              queryName='getPosts'
+              containerId="postsContainer"
+              queryName="getPosts"
               data={data.getPosts.posts}
-              dataKey='posts'
+              dataKey="posts"
               dataLimit={HOME_PAGE_POSTS_LIMIT}
               count={+data.getPosts.count}
               variables={queryVariables}
@@ -103,7 +103,7 @@ const Home = memo(() => {
 
                 return (
                   <Fragment>
-                    <Spacing top='sm' />
+                    <Spacing top="sm" />
 
                     <ButtonReload renewData={renewData} />
 
@@ -114,7 +114,7 @@ const Home = memo(() => {
                             <PostPopup postId={post.id} closeModal={closeModal} />
                           </Modal>
 
-                          <Spacing bottom='sm' top='sm'>
+                          <Spacing bottom="sm" top="sm">
                             <PostCard
                               {...post}
                               postId={post.id}

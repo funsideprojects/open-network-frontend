@@ -1,6 +1,6 @@
 import React, { memo, Fragment } from 'react'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
+import { Query } from '@apollo/client/react/components'
 import { Transition } from 'react-spring/renderprops'
 
 import Empty from 'components/Empty'
@@ -16,7 +16,6 @@ import { PEOPLE_PAGE_USERS_LIMIT } from 'constants/DataLimit'
 import { GET_USERS } from 'graphql/user'
 
 const Root = styled(Container)`
-
   @media (min-width: ${(p) => p.theme.screen.lg}) {
     padding: ${(p) => p.theme.spacing.sm} !important;
   }
@@ -25,7 +24,7 @@ const Root = styled(Container)`
 const PeopleContainer = styled.div`
   padding: ${(p) => p.theme.spacing.sm} !important;
   border-radius: ${(p) => p.theme.radius.lg};
-  background: #FFF;
+  background: #fff;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 3fr));
   grid-auto-rows: auto;
@@ -40,10 +39,10 @@ const People = memo(() => {
   const queryVariables = { skip: 0, limit: PEOPLE_PAGE_USERS_LIMIT }
 
   return (
-    <Root maxWidth='md'>
-      <HtmlHeader title='Find new People' />
+    <Root maxWidth="md">
+      <HtmlHeader title="Find new People" />
 
-      <Query query={GET_USERS} variables={queryVariables} fetchPolicy='cache-and-network' notifyOnNetworkStatusChange>
+      <Query query={GET_USERS} variables={queryVariables} fetchPolicy="cache-and-network" notifyOnNetworkStatusChange>
         {({ data, loading, fetchMore, networkStatus }) => {
           if (loading && networkStatus === 1) {
             return (
@@ -53,13 +52,13 @@ const People = memo(() => {
             )
           }
 
-          if (!data.getUsers.users.length > 0) return <Empty text='No people yet.' />
+          if (!data.getUsers.users.length > 0) return <Empty text="No people yet." />
 
           return (
             <InfiniteScroll
-              queryName='getUsers'
+              queryName="getUsers"
               data={data?.getUsers?.users}
-              dataKey='users'
+              dataKey="users"
               dataLimit={PEOPLE_PAGE_USERS_LIMIT}
               count={+data.getUsers?.count}
               variables={queryVariables}
@@ -95,7 +94,7 @@ const People = memo(() => {
                       </Transition>
                     </PeopleContainer>
 
-                    {showNextLoading && <Loading top='lg' />}
+                    {showNextLoading && <Loading top="lg" />}
                   </Fragment>
                 )
               }}

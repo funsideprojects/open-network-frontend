@@ -59,7 +59,7 @@ const FollowedUsersDrawer = memo(() => {
   return (
     <Drawer
       visible={follow.isDrawerVisible}
-      title={`${follow.followed.count} Following`}
+      title={`${follow.following.count} Following`}
       placement='right'
       closable
       width={350}

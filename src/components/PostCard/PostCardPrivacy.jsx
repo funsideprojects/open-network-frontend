@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Select } from 'antd'
 
 import { PublicIcon, PrivateIcon, LoadingIcon } from 'components/icons'
@@ -75,7 +75,7 @@ const PostCardPrivacy = ({
   }
 
   if (!isPostBelongsToAuthUser) {
-    return <>{isPrivate ? <PrivateIcon withTooltip='Private' /> : <PublicIcon withTooltip='Public' />}</>
+    return <>{isPrivate ? <PrivateIcon withTooltip="Private" /> : <PublicIcon withTooltip="Public" />}</>
   }
 
   if (loading) return <LoadingIcon />
@@ -103,7 +103,7 @@ const PostCardPrivacy = ({
 
   return (
     <ButtonPrivacy onClick={(e) => setIsEditingPrivacy(true)}>
-      {isPrivate ? <PrivateIcon withTooltip='Private' /> : <PublicIcon withTooltip='Public' />}
+      {isPrivate ? <PrivateIcon withTooltip="Private" /> : <PublicIcon withTooltip="Public" />}
     </ButtonPrivacy>
   )
 }

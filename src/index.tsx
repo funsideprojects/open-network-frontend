@@ -1,16 +1,16 @@
+import 'react-hot-loader'
 import React from 'react'
 import { render } from 'react-dom'
-import { ApolloProvider } from 'react-apollo'
-import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
+import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'styled-components'
 import { HelmetProvider } from 'react-helmet-async'
 
 import './fonts.less'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+// import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-notifications-component/dist/theme.css'
 import 'normalize.css'
 
-import { createApolloClient } from 'utils/apollo-client'
+import { createApolloClient } from '_apollo-client'
 import { StoreProvider } from 'store'
 import theme from 'theme'
 
@@ -18,20 +18,17 @@ import App from './components/App'
 
 import * as serviceWorker from './serviceWorker'
 
-// Create a Apollo client
 const apolloClient = createApolloClient()
 
 render(
   <ApolloProvider client={apolloClient}>
-    <ApolloHooksProvider client={apolloClient}>
-      <ThemeProvider theme={theme}>
-        <StoreProvider>
-          <HelmetProvider>
-            <App />
-          </HelmetProvider>
-        </StoreProvider>
-      </ThemeProvider>
-    </ApolloHooksProvider>
+    <ThemeProvider theme={theme}>
+      <StoreProvider>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </StoreProvider>
+    </ThemeProvider>
   </ApolloProvider>,
   document.getElementById('root')
 )

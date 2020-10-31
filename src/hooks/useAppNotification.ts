@@ -1,5 +1,5 @@
 import { useStore } from 'store'
-import { SET_APP_NOTIFICATION } from 'store/app-notification'
+import { SET_APP_NOTIFICATION } from 'store/application'
 
 interface IOptions {
   text: string

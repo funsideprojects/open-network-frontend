@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -25,24 +25,16 @@ const Root = styled.div`
   position: absolute;
   top: 6px;
   left: 50%;
-  background: #FFF;
+  background: #fff;
   transform: translate(-50%, 0px);
-  box-shadow: ${(p) => p.isShow ? '0px 2px 6px #CCC' : 'none' };
+  box-shadow: ${(p) => (p.isShow ? '0px 2px 6px #CCC' : 'none')};
   z-index: ${(p) => p.theme.zIndex.xl};
 `
 
 /**
  * Renders search input
  */
-const Search = ({
-  location,
-  hideIcon,
-  forMessage,
-  backgroundColor,
-  placeholder,
-  autoFocus,
-  ...others
-}) => {
+const Search = ({ location, hideIcon, forMessage, backgroundColor, placeholder, autoFocus, ...others }) => {
   const client = useApolloClient()
 
   const [isOpenSearchResult, setIsOpenSearchResult] = useState(false)
@@ -105,11 +97,9 @@ const Search = ({
         autoFocus={autoFocus}
         {...others}
       >
-        {loading && <StyledLoading size='xxs' />}
+        {loading && <StyledLoading size="xxs" />}
 
-        {isOpenSearchResult && (
-          <SearchResult users={users} forMessage={forMessage} />
-        )}
+        {isOpenSearchResult && <SearchResult users={users} forMessage={forMessage} />}
       </SearchInput>
     </Root>
   )

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter, generatePath } from 'react-router-dom'
 import { Button } from 'antd'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 
 import Avatar from 'components/Avatar'
 import Follow from 'components/Follow'
@@ -83,8 +83,8 @@ const PostPopupInfo = ({ history, postId, author, isPrivate, createdAt, refetchP
           <Avatar image={author.image} isOnline={author.isOnline} />
         </Author>
 
-        <Spacing left='xs'>
-          <Username to={pathToProfile} weight='bold'>
+        <Spacing left="xs">
+          <Username to={pathToProfile} weight="bold">
             {author.fullName}
           </Username>
           <CreatedAtAndPrivacy>
@@ -102,7 +102,7 @@ const PostPopupInfo = ({ history, postId, author, isPrivate, createdAt, refetchP
       {auth.user.id !== author.id ? (
         <Follow user={author} />
       ) : (
-        <Button type='danger' size='small' onClick={deletePost}>
+        <Button type="danger" size="small" onClick={deletePost}>
           Delete
         </Button>
       )}

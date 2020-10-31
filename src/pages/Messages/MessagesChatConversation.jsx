@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 
 import { Button, Textarea } from 'components/Form'
 import { SendIcon } from 'components/icons'
@@ -80,8 +80,7 @@ const Message = styled.div`
   padding: ${(p) => p.theme.spacing.xxs} ${(p) => p.theme.spacing.xs};
   border-radius: ${(p) => p.theme.radius.lg};
   color: ${(p) => p.userMessage && p.theme.colors.white};
-  background-color: ${(p) =>
-    p.userMessage ? p.theme.colors.primary.light : p.theme.colors.grey[200]};
+  background-color: ${(p) => (p.userMessage ? p.theme.colors.primary.light : p.theme.colors.grey[200])};
 `
 
 const Form = styled.form`
@@ -107,13 +106,7 @@ const SendButton = styled(Button)`
 /**
  * Component that renders messages conversations UI
  */
-const MessagesChatConversation = ({
-  messages,
-  authUser,
-  chatUser,
-  data,
-  match,
-}) => {
+const MessagesChatConversation = ({ messages, authUser, chatUser, data, match }) => {
   const bottomRef = useRef(null)
 
   const [messageText, setMessageText] = useState('')
@@ -168,18 +161,14 @@ const MessagesChatConversation = ({
           return (
             <MessageWrapper userMessage={isAuthUserReceiver} key={message.id}>
               {!isAuthUserReceiver && (
-                <Spacing right='xs'>
+                <Spacing right="xs">
                   <Avatar image={message.sender.image} />
                 </Spacing>
               )}
 
-              <Message userMessage={isAuthUserReceiver}>
-                {message.message}
-              </Message>
+              <Message userMessage={isAuthUserReceiver}>{message.message}</Message>
 
-              <MessageDate userMessage={isAuthUserReceiver}>
-                {currentDate(message.createdAt)}
-              </MessageDate>
+              <MessageDate userMessage={isAuthUserReceiver}>{currentDate(message.createdAt)}</MessageDate>
             </MessageWrapper>
           )
         })}
@@ -189,14 +178,14 @@ const MessagesChatConversation = ({
       {match.params.userId !== Routes.NEW_ID_VALUE && chatUser && (
         <Form onSubmit={sendMessage}>
           <StyledTextarea
-            placeholder='Type a message'
+            placeholder="Type a message"
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
             onKeyDown={onEnterPress}
           />
 
-          <SendButton type='submit' ghost>
-            <SendIcon width='28' />
+          <SendButton type="submit" ghost>
+            <SendIcon width="28" />
           </SendButton>
         </Form>
       )}

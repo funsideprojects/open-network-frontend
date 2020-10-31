@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Button } from 'antd'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { get, uniqBy } from 'lodash'
 
 import Comment from 'components/Comment'

@@ -1,7 +1,7 @@
 import React, { useState, useRef, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useApolloClient } from '@apollo/react-hooks'
+import { useApolloClient } from '@apollo/client'
 import { Input } from 'antd'
 
 import { UPDATE_COMMENT } from 'graphql/comment'
@@ -202,12 +202,12 @@ const EditComment = ({ comment, setIsEditing, refetchPost, refetchComments }) =>
             )}
             <ButtonTool>
               <InputFile
-                id='message-image'
-                type='file'
-                accept='image/x-png,image/jpeg'
+                id="message-image"
+                type="file"
+                accept="image/x-png,image/jpeg"
                 onChange={handlePostImageUpload}
               />
-              <Label htmlFor='message-image'>
+              <Label htmlFor="message-image">
                 <UploadImageIcon size={10} />
               </Label>
             </ButtonTool>
@@ -216,10 +216,10 @@ const EditComment = ({ comment, setIsEditing, refetchPost, refetchComments }) =>
       </WrapperImagePreview>
 
       <GroupButton>
-        <CustomButton text type='button' onClick={cancelEditing}>
+        <CustomButton text type="button" onClick={cancelEditing}>
           Cancel
         </CustomButton>
-        <CustomButton type='submit' onClick={submitComment}>
+        <CustomButton type="submit" onClick={submitComment}>
           Save
         </CustomButton>
       </GroupButton>
