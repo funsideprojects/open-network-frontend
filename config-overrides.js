@@ -10,7 +10,7 @@ const {
 const WebpackBar = require('webpackbar')
 const { getThemeVariables } = require('antd/dist/theme')
 
-const addPlugins = () => (config) => {
+const otherConfigs = () => (config) => {
   config.plugins.push(
     new WebpackBar({
       color: '#69c0ff',
@@ -36,15 +36,11 @@ const addPlugins = () => (config) => {
 module.exports = override(
   addDecoratorsLegacy(),
   ...addBabelPlugins(
-    '@babel/plugin-transform-spread',
-    ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-syntax-dynamic-import',
-    ['@babel/plugin-proposal-pipeline-operator', { proposal: 'minimal' }],
-    ['@babel/plugin-proposal-optional-chaining', { loose: false }],
     '@babel/plugin-proposal-logical-assignment-operators',
     '@babel/plugin-proposal-do-expressions',
-    ...(process.env.NODE_ENV === 'production' ? [['transform-remove-console', { exclude: ['error', 'warn'] }]] : []),
-    'react-hot-loader/babel'
+    ...(process.env.NODE_ENV === 'production' ? [['transform-remove-console', { exclude: ['debug'] }]] : []),
+    ['babel-plugin-styled-components', { displayName: process.env.NODE_ENV === 'development', pure: true }]
   ),
   fixBabelImports('import', {
     libraryName: 'antd',
@@ -54,8 +50,8 @@ module.exports = override(
   addLessLoader({
     lessOptions: {
       modifyVars: getThemeVariables({
-        dark: true, // enable dark mode
-        compact: true, // enable compact mode
+        dark: true, // ? Enable dark mode
+        compact: true, // ? Enable compact mode
       }),
       javascriptEnabled: true,
     },
@@ -64,5 +60,5 @@ module.exports = override(
   addWebpackAlias({
     '@layouts': resolve(__dirname, './src/layouts'),
   }),
-  addPlugins()
+  otherConfigs()
 )

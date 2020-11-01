@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { debounce } from 'lodash'
 
 /**
  * React hook for detecting window resizing
@@ -20,13 +21,14 @@ export const useWindowSize = () => {
       return () => false
     }
 
-    function handleResize() {
+    const onResize = () => {
       setWindowSize(getSize())
     }
+    const debouncedOnResize = debounce(onResize, 500)
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', debouncedOnResize)
 
-    return () => window.removeEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', debouncedOnResize)
   }, [getSize, isClient])
 
   return windowSize

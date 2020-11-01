@@ -1,12 +1,14 @@
 import { ApolloLink, from, Observable, split } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { WebSocketLink } from '@apollo/client/link/ws'
-import { InMemoryCache, makeVar } from '@apollo/client/cache'
+import { InMemoryCache } from '@apollo/client/cache'
 import { createUploadLink } from 'apollo-upload-client'
+import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries'
+import { sha256 } from 'crypto-hash'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { ApolloClient } from '@apollo/client/core'
 
-export const serverAvailable = makeVar(true)
+import { servicesStatus, connectionStatus } from 'graphql/local-state'
 
 // ? Create a Auth Link, that attach credentials to each request
 const createAuthLink = () => {
@@ -40,10 +42,6 @@ const createErrorLink = () => {
   return onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       console.debug('graphQLErrors', graphQLErrors)
-      setTimeout(() => {
-        console.log('trigger')
-        serverAvailable(false)
-      }, 2000)
     }
 
     if (networkError) {
@@ -84,12 +82,32 @@ export const closeSubscription = () => {
   wsLink['subscriptionClient'].close()
 }
 
-const cache = new InMemoryCache({ addTypename: false })
+// ? Caching
+const cache = new InMemoryCache({
+  addTypename: false,
+  typePolicies: {
+    Query: {
+      fields: {
+        servicesStatus: {
+          read() {
+            return servicesStatus()
+          },
+        },
+        connectionStatus: {
+          read() {
+            return connectionStatus()
+          },
+        },
+      },
+    },
+  },
+})
 
 export const createApolloClient = () => {
   const authLink = createAuthLink()
   const errorLink = createErrorLink()
   const uploadLink = createUploadLink({ uri: apiUrl }) // ? Create upload link as well as an HTTP link
+  const persistedQueriesLink = createPersistedQueryLink({ sha256 })
 
   // ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
   // ! https://github.com/apollographql/subscriptions-transport-ws/issues/377
@@ -99,12 +117,12 @@ export const createApolloClient = () => {
   // ? Split links, so we can send data to each link depending on what kind of operation is being sent
   const terminatingLink = split(
     ({ query }) => {
-      const { kind, operation }: any = getMainDefinition(query)
+      const definition = getMainDefinition(query)
 
-      return kind === 'OperationDefinition' && operation === 'subscription'
+      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
     },
     wsLink,
-    uploadLink
+    persistedQueriesLink.concat(uploadLink)
   )
 
   return new ApolloClient({

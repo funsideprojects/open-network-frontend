@@ -1,12 +1,12 @@
 import { RESET_ALL_STORE } from './common'
 
 // ? Actions types
+export const SET_RESPONSIVE_MODE = 'SET_RESPONSIVE_MODE'
 export const SET_APP_NOTIFICATION = 'SET_APP_NOTIFICATION'
-export const SET_SERVER_AVAILABILITY = 'SET_SERVER_AVAILABILITY'
 
 // ? Initial State
 export const appInitialState = {
-  serverAvailable: true,
+  responsiveMode: null,
   notification: {
     type: '',
     text: '',
@@ -15,10 +15,7 @@ export const appInitialState = {
 }
 
 // * Types
-export type ApplicationActionType =
-  | typeof SET_APP_NOTIFICATION
-  | typeof SET_SERVER_AVAILABILITY
-  | typeof RESET_ALL_STORE
+export type ApplicationActionType = typeof SET_RESPONSIVE_MODE | typeof SET_APP_NOTIFICATION | typeof RESET_ALL_STORE
 interface IAction {
   type: ApplicationActionType
   payload: any
@@ -27,10 +24,10 @@ interface IAction {
 // ? Reducer
 export const appReducer = (state = appInitialState, action: IAction): typeof appInitialState => {
   switch (action.type) {
-    case SET_SERVER_AVAILABILITY:
+    case SET_RESPONSIVE_MODE:
       return {
         ...state,
-        serverAvailable: action.payload,
+        responsiveMode: action.payload,
       }
 
     case SET_APP_NOTIFICATION:

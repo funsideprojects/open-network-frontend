@@ -3,17 +3,18 @@ import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
-import SignInForm from './SignInForm'
-import SignUpForm from './SignUpForm'
-import ResetPassword from './ResetPassword'
-import ForgotPassword from './ForgotPassword'
+// import SignInForm from './SignInForm'
+// import SignUpForm from './SignUpForm'
+// import ResetPassword from './ResetPassword'
+// import ForgotPassword from './ForgotPassword'
 
 import * as Routes from 'routes'
 
-import background from 'assets/images/background/background-min.jpg'
+import backgroundMobile from 'assets/images/background-mobile.png'
+import backgroundDesktop from 'assets/images/background-desktop.png'
 
 const Root = styled.div`
-  background: url(${background}) no-repeat top / cover;
+  background: url(${backgroundDesktop}) no-repeat top / cover;
   width: 100%;
   height: 100vh;
   background-position: center;
@@ -42,7 +43,7 @@ const RightContainer = styled.div`
 
   @media (max-width: ${(p) => p.theme.screen.md}) {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 `
 
@@ -73,16 +74,13 @@ const Heading = styled.h2`
   font-weight: 700;
 `
 
-/**
- * Main Layout for the app, when user isn't authenticated
- */
-const AuthLayout = ({ refetch }) => {
+const AuthLayout = ({ refetchAuthUser }) => {
   return (
     <Root>
       <Container>
         <LeftContainer>
           <Introduce>
-            <Heading color='white'>Connect with friends and the world around you.</Heading>
+            <Heading color="white">Connect with friends and the world around you.</Heading>
             <p>See photos and updates from your friends.</p>
             <p>Follow your interests.</p>
             <p>Hear what people are talking about.</p>
@@ -90,10 +88,10 @@ const AuthLayout = ({ refetch }) => {
         </LeftContainer>
         <RightContainer>
           <Switch>
-            <Route exact path={Routes.HOME} render={() => <SignInForm refetch={refetch} />} />
-            <Route exact path={Routes.SIGN_UP} render={() => <SignUpForm refetch={refetch} />} />
+            {/* <Route exact path={Routes.HOME} render={() => <SignInForm refetch={refetchAuthUser} />} />
+            <Route exact path={Routes.SIGN_UP} render={() => <SignUpForm refetch={refetchAuthUser} />} />
             <Route exact path={Routes.FORGOT_PASSWORD} component={ForgotPassword} />
-            <Route exact path={Routes.RESET_PASSWORD} render={() => <ResetPassword refetch={refetch} />} />
+            <Route exact path={Routes.RESET_PASSWORD} render={() => <ResetPassword refetch={refetchAuthUser} />} /> */}
             <Redirect to={Routes.HOME} />
           </Switch>
         </RightContainer>
@@ -103,7 +101,7 @@ const AuthLayout = ({ refetch }) => {
 }
 
 AuthLayout.propTypes = {
-  refetch: PropTypes.func.isRequired,
+  refetchAuthUser: PropTypes.func.isRequired,
 }
 
 export default AuthLayout

@@ -1,43 +1,61 @@
-import React from 'react'
-import { hot } from 'react-hot-loader/root'
+import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import { GET_SERVICES_STATUS } from 'graphql/local-state'
 import { GET_AUTH_USER } from 'graphql/user'
+
+import { useWindowSize } from 'hooks/useWindowSize'
 
 import { Loading } from 'components/Loading'
 import { GlobalStyle } from './GlobalStyles'
 import ScrollToTop from './ScrollToTop'
-import AppLayout from './AppLayout'
-import AuthLayout from 'pages/Auth/AuthLayout'
 
-import { serverAvailable } from '_apollo-client'
+import { useStore } from 'store'
+import theme from 'theme'
+
+const AppLayout = React.lazy(() => import('./AppLayout'))
+const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
 
 const App = () => {
-  const { loading, data, refetch } = useQuery(GET_AUTH_USER)
+  const [{ app }, dispatch] = useStore()
 
-  const x = serverAvailable()
+  // ? Responsive
+  const windowSize = useWindowSize()
+  const mode = windowSize.width >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
-  console.log('serverAvailable', x)
-  console.log('object')
+  const { loading, data, refetch } = useQuery(GET_AUTH_USER, { fetchPolicy: 'cache-and-network' })
+  const {
+    data: { servicesStatus },
+  } = useQuery(GET_SERVICES_STATUS)
+
+  useEffect(() => {
+    dispatch({ type: 'SET_RESPONSIVE_MODE', payload: mode })
+  }, [mode])
 
   return (
     <Router>
       <GlobalStyle />
 
-      {loading ? <Loading overlay /> : <></>}
+      {loading || !app.responsiveMode ? <Loading overlay /> : <></>}
 
-      <ScrollToTop>
-        <Switch>
-          {data?.getAuthUser ? (
-            <Route exact render={() => <AppLayout authUser={data.getAuthUser} />} />
-          ) : (
-            <Route exact render={() => <AuthLayout refetch={refetch} />} />
-          )}
-        </Switch>
-      </ScrollToTop>
+      {app.responsiveMode ? (
+        <React.Suspense fallback={<>Loading...</>}>
+          <ScrollToTop>
+            <Switch>
+              {data?.getAuthUser ? (
+                <Route exact render={() => <AppLayout authUser={data.getAuthUser} />} />
+              ) : (
+                <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />
+              )}
+            </Switch>
+          </ScrollToTop>
+        </React.Suspense>
+      ) : (
+        <></>
+      )}
     </Router>
   )
 }
 
-export default hot(App)
+export default App

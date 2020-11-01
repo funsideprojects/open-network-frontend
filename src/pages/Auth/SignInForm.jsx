@@ -90,6 +90,7 @@ const SignInForm = ({ history, refetch }) => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
+            autoComplete="on"
           />
         </CustomFormItem>
         <CustomFormItem>

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, matchPath, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
