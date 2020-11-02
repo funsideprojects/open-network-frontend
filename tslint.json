@@ -1,6 +1,9 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-plugin-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-plugin-prettier"
+  ],
   "rulesDirectory": [],
   "rules": {
     "prettier": [
@@ -10,17 +13,39 @@
         "editorconfig": false
       }
     ],
-    "ordered-imports": [false],
-    "member-ordering": [false],
-    "curly": [true, "ignore-same-line"],
-    "interface-name": [true, "always-prefix"],
-    "array-type": [true, "generic"],
-    "member-access": [true],
+    "ordered-imports": [
+      false
+    ],
+    "member-ordering": [
+      false
+    ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "interface-name": [
+      true,
+      "always-prefix"
+    ],
+    "array-type": [
+      true,
+      "generic"
+    ],
+    "member-access": [
+      true
+    ],
     "no-empty-interface": true,
-    "no-empty": [true, "allow-empty-catch", "allow-empty-functions"],
+    "no-empty": [
+      true,
+      "allow-empty-catch",
+      "allow-empty-functions"
+    ],
     "object-literal-sort-keys": false,
     "no-unused-expression": true,
-    "max-classes-per-file": [true, 1],
+    "max-classes-per-file": [
+      true,
+      1
+    ],
     "variable-name": {
       "options": [
         "require-const-for-all-caps",
@@ -30,21 +55,39 @@
         "ban-keywords"
       ]
     },
-    "one-line": [true, "check-catch", "check-finally", "check-else"],
+    "one-line": [
+      true,
+      "check-catch",
+      "check-finally",
+      "check-else"
+    ],
     "one-variable-per-declaration": true,
     "no-string-literal": false,
     "no-bitwise": false,
-    "no-console": [true, "warn"],
+    "no-console": [
+      true,
+      "warn"
+    ],
     "no-string-throw": true,
-    "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
     "newline-before-return": true,
     "radix": false,
-
-    "align": [true, "parameters", "statements"],
+    "align": [
+      true,
+      "parameters",
+      "statements"
+    ],
     "arrow-parens": true,
     "eofline": true,
     "import-spacing": true,
-    "indent": [true, "spaces", 2],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
     "jsdoc-format": true,
     "max-line-length": [
       true,
@@ -58,7 +101,11 @@
     "no-consecutive-blank-lines": true,
     "no-irregular-whitespace": true,
     "no-trailing-whitespace": true,
-    "quotemark": [true, "single"],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
     "semicolon": false,
     "trailing-comma": [
       true,
@@ -77,6 +124,9 @@
     "no-unused-expression": true
   },
   "linterOptions": {
-    "exclude": ["node_modules/**/*.ts", "src/serviceWorker.js"]
+    "exclude": [
+      "node_modules/**/*.ts",
+      "src/serviceWorker.js"
+    ]
   }
 }

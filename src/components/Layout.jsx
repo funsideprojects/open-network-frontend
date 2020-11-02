@@ -1,6 +1,20 @@
 import styled from 'styled-components'
 
-// prettier-ignore
+export const Header = styled.header``
+
+export const Nav = styled.nav``
+
+export const Main = styled.div`
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+`
+
+export const Section = styled.section``
+
+export const Aside = styled.aside``
+
+export const Footer = styled.footer``
 
 /**
  * Container div for holding UI, using theme screen options
@@ -13,14 +27,14 @@ import styled from 'styled-components'
 export const Container = styled.div`
   position: relative;
   margin: 0 auto;
-  margin-top: ${p => p.marginTop ? p.theme.spacing[p.marginTop] : 0};
+  margin-top: ${(p) => (p.marginTop ? p.theme.spacing[p.marginTop] : 0)};
   width: 100%;
-  max-width: ${p => (p.maxWidth && p.theme.screen[p.maxWidth])};
-  padding: ${p => p.padding ? `0 ${p.theme.spacing[p.padding]}` : `0 ${p.theme.spacing.sm}`};
-  z-index: ${p => p.zIndex && p.theme.zIndex[p.zIndex]};
-  background-color: ${p => p.color && p.theme.colors[p.color]};
-  border-radius: ${p => p.radius && p.theme.radius[p.radius]};
-`;
+  max-width: ${(p) => p.maxWidth && p.theme.screen[p.maxWidth]};
+  padding: ${(p) => (p.padding ? `0 ${p.theme.spacing[p.padding]}` : `0 ${p.theme.spacing.sm}`)};
+  z-index: ${(p) => p.zIndex && p.theme.zIndex[p.zIndex]};
+  background-color: ${(p) => p.color && p.theme.colors[p.color]};
+  border-radius: ${(p) => p.radius && p.theme.radius[p.radius]};
+`
 
 export const Content = styled.div`
   position: relative;

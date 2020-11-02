@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Switch, Route, matchPath, withRouter } from 'react-router-dom'
+import { useHistory, Switch, Route, matchPath } from 'react-router-dom'
 import styled from 'styled-components'
 import { useApolloClient } from '@apollo/client'
 import NotificationComponent from 'react-notifications-component'
@@ -79,7 +79,8 @@ const SessionContent = styled.div`
   height: auto;
 `
 
-const AppLayout = ({ location, authUser }) => {
+const AppLayout = ({ authUser }) => {
+  const { location } = useHistory()
   const client = useApolloClient()
   const [{ auth }, dispatch] = useStore()
 
@@ -177,8 +178,7 @@ const AppLayout = ({ location, authUser }) => {
 }
 
 AppLayout.propTypes = {
-  location: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
 }
 
-export default withRouter(AppLayout)
+export default AppLayout

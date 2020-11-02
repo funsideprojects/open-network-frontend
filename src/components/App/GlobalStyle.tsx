@@ -29,7 +29,7 @@ const Scroll = css`
 `
 
 /** Global styles for the application */
-export const GlobalStyle = createGlobalStyle`
+export default createGlobalStyle`
   ${Scroll}
 
   html {
@@ -47,14 +47,12 @@ export const GlobalStyle = createGlobalStyle`
     font-family: ${theme.font.family};
     color: ${theme.colors.text.primary};
     background-color: ${theme.colors.body};
-
-    /* &::-webkit-scrollbar {
-      display: none;
-    } */
+    direction: ltr;
+    margin: 0;
+    padding: 0;
   }
 
-  #root {
+  #app-mountpoint {
     position: relative;
-    min-height: 100vh;
   }
 `

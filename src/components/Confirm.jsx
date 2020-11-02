@@ -25,13 +25,13 @@ const Confirm = ({ title, onCancel, onOk, cancelText, okText }) => (
   <Root>
     <div>{title}</div>
 
-    <Spacing top='md' />
+    <Spacing top="md" />
 
     <ButtonContainer>
       <Button onClick={onCancel}>{cancelText}</Button>
 
-      <Spacing left='xs'>
-        <Button color='red' onClick={onOk}>
+      <Spacing left="xs">
+        <Button color="red" onClick={onOk}>
           {okText}
         </Button>
       </Spacing>

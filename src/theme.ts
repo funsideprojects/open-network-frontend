@@ -3,7 +3,7 @@ export default {
     family: `'Open Sans', sans-serif`,
     weight: {
       light: '300',
-      normal: '500',
+      normal: '400',
       bold: '600',
     },
     size: {

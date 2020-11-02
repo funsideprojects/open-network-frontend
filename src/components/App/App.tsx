@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense } from 'react'
 import { useQuery } from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import { GET_AUTH_USER } from 'graphql/user'
 import { useWindowSize } from 'hooks/useWindowSize'
 
 import { Loading } from 'components/Loading'
-import { GlobalStyle } from './GlobalStyles'
+import GlobalStyle from './GlobalStyle'
 import ScrollToTop from './ScrollToTop'
 
 import { useStore } from 'store'
@@ -19,19 +19,24 @@ const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
 
 const App = () => {
   const [{ app }, dispatch] = useStore()
+  console.log('App -> app', app)
 
   // ? Responsive
   const windowSize = useWindowSize()
-  const mode = windowSize.width >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
+  const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
   const { loading, data, refetch } = useQuery(GET_AUTH_USER, { fetchPolicy: 'cache-and-network' })
+  console.log('App -> loading', loading)
+  // todo get service status here
   const {
     data: { servicesStatus },
   } = useQuery(GET_SERVICES_STATUS)
 
+  console.log('App -> servicesStatus', servicesStatus)
+
   useEffect(() => {
     dispatch({ type: 'SET_RESPONSIVE_MODE', payload: mode })
-  }, [mode])
+  }, [dispatch, mode])
 
   return (
     <Router>
@@ -40,7 +45,7 @@ const App = () => {
       {loading || !app.responsiveMode ? <Loading overlay /> : <></>}
 
       {app.responsiveMode ? (
-        <React.Suspense fallback={<>Loading...</>}>
+        <Suspense fallback={<></>}>
           <ScrollToTop>
             <Switch>
               {data?.getAuthUser ? (
@@ -50,7 +55,7 @@ const App = () => {
               )}
             </Switch>
           </ScrollToTop>
-        </React.Suspense>
+        </Suspense>
       ) : (
         <></>
       )}

@@ -50,7 +50,6 @@ module.exports = override(
   addLessLoader({
     lessOptions: {
       modifyVars: getThemeVariables({
-        dark: true, // ? Enable dark mode
         compact: true, // ? Enable compact mode
       }),
       javascriptEnabled: true,
