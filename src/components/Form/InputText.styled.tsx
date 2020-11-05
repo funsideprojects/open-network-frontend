@@ -58,6 +58,7 @@ interface ACInputProps {
 }
 
 export const ACInputLabel = styled.span`
+  user-select: none;
   position: absolute;
   top: 7px;
   font-family: ${(props) => props.theme.font.family};
@@ -105,9 +106,10 @@ export const ACInput = styled(BaseInput)<ACInputProps>`
 
   &:focus ~ ${(props) => props.Label} {
     top: -7px;
-    font-size: ${(props) => props.theme.font.size.tiny};
     color: ${(props) => props.theme.colors.primary.main};
     opacity: 1;
+    transform: scale(0.8);
+    transform-origin: top left;
   }
 
   &:focus ~ ${(props) => props.Underline} {

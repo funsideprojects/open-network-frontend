@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useTransition, animated } from 'react-spring'
 import { useHistory, RouteProps, Switch, Route, Redirect } from 'react-router-dom'
+import { Google } from '@styled-icons/boxicons-logos'
 
-import { Main, Footer } from 'components/Layout'
+import { Main } from 'components/Layout'
+import { Button } from 'components/Form/index'
 
 import * as Routes from 'routes'
 
@@ -13,12 +15,12 @@ import backgroundDesktop from 'assets/images/background-desktop.png'
 
 const Background = styled.div`
   width: 100%;
-  min-height: 100vh;
-  position: relative;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(${backgroundDesktop}) no-repeat center center / cover;
+  margin: 0 auto;
+  background: url(${backgroundDesktop}) no-repeat center / cover;
 
   &::before {
     content: '';
@@ -43,20 +45,34 @@ const Section = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: ${(p) => p.theme.radius.md};
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.3);
+  border-radius: ${(p) => p.theme.radius.lg};
   margin: 20px 20px 0;
   padding: 20px;
   background: ${(p) => p.theme.colors.white};
 `
 
-// const FormContainer = styled.div`
-//   width: calc(100% - 480px);
-//   height: 100%;
-//   background-image: linear-gradient(135deg, rgba(70, 134, 161, 0.7), rgba(92, 42, 139, 0.7));
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `
+const Footer = styled.footer`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const H3 = styled.h3`
+  font-weight: 600;
+`
+
+const ButtonGroup = styled.div`
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const StyledIconGoogle = styled(Google)``
 
 // const ForgotPasswordForm = React.lazy(() => import('./ForgotPassword'))
 // const ResetPasswordForm = React.lazy(() => import('./ResetPassword'))
@@ -124,9 +140,11 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
           </React.Suspense>
 
           <Footer>
-            <h3>
-              <b>Or sign in with social account</b>
-            </h3>
+            <H3>Or sign in with social account</H3>
+
+            <ButtonGroup>
+              <Button bordered icon={StyledIconGoogle} buttonType="default" />
+            </ButtonGroup>
           </Footer>
         </Section>
       </Main>

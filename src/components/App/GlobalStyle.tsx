@@ -53,6 +53,7 @@ export default createGlobalStyle`
   }
 
   #app-mountpoint {
+    height: 100%;
     position: relative;
   }
 `

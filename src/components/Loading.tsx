@@ -2,19 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import { LoadingOutlined } from '@ant-design/icons'
 
-const StyledLoadingOutlined = styled(LoadingOutlined)`
-  font-size: 30px;
-  color: ${(p) => p.theme.colors.white};
-`
-
-export const Overlay = styled.div`
+export const Overlay = styled.div<Props>`
   width: 100%;
   height: 100%;
-  position: ${(p) => (p.block ? 'relative' : 'fixed')};
+  position: ${(props) => (props.block ? 'relative' : 'fixed')};
   top: 0;
   left: 0;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   background: ${(p) => p.theme.colors.overlay.translucent};
@@ -22,12 +16,22 @@ export const Overlay = styled.div`
 `
 
 const Container = styled.div`
-  padding: 30px;
-  border-radius: ${(p) => p.theme.radius.md};
-  background: ${(p) => p.theme.colors.overlay.opaque};
+  border-radius: ${(props) => props.theme.radius.md};
+  padding: ${(props) => props.theme.spacing.md};
+  background: ${(props) => props.theme.colors.overlay.opaque};
 `
 
-export const Loading = ({ overlay = false, block = false }) => {
+const StyledLoadingOutlined = styled(LoadingOutlined)`
+  font-size: 32px;
+  color: ${(props) => props.theme.colors.primary.light};
+`
+
+interface Props {
+  overlay?: boolean
+  block?: boolean
+}
+
+export const Loading = ({ overlay, block }: Props) => {
   if (overlay || block) {
     return (
       <Overlay block={block}>
@@ -46,12 +50,12 @@ export const Loading = ({ overlay = false, block = false }) => {
  */
 export const LoadingDots = styled.div`
   &::after {
+    content: '.';
     display: block;
     animation: ellipsis 1s infinite;
-    content: '.';
     text-align: center;
-    color: ${(p) => (p.color ? p.theme.colors[p.color] : p.theme.colors.text.secondary)};
     font-size: ${(p) => p.theme.font.size.xl};
+    color: ${(p) => (p.color ? p.theme.colors[p.color] : p.theme.colors.text.secondary)};
   }
 
   @keyframes ellipsis {

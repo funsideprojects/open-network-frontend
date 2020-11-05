@@ -11,8 +11,11 @@ export interface BaseButtonProps {
 
 export const BaseButton = styled.button<BaseButtonProps>`
   cursor: pointer;
-  width: ${(props) => (props.block ? '100%' : 'auto')};
+  user-select: none;
+  width: ${(props) => (props.block ? '100%' : 'fit-content')};
+  min-width: 40px;
   height: 40px;
+  max-height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,9 +23,10 @@ export const BaseButton = styled.button<BaseButtonProps>`
   border: 0;
   border-width: ${(props) => (props.bordered ? '2px' : 0)};
   border-style: solid;
-  border-color: ${(props) =>
-    props.buttonType === 'primary' ? props.theme.colors.primary.lighter : props.theme.colors.primary.main};
+  border-color: ${(props) => props.theme.colors.primary.main};
   border-radius: 20px;
+  margin: 0;
+  padding: 0;
   font-family: ${(props) => props.theme.font.family};
   font-size: ${(props) => props.theme.font.size.xs};
   color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.main)};
@@ -56,6 +60,9 @@ export const BaseButton = styled.button<BaseButtonProps>`
   }
 
   &:hover {
+    border-color: ${(props) => props.theme.colors.primary.light};
+    color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.light)};
+
     &:after {
       clip-path: circle(150% at 100% 100%);
       transition: clip-path 0.5s;
@@ -65,16 +72,17 @@ export const BaseButton = styled.button<BaseButtonProps>`
 
 // ? Container
 
-export const ButtonContainer = styled.div`
-  width: 100%;
+export const ButtonContainer = styled.div<BaseButtonProps>`
+  width: ${(props) => (props.block ? '100%' : 'fit-content')};
   height: 40px;
   position: relative;
 `
 
-// ? Form submit button
+// ? Form submit-button
 
 export const ButtonSubmitLabel = styled.label`
   cursor: pointer;
+  user-select: none;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -121,7 +129,13 @@ export const ButtonSubmitLabel = styled.label`
 
 export const ButtonSubmit = styled.input.attrs((props) => ({
   type: 'submit',
-  value: props.value,
 }))`
   display: none;
+`
+
+export const ButtonIconContainer = styled.span`
+  width: 32px;
+  height: 100%;
+  border-radius: 50%;
+  background: transparent;
 `

@@ -100,6 +100,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       <FormItem>
         <Input
           authControl
+          autoComplete="on"
           type="password"
           ref={passwordRef}
           hasPrefix={StyledIconKey}
@@ -111,7 +112,9 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       </FormItem>
 
       <FormItem>
-        <Button typeSubmit>SIGN IN</Button>
+        <Button typeSubmit block>
+          SIGN IN
+        </Button>
       </FormItem>
 
       <FormItem>
