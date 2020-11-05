@@ -3,12 +3,12 @@ const {
   override,
   addDecoratorsLegacy,
   addBabelPlugins,
-  fixBabelImports,
+  // fixBabelImports, // Antd modular import
   addLessLoader,
   addWebpackAlias,
 } = require('customize-cra')
 const WebpackBar = require('webpackbar')
-const { getThemeVariables } = require('antd/dist/theme')
+// const { getThemeVariables } = require('antd/dist/theme')
 
 const otherConfigs = () => (config) => {
   config.plugins.push(
@@ -42,16 +42,17 @@ module.exports = override(
     ...(process.env.NODE_ENV === 'production' ? [['transform-remove-console', { exclude: ['debug'] }]] : []),
     ['babel-plugin-styled-components', { displayName: process.env.NODE_ENV === 'development', pure: true }]
   ),
-  fixBabelImports('import', {
-    libraryName: 'antd',
-    libraryDirectory: 'es',
-    style: true,
-  }),
+  // Antd modular import
+  // fixBabelImports('import', {
+  //   libraryName: 'antd',
+  //   libraryDirectory: 'es',
+  //   style: true,
+  // }),
   addLessLoader({
     lessOptions: {
-      modifyVars: getThemeVariables({
-        compact: true, // ? Enable compact mode
-      }),
+      // modifyVars: getThemeVariables({
+      //   compact: true, // ? Enable compact mode
+      // }),
       javascriptEnabled: true,
     },
     sourceMap: false,

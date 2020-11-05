@@ -19,20 +19,18 @@ const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
 
 const App = () => {
   const [{ app }, dispatch] = useStore()
-  console.log('App -> app', app)
 
   // ? Responsive
   const windowSize = useWindowSize()
   const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
   const { loading, data, refetch } = useQuery(GET_AUTH_USER, { fetchPolicy: 'cache-and-network' })
-  console.log('App -> loading', loading)
   // todo get service status here
   const {
     data: { servicesStatus },
   } = useQuery(GET_SERVICES_STATUS)
 
-  console.log('App -> servicesStatus', servicesStatus)
+  console.debug('App -> servicesStatus', servicesStatus)
 
   useEffect(() => {
     dispatch({ type: 'SET_RESPONSIVE_MODE', payload: mode })

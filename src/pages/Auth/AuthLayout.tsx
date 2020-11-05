@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useTransition, animated } from 'react-spring'
 import { useHistory, RouteProps, Switch, Route, Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import { Main, Footer } from 'components/Layout'
 
@@ -14,27 +14,39 @@ import backgroundDesktop from 'assets/images/background-desktop.png'
 const Background = styled.div`
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  /* flex-direc */
-  justify-content: center;
   position: relative;
-  background: url(${backgroundDesktop}) no-repeat top / cover;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(${backgroundDesktop}) no-repeat center center / cover;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      -45deg,
+      ${(p) => p.theme.colors.primary.main},
+      ${(p) => p.theme.colors.primary.dark} 100%
+    );
+    opacity: 0.15;
+  }
 `
 
 const Section = styled.section`
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 40px);
   position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  @media (min-width: ${(p) => p.theme.screen.md}) {
-    justify-content: center;
-    align-items: center;
-  }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${(p) => p.theme.radius.md};
+  margin: 20px 20px 0;
+  padding: 20px;
+  background: ${(p) => p.theme.colors.white};
 `
 
 // const FormContainer = styled.div`
@@ -51,12 +63,13 @@ const Section = styled.section`
 const SignInForm = React.lazy(() => import('./SignInForm'))
 // const SignUpForm = React.lazy(() => import('./SignUpForm'))
 
-const AuthLayout = ({ refetchAuthUser }) => {
+// @refresh reset
+const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
   const history = useHistory()
   const transitions = useTransition(history.location, ({ pathname }) => pathname, {
     from: { opacity: 0, transform: 'translate3d(40px, 0, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
-    // leave: { opacity: 0, transform: 'translate3d(-40px, 0, 0)' },
+    leave: { opacity: 0, transform: 'translate3d(-40px, 0, 0)' },
   })
 
   const routes: Array<RouteProps & { Component: any }> = [
@@ -90,15 +103,15 @@ const AuthLayout = ({ refetchAuthUser }) => {
     <Background>
       <Main>
         <Section>
-          <Suspense fallback={<></>}>
-            {transitions.map(({ state, key, props, item }) => (
-              <Switch key={key} location={state === 'update' ? history.location : item}>
+          <React.Suspense fallback={<></>}>
+            {transitions.map(({ key, props }) => (
+              <Switch key={key} location={history.location}>
                 {routes.map(({ Component, ...rest }, index) => (
                   <Route
                     key={index}
                     {...rest}
                     render={(routeProps) => (
-                      <animated.div style={props}>
+                      <animated.div style={{ ...props, width: '100%' }}>
                         <Component {...routeProps} refetchAuthUser={refetchAuthUser} />
                       </animated.div>
                     )}
@@ -108,17 +121,26 @@ const AuthLayout = ({ refetchAuthUser }) => {
                 <Redirect to={Routes.SIGN_IN} />
               </Switch>
             ))}
-          </Suspense>
+          </React.Suspense>
 
-          <Footer>aa</Footer>
+          <Footer>
+            <h3>
+              <b>Or sign in with social account</b>
+            </h3>
+          </Footer>
         </Section>
       </Main>
     </Background>
   )
 }
 
-AuthLayout.propTypes = {
+const authLayoutProps = {
   refetchAuthUser: PropTypes.func.isRequired,
 }
+
+// ? For run-time
+AuthLayout.propTypes = authLayoutProps
+// ? For compile-time (static)
+type AuthLayoutProps = PropTypes.InferProps<typeof authLayoutProps>
 
 export default AuthLayout

@@ -58,7 +58,7 @@ const ButtonOption = styled.button`
   justify-content: center;
   align-items: center;
   margin-left: 6px;
-  transition: all ${(p) => p.theme.transition.duration} ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   hover {
     opacity: 1;

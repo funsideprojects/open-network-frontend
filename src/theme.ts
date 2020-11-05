@@ -1,6 +1,7 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default {
   font: {
-    family: `'Open Sans', sans-serif`,
+    family: `'Raleway', sans-serif`,
     weight: {
       light: '300',
       normal: '400',
@@ -18,23 +19,24 @@ export default {
   },
 
   colors: {
+    none: 'transparent',
     black: '#000',
-    white: '#fff',
-    body: '#f7f7f7',
+    white: '#FFF',
+    body: '#F7F7F7',
 
     primary: {
-      lighter: '#ac8fc7',
-      light: '#765396',
-      main: '#54297D',
-      dark: '#303f9f',
-      contrastText: '#fff',
+      lighter: '#E4E3E3',
+      light: '#84A9AC',
+      main: '#3B6978',
+      dark: '#204051',
+      contrastText: '#FFF',
     },
 
     secondary: {
-      light: '#ff4081',
-      main: '#f50057',
-      dark: '#c51162',
-      contrastText: '#fff',
+      light: '#FF4081',
+      main: '#F50057',
+      dark: '#C51162',
+      contrastText: '#FFF',
     },
 
     text: {
@@ -45,24 +47,25 @@ export default {
     },
 
     error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
-      contrastText: '#fff',
+      lighter: '#FFA39E',
+      light: '#FF7875',
+      main: '#FF4D4F',
+      dark: '#CF1322',
+      contrastText: '#FFF',
     },
 
     info: '#4169E1',
-    success: '#34a853',
+    success: '#34A853',
     warning: '#FFB818',
-    err: '#f44336',
+    err: '#F44336',
 
     grey: {
-      50: '#fafafa',
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
+      50: '#FaFaFa',
+      100: '#F5F5F5',
+      200: '#EEEEEE',
+      300: '#E0E0E0',
+      400: '#BDBDBD',
+      500: '#9E9E9E',
       600: '#757575',
       700: '#616161',
       800: '#424242',
@@ -70,14 +73,14 @@ export default {
     },
 
     border: {
-      light: '#f5f5f5',
-      main: '#e0e0e0',
-      dark: '#bdbdbd',
+      light: '#F5F5F5',
+      main: '#E0E0E0',
+      dark: '#BDBDBD',
     },
 
     skeleton: {
-      background: '#f3f3f3',
-      foreground: '#ecebeb',
+      background: '#F3F3F3',
+      foreground: '#ECEBEB',
     },
 
     overlay: {
@@ -108,7 +111,7 @@ export default {
     sm: '20px',
     md: '30px',
     lg: '40px',
-    xl: '60px',
+    xl: '50px',
   },
 
   radius: {
@@ -131,9 +134,5 @@ export default {
     translucent: 0.2,
     hazy: 0.5,
     opaque: 0.8,
-  },
-
-  transition: {
-    duration: '0.5s',
   },
 }

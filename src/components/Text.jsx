@@ -25,7 +25,7 @@ export const A = styled(Link)`
 export const Username = styled(Link)`
   user-select: none;
   text-decoration: none;
-  transition: all ${(p) => p.theme.transition.duration} ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: inline-block;
   color: ${(p) => (p.color ? p.theme.colors[p.color] : p.theme.colors.primary.main)};
   font-weight: ${(p) => (p.weight ? p.theme.font.weight[p.weight] : p.theme.font.weight.normal)};

@@ -6,7 +6,7 @@ import { Select } from 'antd'
 
 import { PublicIcon, PrivateIcon } from 'components/icons'
 import Avatar from 'components/Avatar'
-import { Button } from 'components/Form'
+// import { Button } from 'components/Form'
 import ImagePreview from 'components/ImagePreview'
 import { Spacing, Overlay, Container } from 'components/Layout'
 
@@ -73,7 +73,7 @@ const ButtonGroup = styled.div`
   flex-direction: row;
 `
 
-const CustomButton = styled(Button)`
+const CustomButton = styled.button`
   padding: 6px 12px;
   border-radius: 6px;
 `

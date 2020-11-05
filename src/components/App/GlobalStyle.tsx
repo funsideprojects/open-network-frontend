@@ -3,28 +3,28 @@ import { createGlobalStyle, css } from 'styled-components'
 import theme from 'theme'
 
 const Scroll = css`
-  // ? Width
+  /* ? Width */
   ::-webkit-scrollbar {
     width: 4px;
     height: 8px;
     background: transparent !important;
   }
 
-  // ? Track
+  /* Track */
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 
-  // ? Handle
+  /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
     height: 3px;
+    border-radius: 10px;
+    background: ${(props) => props.theme.colors.grey[300]};
   }
 
-  // ? Handle on hover
+  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #ccc;
+    background: ${(props) => props.theme.colors.grey[300]};
   }
 `
 
@@ -32,24 +32,24 @@ const Scroll = css`
 export default createGlobalStyle`
   ${Scroll}
 
-  html {
+  html, body {
+    width: 100%;
     height: 100%;
-    box-sizing: border-box;
   }
 
   *,
   *:before,
   *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
   body {
-    font-family: ${theme.font.family};
-    color: ${theme.colors.text.primary};
-    background-color: ${theme.colors.body};
     direction: ltr;
     margin: 0;
     padding: 0;
+    font-family: ${theme.font.family};
+    color: ${theme.colors.text.primary};
+    background-color: ${theme.colors.body};
   }
 
   #app-mountpoint {

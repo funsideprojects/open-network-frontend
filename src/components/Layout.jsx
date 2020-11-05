@@ -8,6 +8,7 @@ export const Main = styled.div`
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;
+  overflow-x: hidden;
 `
 
 export const Section = styled.section``
