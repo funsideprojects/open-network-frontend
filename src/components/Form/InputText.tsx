@@ -10,7 +10,7 @@ interface Props extends Omit<JSX.IntrinsicElements['input'], 'ref'>, BaseInputPr
 export const Input = React.forwardRef<HTMLInputElement, Props>(
   ({ authControl, hasPrefix: Prefix, hasSuffix: Suffix, hasError, ...inputProps }, forwardedRef) => {
     return (
-      <InputContainer hasError={hasError}>
+      <InputContainer>
         {authControl ? (
           <>
             <ACInput
@@ -20,6 +20,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(
               Underline={ACInputUnderline}
               hasPrefix={Prefix}
               hasSuffix={Suffix}
+              hasError={hasError}
             />
             <ACInputLabel>{inputProps.placeholder}</ACInputLabel>
             <ACInputUnderline />

@@ -14,7 +14,7 @@ import ScrollToTop from './ScrollToTop'
 import { useStore } from 'store'
 import theme from 'theme'
 
-const AppLayout = React.lazy(() => import('./AppLayout'))
+// const AppLayout = React.lazy(() => import('./AppLayout')) <AppLayout authUser={data.getAuthUser} />
 const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
 
 const App = () => {
@@ -47,7 +47,7 @@ const App = () => {
           <ScrollToTop>
             <Switch>
               {data?.getAuthUser ? (
-                <Route exact render={() => <AppLayout authUser={data.getAuthUser} />} />
+                <Route exact render={() => <></>} />
               ) : (
                 <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />
               )}

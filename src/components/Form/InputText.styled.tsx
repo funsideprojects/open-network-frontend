@@ -26,7 +26,7 @@ export const BaseInput = styled.input<BaseInputProps>`
 
 // ? Input container
 
-export const InputContainer = styled.label<BaseInputProps>`
+export const InputContainer = styled.label`
   width: 100%;
   position: relative;
   display: flex;
@@ -39,8 +39,6 @@ export const InputContainer = styled.label<BaseInputProps>`
     position: absolute;
     top: 5px;
     padding: 3px;
-    color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
-    transition: 0.3s;
 
     &.prefix-icon {
       left: 5px;
@@ -85,13 +83,19 @@ export const ACInput = styled(BaseInput)<ACInputProps>`
   border-bottom-width: 2px;
   background-color: transparent;
 
-  &:focus ~ ${(props) => props.hasPrefix} {
-    color: ${(props) => props.theme.colors.primary.main};
-  }
-
   ::placeholder {
     user-select: none;
     opacity: 0;
+  }
+
+  & ~ ${(props) => props.hasPrefix} {
+    color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
+    transition: 0.3s;
+  }
+
+  &:focus ~ ${(props) => props.hasPrefix} {
+    color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].main};
+    transition: 0.3s;
   }
 
   & ~ ${(props) => props.Label} {

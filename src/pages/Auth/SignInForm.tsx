@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useApolloClient } from '@apollo/client'
-import { useHistory } from 'react-router-dom'
 import { User, UserCheck, UserX, Key } from '@styled-icons/feather'
 
 import { EmailRegex } from 'constants/RegExr'
@@ -10,14 +9,12 @@ import { SIGN_IN } from 'graphql/user'
 
 import { Input, Button } from 'components/Form/index'
 
-import * as Routes from 'routes'
-
 const StyledIconUser = styled(User)``
 const StyledIconUserCheck = styled(UserCheck)``
 const StyledIconUserX = styled(UserX)``
 const StyledIconKey = styled(Key)``
 const Form = styled.form`
-  margin-bottom: ${(props) => props.theme.spacing.md};
+  margin-bottom: ${(props) => props.theme.spacing.sm};
 `
 const FormItem = styled.div`
   width: 100%;
@@ -31,16 +28,16 @@ enum SignInBy {
 }
 
 const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
-  const history = useHistory()
   const client = useApolloClient()
-  const usernameRef = React.useRef<HTMLInputElement>(null)
+  const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
   const passwordRef = React.useRef<HTMLInputElement>(null)
-  const [formData, setFormData] = React.useState({ username: '', password: '' })
-  const [hasError, setHasError] = React.useState('')
-  const [placeholder, setPlaceholder] = React.useState('')
+  const [formData, setFormData] = React.useState({ emailOrUsername: '', password: '' })
+  const [validation, setValidation] = React.useState({ emailOrUsername: '', password: '' })
+  const [placeholder, setPlaceholder] = React.useState('Username or Email address')
 
   const handleSetFormData = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({ ...prevState, [name]: value }))
+    setValidation((prevState) => ({ ...prevState, [name]: '' }))
   }
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,35 +51,48 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
         },
       })
       .then(async ({ data }) => {
-        console.log('handleSignIn -> data', data)
-        // await refetchAuthUser()
-        // history.push(Routes.HOME)
+        await refetchAuthUser()
       })
       .catch((gqlErrors) => {
-        setHasError(gqlErrors[0].message)
+        setValidation((prevState) => ({ ...prevState, emailOrUsername: gqlErrors.message }))
+        emailOrUsernameRef.current?.focus()
       })
   }
 
   React.useEffect(() => {
-    if (!formData.username) {
-      setPlaceholder('Username or Email address')
-    } else if (EmailRegex.test(formData.username)) {
-      setPlaceholder(SignInBy.EMAIL)
+    let newPlaceholder: string
+
+    if (!formData.emailOrUsername) {
+      newPlaceholder = 'Username or Email address'
+    } else if (EmailRegex.test(formData.emailOrUsername)) {
+      newPlaceholder = SignInBy.EMAIL
     } else {
-      setPlaceholder(SignInBy.USERNAME)
+      newPlaceholder = SignInBy.USERNAME
     }
-  }, [formData.username])
+
+    if (newPlaceholder !== placeholder) {
+      setPlaceholder(newPlaceholder)
+    }
+  }, [formData.emailOrUsername, placeholder])
 
   return (
     <Form name="sign-in-form" onSubmit={handleSignIn}>
       <FormItem>
         <Input
           authControl
-          ref={usernameRef}
-          hasPrefix={hasError ? StyledIconUserX : formData.username ? StyledIconUserCheck : StyledIconUser}
-          name="username"
+          autoFocus
+          ref={emailOrUsernameRef}
+          hasPrefix={
+            validation.emailOrUsername
+              ? StyledIconUserX
+              : formData.emailOrUsername
+              ? StyledIconUserCheck
+              : StyledIconUser
+          }
+          name="emailOrUsername"
           placeholder={placeholder}
-          value={formData.username}
+          hasError={!!validation.emailOrUsername}
+          value={formData.emailOrUsername}
           onChange={handleSetFormData}
         />
       </FormItem>

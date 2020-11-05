@@ -1,19 +1,12 @@
 import React from 'react'
 import { createPortal } from 'react-dom'
 // import PropTypes from 'prop-types'
-import { TooltipProps } from 'antd/lib/tooltip'
 
 import { usePrevious } from 'hooks/usePrevious'
 
 import theme from 'theme'
 
-const Tooltip: React.FC<TooltipProps & { type: string }> = ({
-  children,
-  visible,
-  title,
-  type = 'error',
-  placement = 'top',
-}) => {
+const Tooltip: React.FC<any> = ({ children, visible, title, type = 'error', placement = 'top' }) => {
   // ? Get previous title
   const prevTitle = usePrevious(title)
   let titleToShow
