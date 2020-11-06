@@ -65,7 +65,6 @@ export const ACInputLabel = styled.span`
   font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
   color: ${(props) => props.theme.colors.grey[400]};
-  z-index: -1;
   transition: 0.3s;
 `
 

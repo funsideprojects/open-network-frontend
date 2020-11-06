@@ -111,7 +111,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       </FormItem>
 
       <FormItem>
-        <Button typeSubmit block>
+        <Button buttonType="submit" type="submit" block>
           SIGN IN
         </Button>
       </FormItem>

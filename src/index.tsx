@@ -4,10 +4,10 @@ import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'styled-components'
 import { HelmetProvider } from 'react-helmet-async'
 
-import './fonts.less'
+import 'normalize.css'
+import 'fonts.less'
 // import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import 'react-notifications-component/dist/theme.css'
-import 'normalize.css'
 
 import { createApolloClient } from '_apollo-client'
 import { StoreProvider } from 'store'

@@ -26,13 +26,6 @@ const otherConfigs = () => (config) => {
   return config
 }
 
-const ovr = () => (devServerConfig) => {
-  return {
-    ...devServerConfig,
-    contentBase: [devServerConfig.contentBase, join(__dirname, '/public')],
-  }
-}
-
 module.exports = {
   webpack: override(
     addDecoratorsLegacy(),
@@ -63,5 +56,10 @@ module.exports = {
     }),
     otherConfigs()
   ),
-  devServer: overrideDevServer(ovr()),
+  devServer: overrideDevServer((devServerConfig) => {
+    return {
+      ...devServerConfig,
+      contentBase: [devServerConfig.contentBase, join(__dirname, '/public')],
+    }
+  }),
 }

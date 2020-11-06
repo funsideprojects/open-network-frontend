@@ -3,25 +3,32 @@ import React from 'react'
 import { Loading } from 'components/Loading'
 
 import {
-  BaseButtonProps,
-  BaseButton,
+  ButtonBaseProps,
   ButtonContainer,
-  ButtonSubmitLabel,
-  ButtonSubmit,
+  ButtonDefault,
+  ButtonPrimary,
+  ButtonText,
   ButtonIconContainer,
 } from './Button.styled'
 
-interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, BaseButtonProps {
-  typeSubmit?: boolean
+interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, ButtonBaseProps {
   icon?: GenericSC
   loading?: boolean
 }
 
+const AvailButtons = {
+  default: ButtonDefault,
+  primary: ButtonPrimary,
+  text: ButtonText,
+}
+
 export const Button = React.forwardRef<HTMLButtonElement, Props>(
   (
-    { typeSubmit, buttonType = 'default', icon: Icon, block, danger, loading, children, disabled, ...buttonProps },
+    { buttonType = 'default', icon: Icon, block, danger, loading, children, disabled, ...buttonProps },
     forwardedRef
   ) => {
+    const ButtonRender = AvailButtons[buttonType]
+
     const renderChildren = Icon ? (
       <ButtonIconContainer>
         {loading ? (
@@ -42,23 +49,9 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
 
     return (
       <ButtonContainer block={block}>
-        {typeSubmit ? (
-          <ButtonSubmitLabel>
-            <ButtonSubmit disabled={loading || disabled} />
-            {renderChildren}
-          </ButtonSubmitLabel>
-        ) : (
-          <BaseButton
-            type="button"
-            buttonType={buttonType}
-            block={block}
-            disabled={loading || disabled}
-            {...buttonProps}
-            ref={forwardedRef}
-          >
-            {renderChildren}
-          </BaseButton>
-        )}
+        <ButtonRender type="button" {...buttonProps} disabled={loading || disabled} ref={forwardedRef}>
+          {renderChildren}
+        </ButtonRender>
       </ButtonContainer>
     )
   }

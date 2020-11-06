@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useTransition, animated } from 'react-spring'
-import { useHistory, RouteProps, Switch, Route, Redirect } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import { RouteProps, Switch, Route, Redirect } from 'react-router-dom'
 import { NodeDotJs, Graphql, Apollographql, ReactLogo, StyledComponents } from '@styled-icons/simple-icons'
 
 import { Button } from 'components/Form/index'
@@ -22,6 +22,26 @@ const Section = styled.section`
   margin: 20px 20px 0;
   padding: 20px;
   background: ${(p) => p.theme.colors.white};
+
+  .page {
+    width: 100%;
+  }
+
+  .page-enter {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  .page-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .page-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
 `
 
 const FallbackContainer = styled.div`
@@ -58,6 +78,7 @@ const SCIconApollo = styled(Apollographql)``
 const SCIconReact = styled(ReactLogo)``
 const SCIconSC = styled(StyledComponents)``
 
+const WelcomeSection = React.lazy(() => import('./WelcomeSection'))
 // const ForgotPasswordForm = React.lazy(() => import('./ForgotPassword'))
 // const ResetPasswordForm = React.lazy(() => import('./ResetPassword'))
 const SignInForm = React.lazy(() => import('./SignInForm'))
@@ -65,21 +86,13 @@ const SignUpForm = React.lazy(() => import('./SignUpForm'))
 
 // @refresh reset
 const AuthSection = ({ refetchAuthUser }: AuthSectionProps) => {
-  const history = useHistory()
-
-  const transition = useTransition(history.location, {
-    from: { opacity: 0, transform: 'translate3d(40px, 0, 0)' },
-    enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
-    leave: { opacity: 0, transform: 'translate3d(-40px, 0, 0)', position: 'absolute', zIndex: -5 },
-  })
-
   const routes: Array<RouteProps & { Component: any }> = [
-    // {
-    //   path: Routes.SIGN_IN,
-    //   exact: true,
-    //   strict: true,
-    //   Component: ForgotPasswordForm,
-    // },
+    {
+      path: Routes.HOME,
+      exact: true,
+      strict: true,
+      Component: WelcomeSection,
+    },
     // {
     //   path: Routes.SIGN_IN,
     //   exact: true,
@@ -100,11 +113,13 @@ const AuthSection = ({ refetchAuthUser }: AuthSectionProps) => {
     },
   ]
 
-  // React.useEffect(()=>{
-  //   return () => {
-  //     transitions
-  //   }
-  // })
+  const libraries = [
+    { icon: SCIconNodeJs },
+    { icon: SCIconGraphql },
+    { icon: SCIconApollo },
+    { icon: SCIconReact },
+    { icon: SCIconSC },
+  ]
 
   return (
     <Section data-name="auth-section">
@@ -115,32 +130,26 @@ const AuthSection = ({ refetchAuthUser }: AuthSectionProps) => {
           </FallbackContainer>
         }
       >
-        {transition(({ ...props }, item, t) => (
-          <Switch key={t.key} location={history.location}>
-            {routes.map(({ Component, ...rest }, index) => (
-              <Route
-                key={index}
-                {...rest}
-                render={(routeProps) => (
-                  <animated.div style={{ ...props, width: '100%' }}>
-                    <Component {...routeProps} refetchAuthUser={refetchAuthUser} />
-                  </animated.div>
-                )}
-              />
-            ))}
+        <Switch>
+          {routes.map(({ Component, ...rest }, index) => (
+            <Route key={index} {...rest}>
+              {({ match }) => (
+                <CSSTransition in={match !== null} classNames="page" timeout={300} unmountOnExit>
+                  <Component refetchAuthUser={refetchAuthUser} />
+                </CSSTransition>
+              )}
+            </Route>
+          ))}
 
-            <Redirect to={Routes.SIGN_IN} />
-          </Switch>
-        ))}
+          <Redirect to={Routes.SIGN_IN} />
+        </Switch>
       </React.Suspense>
 
       <Footer>
         <ButtonGroup>
-          <Button bordered icon={SCIconNodeJs} buttonType="text" />
-          <Button bordered icon={SCIconGraphql} buttonType="text" />
-          <Button bordered icon={SCIconApollo} buttonType="text" />
-          <Button bordered icon={SCIconReact} buttonType="text" />
-          <Button bordered icon={SCIconSC} buttonType="text" />
+          {libraries.map((lib, index) => (
+            <Button key={index} bordered buttonType="text" icon={lib.icon} />
+          ))}
         </ButtonGroup>
       </Footer>
     </Section>

@@ -103,7 +103,7 @@ const SignUpForm = ({ refetchAuthUser }: SignUpFormProps) => {
       ))}
 
       <FormItem>
-        <Button typeSubmit block>
+        <Button buttonType="submit" block>
           SIGN UP
         </Button>
       </FormItem>

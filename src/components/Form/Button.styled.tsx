@@ -1,137 +1,73 @@
 import styled from 'styled-components'
 
-// ? Base Button
+// ? Container
 
-export interface BaseButtonProps {
-  buttonType?: 'default' | 'primary' | 'text'
+export const ButtonContainer = styled.div<ButtonBaseProps>`
+  width: ${(props) => (props.block ? '100%' : 'fit-content')};
+  min-width: 40px;
+  height: 40px;
+  max-height: 40px;
+  position: relative;
+`
+
+// ?
+
+export interface ButtonBaseProps {
+  buttonType?: 'default' | 'primary' | 'text' | 'submit'
   block?: boolean
   bordered?: boolean
   danger?: boolean
 }
 
-export const BaseButton = styled.button<BaseButtonProps>`
+export const ButtonBase = styled.button<ButtonBaseProps>`
   cursor: pointer;
   user-select: none;
-  width: ${(props) => (props.block ? '100%' : 'fit-content')};
-  min-width: 40px;
-  height: 40px;
-  max-height: 40px;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   outline: none;
-  border: 0;
   border-width: ${(props) => (props.bordered ? '2px' : 0)};
   border-style: solid;
-  border-color: ${(props) => props.theme.colors.primary.main};
-  border-radius: 20px;
+  border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
-  padding: 0;
+  padding: 0 ${(props) => props.theme.spacing.xs};
   font-family: ${(props) => props.theme.font.primary};
-  font-size: ${(props) => props.theme.font.size.xs};
-  letter-spacing: 3px;
-  color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.main)};
-  background: ${(props) => props.theme.colors.none};
+  font-weight: ${(props) => props.theme.font.weight.semi};
+  font-size: ${(props) => props.theme.font.size.xxs};
+  letter-spacing: 2px;
   transition: 0.2s;
+`
 
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 20px;
-    z-index: -1;
-    transition: clip-path 0.5s;
-  }
-
-  &:before {
-    background: ${(props) =>
-      props.buttonType === 'primary'
-        ? props.theme.colors.primary.main
-        : props.theme.colors[props.buttonType === 'default' ? 'white' : 'none']};
-  }
-
-  &:after {
-    clip-path: circle(0% at 100% 100%);
-    background: ${(props) =>
-      props.buttonType === 'primary' ? props.theme.colors.primary.light : props.theme.colors.grey[100]};
-  }
+export const ButtonDefault = styled(ButtonBase)`
+  border-color: ${(props) => props.theme.colors.primary.main};
+  color: ${(props) => props.theme.colors.primary.main};
+  background: ${(props) => props.theme.colors.white};
 
   &:hover {
-    color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.light)};
-
-    &:after {
-      clip-path: circle(150% at 100% 100%);
-      transition: clip-path 0.5s;
-    }
+    background: ${(props) => props.theme.colors.primary.lighter};
   }
 `
 
-// ? Container
-
-export const ButtonContainer = styled.div<BaseButtonProps>`
-  width: ${(props) => (props.block ? '100%' : 'fit-content')};
-  height: 40px;
-  position: relative;
-`
-
-// ? Form submit-button
-
-export const ButtonSubmitLabel = styled.label`
-  cursor: pointer;
-  user-select: none;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  border: 0;
-  border-radius: 20px;
-  font-family: ${(props) => props.theme.font.primary};
-  font-size: ${(props) => props.theme.font.size.xs};
-  letter-spacing: 3px;
+export const ButtonPrimary = styled(ButtonBase)`
+  border-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.white};
-  transition: 0.2s;
+  background: ${(props) => props.theme.colors.primary.main};
 
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 20px;
-    z-index: -1;
-    transition: clip-path 0.5s;
-  }
-
-  &:before {
-    background: ${(props) => props.theme.colors.primary.main};
-  }
-
-  &:after {
-    clip-path: circle(0% at 100% 100%);
+  &:hover {
     background: ${(props) => props.theme.colors.primary.light};
   }
-
-  &:hover {
-    transition: 0.2s;
-
-    &:after {
-      clip-path: circle(150% at 100% 100%);
-      transition: clip-path 0.5s;
-    }
-  }
 `
 
-export const ButtonSubmit = styled.input.attrs((props) => ({
-  type: 'submit',
-}))`
-  display: none;
+export const ButtonText = styled(ButtonBase)`
+  border-color: ${(props) => props.theme.colors.primary.main};
+  color: ${(props) => props.theme.colors.primary.main};
+  background: ${(props) => props.theme.colors.none};
+
+  &:hover {
+    background: ${(props) => props.theme.colors.primary.grey};
+  }
 `
 
 export const ButtonIconContainer = styled.span`
