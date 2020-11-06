@@ -24,13 +24,11 @@ const App = () => {
   const windowSize = useWindowSize()
   const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
-  const { loading, data, refetch } = useQuery(GET_AUTH_USER, { fetchPolicy: 'cache-and-network' })
+  const { loading, data: authUserData, refetch } = useQuery(GET_AUTH_USER, { fetchPolicy: 'cache-and-network' })
   // todo get service status here
-  const {
-    data: { servicesStatus },
-  } = useQuery(GET_SERVICES_STATUS)
+  const { data: servicesStatusData } = useQuery(GET_SERVICES_STATUS)
 
-  console.debug('App -> servicesStatus', servicesStatus)
+  console.debug('App -> servicesStatus', servicesStatusData)
 
   useEffect(() => {
     dispatch({ type: 'SET_RESPONSIVE_MODE', payload: mode })
@@ -46,7 +44,7 @@ const App = () => {
         <Suspense fallback={<></>}>
           <ScrollToTop>
             <Switch>
-              {data?.getAuthUser ? (
+              {authUserData?.getAuthUser ? (
                 <Route exact render={() => <></>} />
               ) : (
                 <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />

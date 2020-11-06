@@ -72,9 +72,6 @@ const AuthSection = ({ refetchAuthUser }: AuthSectionProps) => {
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
     leave: { opacity: 0, transform: 'translate3d(-40px, 0, 0)', position: 'absolute', zIndex: -5 },
   })
-  const fragment = transition((style, item) => (
-
-  ))
 
   const routes: Array<RouteProps & { Component: any }> = [
     // {
@@ -118,14 +115,14 @@ const AuthSection = ({ refetchAuthUser }: AuthSectionProps) => {
           </FallbackContainer>
         }
       >
-        {transition((style, item) => (
-          <Switch key={item.key} location={history.location}>
+        {transition(({ ...props }, item, t) => (
+          <Switch key={t.key} location={history.location}>
             {routes.map(({ Component, ...rest }, index) => (
               <Route
                 key={index}
                 {...rest}
                 render={(routeProps) => (
-                  <animated.div style={{ ...style, width: '100%' }}>
+                  <animated.div style={{ ...props, width: '100%' }}>
                     <Component {...routeProps} refetchAuthUser={refetchAuthUser} />
                   </animated.div>
                 )}
