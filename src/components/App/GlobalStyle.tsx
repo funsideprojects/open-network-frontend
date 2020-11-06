@@ -47,7 +47,7 @@ export default createGlobalStyle`
     direction: ltr;
     margin: 0;
     padding: 0;
-    font-family: ${theme.font.family};
+    font-family: ${theme.font.primary};
     color: ${theme.colors.text.primary};
     background-color: ${theme.colors.body};
   }

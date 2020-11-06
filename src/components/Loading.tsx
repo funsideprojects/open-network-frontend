@@ -11,6 +11,7 @@ export const Overlay = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 32px;
   background: ${(p) => p.theme.colors.overlay.translucent};
   z-index: ${(p) => p.theme.zIndex.xl};
 `
@@ -21,8 +22,8 @@ const Container = styled.div`
   background: ${(props) => props.theme.colors.overlay.opaque};
 `
 
-const StyledLoadingOutlined = styled(LoadingOutlined)`
-  font-size: 32px;
+const StyledLoadingOutlined = styled(LoadingOutlined)<Props>`
+  position: relative;
   color: ${(props) => props.theme.colors.primary.light};
 `
 

@@ -27,8 +27,9 @@ export const BaseButton = styled.button<BaseButtonProps>`
   border-radius: 20px;
   margin: 0;
   padding: 0;
-  font-family: ${(props) => props.theme.font.family};
+  font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
+  letter-spacing: 3px;
   color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.main)};
   background: ${(props) => props.theme.colors.none};
   transition: 0.2s;
@@ -56,11 +57,10 @@ export const BaseButton = styled.button<BaseButtonProps>`
   &:after {
     clip-path: circle(0% at 100% 100%);
     background: ${(props) =>
-      props.buttonType === 'primary' ? props.theme.colors.primary.light : props.theme.colors.primary.lighter};
+      props.buttonType === 'primary' ? props.theme.colors.primary.light : props.theme.colors.grey[100]};
   }
 
   &:hover {
-    border-color: ${(props) => props.theme.colors.primary.light};
     color: ${(props) => (props.buttonType === 'primary' ? props.theme.colors.white : props.theme.colors.primary.light)};
 
     &:after {
@@ -90,8 +90,9 @@ export const ButtonSubmitLabel = styled.label`
   outline: none;
   border: 0;
   border-radius: 20px;
-  font-family: ${(props) => props.theme.font.family};
+  font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
+  letter-spacing: 3px;
   color: ${(props) => props.theme.colors.white};
   transition: 0.2s;
 
@@ -136,6 +137,15 @@ export const ButtonSubmit = styled.input.attrs((props) => ({
 export const ButtonIconContainer = styled.span`
   width: 32px;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
+  font-size: 22px;
   background: transparent;
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
 `

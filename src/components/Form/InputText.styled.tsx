@@ -16,8 +16,9 @@ export const BaseInput = styled.input<BaseInputProps>`
     `${props.theme.spacing[props.hasSuffix ? 'lg' : 'none']} ` +
     `${props.theme.spacing.xxs} ` +
     `${props.theme.spacing[props.hasPrefix ? 'lg' : 'none']}`};
-  font-family: ${(props) => props.theme.font.family};
+  font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
+  letter-spacing: 1.5px;
 
   ::placeholder {
     user-select: none;
@@ -61,7 +62,7 @@ export const ACInputLabel = styled.span`
   user-select: none;
   position: absolute;
   top: 7px;
-  font-family: ${(props) => props.theme.font.family};
+  font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
   color: ${(props) => props.theme.colors.grey[400]};
   z-index: -1;

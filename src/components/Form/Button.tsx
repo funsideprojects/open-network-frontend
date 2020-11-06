@@ -19,7 +19,7 @@ interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, BaseButton
 
 export const Button = React.forwardRef<HTMLButtonElement, Props>(
   (
-    { typeSubmit, buttonType = 'default', block, danger, icon: Icon, loading, children, disabled, ...buttonProps },
+    { typeSubmit, buttonType = 'default', icon: Icon, block, danger, loading, children, disabled, ...buttonProps },
     forwardedRef
   ) => {
     const renderChildren = Icon ? (

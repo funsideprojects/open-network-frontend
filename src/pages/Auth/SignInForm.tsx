@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { useApolloClient } from '@apollo/client'
 import { User, UserCheck, UserX, Key } from '@styled-icons/feather'
 
 import { EmailRegex } from 'constants/RegExr'
 import { SIGN_IN } from 'graphql/user'
+import { useStore } from 'store'
 
 import { Input, Button } from 'components/Form/index'
 
-const StyledIconUser = styled(User)``
-const StyledIconUserCheck = styled(UserCheck)``
-const StyledIconUserX = styled(UserX)``
-const StyledIconKey = styled(Key)``
-const Form = styled.form`
-  margin-bottom: ${(props) => props.theme.spacing.sm};
-`
-const FormItem = styled.div`
-  width: 100%;
-  padding: 10px 0 0;
-  margin-bottom: 10px;
-`
+import { Form, FormItem } from './Form.styled'
+
+import * as Routes from 'routes'
+
+const SCIconUser = styled(User)``
+const SCIconUserCheck = styled(UserCheck)``
+const SCIconUserX = styled(UserX)``
+const SCIconKey = styled(Key)``
 
 enum SignInBy {
   USERNAME = 'Username',
@@ -28,7 +26,10 @@ enum SignInBy {
 }
 
 const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
+  const history = useHistory()
   const client = useApolloClient()
+  const [{ app }] = useStore()
+
   const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
   const passwordRef = React.useRef<HTMLInputElement>(null)
   const [formData, setFormData] = React.useState({ emailOrUsername: '', password: '' })
@@ -59,6 +60,10 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       })
   }
 
+  const navigateToSignUp = () => {
+    history.push(Routes.SIGN_UP)
+  }
+
   React.useEffect(() => {
     let newPlaceholder: string
 
@@ -80,15 +85,9 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       <FormItem>
         <Input
           authControl
-          autoFocus
+          autoFocus={app.responsiveMode === 'desktop'}
           ref={emailOrUsernameRef}
-          hasPrefix={
-            validation.emailOrUsername
-              ? StyledIconUserX
-              : formData.emailOrUsername
-              ? StyledIconUserCheck
-              : StyledIconUser
-          }
+          hasPrefix={validation.emailOrUsername ? SCIconUserX : formData.emailOrUsername ? SCIconUserCheck : SCIconUser}
           name="emailOrUsername"
           placeholder={placeholder}
           hasError={!!validation.emailOrUsername}
@@ -103,7 +102,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
           autoComplete="on"
           type="password"
           ref={passwordRef}
-          hasPrefix={StyledIconKey}
+          hasPrefix={SCIconKey}
           name="password"
           placeholder="Password"
           value={formData.password}
@@ -118,8 +117,8 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       </FormItem>
 
       <FormItem>
-        <Button block bordered buttonType="text">
-          SIGN UP
+        <Button block bordered buttonType="text" onClick={navigateToSignUp}>
+          CREATE NEW ACCOUNT
         </Button>
       </FormItem>
     </Form>
@@ -127,7 +126,6 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
 }
 
 const signInFormProps = {
-  history: PropTypes.object.isRequired,
   refetchAuthUser: PropTypes.func.isRequired,
 }
 

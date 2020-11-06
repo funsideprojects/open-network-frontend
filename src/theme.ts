@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
   font: {
-    family: `'Raleway', sans-serif`,
+    primary: `Raleway, sans-serif`,
+    secondary: 'Dosis',
     weight: {
       light: '300',
       normal: '400',
