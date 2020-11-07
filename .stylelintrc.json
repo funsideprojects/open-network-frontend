@@ -51,6 +51,7 @@
       "line-height",
       "letter-spacing",
       "word-spacing",
+      "text-align",
       "color",
       "background",
       "opacity",

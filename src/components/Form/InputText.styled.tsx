@@ -59,6 +59,7 @@ interface ACInputProps {
 }
 
 export const ACInputLabel = styled.span`
+  cursor: text;
   user-select: none;
   position: absolute;
   top: 7px;
@@ -80,7 +81,7 @@ export const ACInputUnderline = styled.span`
 `
 
 export const ACInput = styled(BaseInput)<ACInputProps>`
-  border: 0 solid ${(props) => props.theme.colors.primary.main};
+  border: 0 solid ${(props) => props.theme.colors.primary.grey};
   border-bottom-width: 2px;
   background-color: transparent;
 

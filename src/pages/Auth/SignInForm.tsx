@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
 import { useApolloClient } from '@apollo/client'
-import { User, UserCheck, UserX, Key } from '@styled-icons/feather'
 
 import { EmailRegex } from 'constants/RegExr'
 import { SIGN_IN } from 'graphql/user'
@@ -12,12 +9,7 @@ import { Input, Button } from 'components/Form/index'
 
 import { Form, FormItem } from './Form.styled'
 
-import * as Routes from 'routes'
-
-const SCIconUser = styled(User)``
-const SCIconUserCheck = styled(UserCheck)``
-const SCIconUserX = styled(UserX)``
-const SCIconKey = styled(Key)``
+import { SCIUser, SCIUserCheck, SCIUserX, SCIKey, SCIRightArrowAlt } from './SignIn.styled'
 
 enum SignInBy {
   USERNAME = 'Username',
@@ -25,7 +17,6 @@ enum SignInBy {
 }
 
 const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
-  const history = useHistory()
   const client = useApolloClient()
 
   const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
@@ -58,10 +49,6 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       })
   }
 
-  const navigateToSignUp = () => {
-    history.push(Routes.SIGN_UP)
-  }
-
   React.useEffect(() => {
     let newPlaceholder: string
 
@@ -85,7 +72,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
           authControl
           autoFocus
           ref={emailOrUsernameRef}
-          hasPrefix={validation.emailOrUsername ? SCIconUserX : formData.emailOrUsername ? SCIconUserCheck : SCIconUser}
+          hasPrefix={validation.emailOrUsername ? SCIUserX : formData.emailOrUsername ? SCIUserCheck : SCIUser}
           name="emailOrUsername"
           placeholder={placeholder}
           hasError={!!validation.emailOrUsername}
@@ -100,7 +87,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
           autoComplete="on"
           type="password"
           ref={passwordRef}
-          hasPrefix={SCIconKey}
+          hasPrefix={SCIKey}
           name="password"
           placeholder="Password"
           value={formData.password}
@@ -108,9 +95,9 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
         />
       </FormItem>
 
-      <FormItem>
+      <FormItem top="lg">
         <Button buttonType="primary" type="submit" block>
-          SIGN IN
+          SIGN IN <SCIRightArrowAlt />
         </Button>
       </FormItem>
     </Form>

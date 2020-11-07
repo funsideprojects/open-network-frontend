@@ -7,7 +7,7 @@ import { Button } from 'components/Form/index'
 
 import * as Routes from 'routes'
 
-import { Drawer, SCILeftArrowAlt, Title, PrimaryText } from './SignIn.styled'
+import { Drawer, SCILeftArrowAlt, Title, PrimaryText, AuthHint } from './SignIn.styled'
 import SignInForm from './SignInForm'
 
 // ? Transition config
@@ -45,6 +45,9 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
           </Title>
 
           <SignInForm refetchAuthUser={refetchAuthUser} />
+          <AuthHint>
+            Don't have an account? <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_UP)}>Sign up</PrimaryText>
+          </AuthHint>
         </Drawer>
       )}
     </Transition>
