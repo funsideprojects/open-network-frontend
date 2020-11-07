@@ -80,7 +80,7 @@ export const ACInputUnderline = styled.span`
 `
 
 export const ACInput = styled(BaseInput)<ACInputProps>`
-  border: 0 solid ${(props) => props.theme.colors.border.main};
+  border: 0 solid ${(props) => props.theme.colors.primary.main};
   border-bottom-width: 2px;
   background-color: transparent;
 

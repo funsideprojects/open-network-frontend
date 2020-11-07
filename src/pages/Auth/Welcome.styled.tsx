@@ -1,14 +1,14 @@
 import styled from 'styled-components'
+import { LeftArrowAlt, RightArrowAlt } from '@styled-icons/boxicons-regular'
 
-export const Section = styled.section`
-  width: 45%;
+export const Drawer = styled.section`
+  min-width: 40%;
   max-width: 40%;
+  overflow-x: hidden;
   position: absolute;
   top: 40px;
-  left: 0;
   display: flex;
   flex-direction: column;
-
   box-shadow: ${(props) => props.theme.shadows.sm};
   border-top-right-radius: ${(props) => props.theme.radius.lg};
   border-bottom-right-radius: ${(props) => props.theme.radius.lg};
@@ -38,4 +38,17 @@ export const Nav = styled.nav`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+
+  & button {
+    padding: 0 ${(props) => props.theme.spacing.lg};
+  }
+`
+
+export const SCILeftArrowAlt = styled(LeftArrowAlt)`
+  width: 30px;
+  height: 50%;
+`
+export const SCIRightArrowAlt = styled(RightArrowAlt)`
+  width: 30px;
+  height: 50%;
 `

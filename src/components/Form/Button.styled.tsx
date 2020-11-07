@@ -13,7 +13,7 @@ export const ButtonContainer = styled.div<ButtonBaseProps>`
 // ?
 
 export interface ButtonBaseProps {
-  buttonType?: 'default' | 'primary' | 'text' | 'submit'
+  buttonType?: 'default' | 'primary' | 'text'
   block?: boolean
   bordered?: boolean
   danger?: boolean

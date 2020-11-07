@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { CSSTransition } from 'react-transition-group'
 import { RouteProps, Switch, Route, Redirect } from 'react-router-dom'
 // import { NodeDotJs, Graphql, Apollographql, ReactLogo, StyledComponents } from '@styled-icons/simple-icons'
 
@@ -34,28 +33,20 @@ const Background = styled.div`
   }
 `
 
-const FallbackContainer = styled.div`
-  width: 100%;
-  min-height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 42px;
-`
-
-const WelcomeSection = React.lazy(() => import('./WelcomeSection'))
+const WelcomeDrawer = React.lazy(() => import('./WelcomeDrawer'))
 // const ForgotPasswordForm = React.lazy(() => import('./ForgotPassword'))
 // const ResetPasswordForm = React.lazy(() => import('./ResetPassword'))
-const SignInForm = React.lazy(() => import('./SignInForm'))
+const SignInDrawer = React.lazy(() => import('./SignInDrawer'))
 const SignUpForm = React.lazy(() => import('./SignUpForm'))
 
+// @refresh reset
 const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
   const routes: Array<RouteProps & { Component: any }> = [
     {
       path: Routes.HOME,
       exact: true,
       strict: true,
-      Component: WelcomeSection,
+      Component: WelcomeDrawer,
     },
     // {
     //   path: Routes.SIGN_IN,
@@ -67,7 +58,7 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       path: Routes.SIGN_IN,
       exact: true,
       strict: true,
-      Component: SignInForm,
+      Component: SignInDrawer,
     },
     {
       path: Routes.SIGN_UP,
@@ -79,22 +70,14 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
 
   return (
     <Background>
-      <React.Suspense
-        fallback={
-          <FallbackContainer>
-            <Loading />
-          </FallbackContainer>
-        }
-      >
+      <React.Suspense fallback={<></>}>
         <Switch>
           {routes.map(({ Component, ...rest }, index) => (
-            <Route key={index} {...rest}>
-              {({ match }) => (
-                <CSSTransition in={match !== null} classNames="page" timeout={300} unmountOnExit>
-                  <Component refetchAuthUser={refetchAuthUser} />
-                </CSSTransition>
-              )}
-            </Route>
+            <Route
+              key={index}
+              {...rest}
+              render={(routeProps) => <Component {...routeProps} refetchAuthUser={refetchAuthUser} />}
+            />
           ))}
 
           <Redirect to={Routes.SIGN_IN} />

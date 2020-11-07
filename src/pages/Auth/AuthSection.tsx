@@ -22,26 +22,6 @@ const Section = styled.section`
   margin: 20px 20px 0;
   padding: 20px;
   background: ${(p) => p.theme.colors.white};
-
-  .page {
-    width: 100%;
-  }
-
-  .page-enter {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-
-  .page-enter-active {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 300ms, transform 300ms;
-  }
-
-  .page-exit {
-    opacity: 1;
-    transform: scale(1);
-  }
 `
 
 const FallbackContainer = styled.div`

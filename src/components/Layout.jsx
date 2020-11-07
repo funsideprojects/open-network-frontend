@@ -7,8 +7,8 @@ export const Nav = styled.nav``
 export const Main = styled.div`
   width: 100%;
   max-width: 1140px;
-  margin: 0 auto;
   overflow-x: hidden;
+  margin: 0 auto;
 `
 
 export const Section = styled.section``
@@ -68,22 +68,14 @@ export const Spacing = styled.div`
   ${(p) => p.bottom && `margin-bottom: ${p.theme.spacing[p.bottom]}`};
   ${(p) => p.left && `margin-left: ${p.theme.spacing[p.left]}`};
   ${(p) => p.inline && `display: inline-block;`}
-
-  @media (max-width: ${(p) => p.theme.screen.sm}) {
-    ${(p) =>
-      p.hideOnSm &&
-      `
-      display: none;
-    `}
-  }
 `
 
 /**
  * Overlay, on top of the whole UI
  */
 export const Overlay = styled.div`
-  position: fixed;
   width: 100%;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

@@ -7,7 +7,6 @@ import { User, UserCheck, UserX, Key } from '@styled-icons/feather'
 
 import { EmailRegex } from 'constants/RegExr'
 import { SIGN_IN } from 'graphql/user'
-import { useStore } from 'store'
 
 import { Input, Button } from 'components/Form/index'
 
@@ -28,7 +27,6 @@ enum SignInBy {
 const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
   const history = useHistory()
   const client = useApolloClient()
-  const [{ app }] = useStore()
 
   const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
   const passwordRef = React.useRef<HTMLInputElement>(null)
@@ -85,7 +83,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       <FormItem>
         <Input
           authControl
-          autoFocus={app.responsiveMode === 'desktop'}
+          autoFocus
           ref={emailOrUsernameRef}
           hasPrefix={validation.emailOrUsername ? SCIconUserX : formData.emailOrUsername ? SCIconUserCheck : SCIconUser}
           name="emailOrUsername"
@@ -111,14 +109,8 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
       </FormItem>
 
       <FormItem>
-        <Button buttonType="submit" type="submit" block>
+        <Button buttonType="primary" type="submit" block>
           SIGN IN
-        </Button>
-      </FormItem>
-
-      <FormItem>
-        <Button block bordered buttonType="text" onClick={navigateToSignUp}>
-          CREATE NEW ACCOUNT
         </Button>
       </FormItem>
     </Form>

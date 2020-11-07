@@ -45,6 +45,7 @@ export default createGlobalStyle`
 
   body {
     direction: ltr;
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     font-family: ${theme.font.primary};
