@@ -9,7 +9,8 @@ import { Input, Button } from 'components/Form/index'
 
 import { Form, FormItem } from './Form.styled'
 
-import { SCIUser, SCIUserCheck, SCIUserX, SCIKey, SCIRightArrowAlt } from './SignIn.styled'
+import { SCIUser, SCIUserCheck, SCIUserX, SCIKey } from './SignIn.styled'
+import { SCIRightArrowAlt } from './Generic.styled'
 
 enum SignInBy {
   USERNAME = 'Username',

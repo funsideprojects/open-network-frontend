@@ -10,7 +10,7 @@ export const ButtonContainer = styled.div<ButtonBaseProps>`
   position: relative;
 `
 
-// ?
+// ? Base
 
 export interface ButtonBaseProps {
   buttonType?: 'default' | 'primary' | 'text'
@@ -35,7 +35,7 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   padding: 0 ${(props) => props.theme.spacing.xs};
   font-family: ${(props) => props.theme.font.primary};
   font-weight: ${(props) => props.theme.font.weight.semi};
-  font-size: ${(props) => props.theme.font.size.xxs};
+  font-size: ${(props) => props.theme.font.size.xs};
   letter-spacing: 2px;
   transition: 0.2s;
 `

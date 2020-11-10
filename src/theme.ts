@@ -43,7 +43,7 @@ export default {
 
     primary: {
       grey: '#E4E3E3',
-      lighter: '#BCD0D1',
+      lighter: '#E1F1F2',
       light: '#84A9AC',
       main: '#3B6978',
       dark: '#204051',
@@ -65,10 +65,10 @@ export default {
     },
 
     error: {
-      lighter: '#FFA39E',
-      light: '#FF7875',
-      main: '#FF4D4F',
-      dark: '#CF1322',
+      lighter: '#FFE5E3',
+      light: '#FFA39E',
+      main: '#FF7875',
+      dark: '#F5222D',
       contrastText: '#FFF',
     },
 

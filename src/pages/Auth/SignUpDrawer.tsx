@@ -8,21 +8,20 @@ import { Button } from 'components/Form/index'
 import * as Routes from 'routes'
 
 import { Drawer, SCILeftArrowAlt, Title, PrimaryText, Hint } from './Generic.styled'
-import SignInForm from './SignInForm'
+import SignUpForm from './SignUpForm'
 
 // ? Transition config
 const tDuration = 300 // ? ms
 const defaultStyle = {
   transition: `${tDuration}ms`,
-  visibility: 'hidden',
 }
 const transitionStyles = {
-  entering: { opacity: 0, right: '-40%', visibility: 'hidden' },
-  entered: { opacity: 1, right: 0, visibility: 'visible' },
-  exiting: { opacity: 0, right: '-40%', visibility: 'hidden' },
+  entering: { opacity: 0, left: '-40%' },
+  entered: { opacity: 1, left: 0 },
+  exiting: { opacity: 0, left: '-40%' },
 }
 
-const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
+const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
   const history = useHistory<{ from?: string }>()
 
   const [nextDest, setNextDest] = React.useState(Routes.SIGN_IN)
@@ -48,12 +47,13 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
           </Button>
 
           <Title>
-            <PrimaryText>Sign in</PrimaryText> to get in touch with your community
+            <PrimaryText>Sign up</PrimaryText> to get in touch with your community
           </Title>
 
-          <SignInForm refetchAuthUser={refetchAuthUser} />
+          <SignUpForm refetchAuthUser={refetchAuthUser} />
           <Hint>
-            Don't have an account? <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_UP)}>Sign up</PrimaryText>
+            Already have an account?{' '}
+            <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_IN)}>Sign in</PrimaryText>
           </Hint>
         </Drawer>
       )}
@@ -61,11 +61,11 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
   )
 }
 
-const signInDrawerProps = {
+const signUpDrawerProps = {
   refetchAuthUser: PropTypes.func.isRequired,
 }
 
-SignInDrawer.propTypes = signInDrawerProps
-type SignInDrawerProps = PropTypes.InferProps<typeof signInDrawerProps>
+SignUpDrawer.propTypes = signUpDrawerProps
+type SignUpDrawerProps = PropTypes.InferProps<typeof signUpDrawerProps>
 
-export default SignInDrawer
+export default SignUpDrawer

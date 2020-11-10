@@ -1,23 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
 import { useApolloClient } from '@apollo/client'
-import { Check, X } from '@styled-icons/boxicons-regular'
 
 import { SIGN_UP } from 'graphql/user'
 
 import { Input, Button } from 'components/Form/index'
 
 import { Form, FormItem } from './Form.styled'
-
-import * as Routes from 'routes'
-
-const SCIconCheck = styled(Check)``
-const SCIconX = styled(X)``
+import { SCICheck, SCIX } from './SignUp.styled'
+import { SCIRightArrowAlt } from './Generic.styled'
 
 const SignUpForm = ({ refetchAuthUser }: SignUpFormProps) => {
-  const history = useHistory()
   const client = useApolloClient()
   const [formData, setFormData] = React.useState({ fullName: '', email: '', username: '', password: '', confirm: '' })
   const [validation, setValidation] = React.useState({
@@ -48,11 +41,7 @@ const SignUpForm = ({ refetchAuthUser }: SignUpFormProps) => {
       .catch((gqlError) => {})
   }
 
-  const navigateToSignIn = () => {
-    history.push(Routes.SIGN_IN)
-  }
-
-  const formControls = [
+  const formItems = [
     {
       autoFocus: true,
       name: 'fullName',
@@ -92,25 +81,19 @@ const SignUpForm = ({ refetchAuthUser }: SignUpFormProps) => {
 
   return (
     <Form name="sign-up-form" onSubmit={handleSignUp}>
-      {formControls.map((controlProps) => (
-        <FormItem key={controlProps.name}>
+      {formItems.map((itemProps) => (
+        <FormItem key={itemProps.name}>
           <Input
-            {...controlProps}
-            hasSuffix={controlProps.value ? (controlProps.hasError ? SCIconX : SCIconCheck) : undefined}
+            {...itemProps}
+            hasSuffix={itemProps.value ? (itemProps.hasError ? SCIX : SCICheck) : undefined}
             onChange={handleSetFormData}
           />
         </FormItem>
       ))}
 
       <FormItem>
-        <Button buttonType="submit" block>
-          SIGN UP
-        </Button>
-      </FormItem>
-
-      <FormItem>
-        <Button block bordered buttonType="text" onClick={navigateToSignIn}>
-          ALREADY HAVE AN ACCOUNT
+        <Button buttonType="primary" block>
+          SIGN UP <SCIRightArrowAlt />
         </Button>
       </FormItem>
     </Form>

@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { RouteProps, Switch, Route, Redirect } from 'react-router-dom'
 // import { NodeDotJs, Graphql, Apollographql, ReactLogo, StyledComponents } from '@styled-icons/simple-icons'
 
-// import { Button } from 'components/Form/index'
 import { Loading } from 'components/Loading'
 
 import * as Routes from 'routes'
@@ -15,12 +14,15 @@ import backgroundDesktop from 'assets/images/background-desktop.png'
 const Background = styled.div`
   width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
   background: url(${backgroundDesktop}) no-repeat center center / cover;
 
   &::before {
     content: '';
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +39,7 @@ const WelcomeDrawer = React.lazy(() => import('./WelcomeDrawer'))
 // const ForgotPasswordForm = React.lazy(() => import('./ForgotPassword'))
 // const ResetPasswordForm = React.lazy(() => import('./ResetPassword'))
 const SignInDrawer = React.lazy(() => import('./SignInDrawer'))
-const SignUpForm = React.lazy(() => import('./SignUpForm'))
+const SignUpDrawer = React.lazy(() => import('./SignUpDrawer'))
 
 // @refresh reset
 const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
@@ -64,13 +66,13 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       path: Routes.SIGN_UP,
       exact: true,
       strict: true,
-      Component: SignUpForm,
+      Component: SignUpDrawer,
     },
   ]
 
   return (
     <Background>
-      <React.Suspense fallback={<></>}>
+      <React.Suspense fallback={<Loading overlay />}>
         <Switch>
           {routes.map(({ Component, ...rest }, index) => (
             <Route

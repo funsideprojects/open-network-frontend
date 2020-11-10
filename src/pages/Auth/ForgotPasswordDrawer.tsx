@@ -20,7 +20,7 @@ const transitionStyles = {
   exiting: { opacity: 0, left: '-45%' },
 }
 
-const WelcomeDrawer = () => {
+const ForgotPasswordDrawer = () => {
   const history = useHistory()
 
   const [nextDest, setNextDest] = React.useState(Routes.HOME)
@@ -70,4 +70,4 @@ const WelcomeDrawer = () => {
   )
 }
 
-export default WelcomeDrawer
+export default ForgotPasswordDrawer

@@ -1,29 +1,17 @@
 import styled from 'styled-components'
 import { LeftArrowAlt, RightArrowAlt } from '@styled-icons/boxicons-regular'
 
-export const Drawer = styled.section`
-  min-width: 40%;
-  max-width: 40%;
-  overflow-x: hidden;
-  position: absolute;
+import { Drawer as GenericDrawer, Title as GenericTitle } from './Generic.styled'
+
+export const Drawer = styled(GenericDrawer)`
+  width: 40%;
   top: 40px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: ${(props) => props.theme.shadows.sm};
   border-top-right-radius: ${(props) => props.theme.radius.lg};
   border-bottom-right-radius: ${(props) => props.theme.radius.lg};
-  padding: ${(props) => props.theme.spacing.xxl};
-  background: ${(props) => props.theme.colors.white};
 `
 
-export const Title = styled.h1`
+export const Title = styled(GenericTitle)`
   margin-top: 0;
-  font-weight: ${(props) => props.theme.font.weight.extra};
-  font-size: ${(props) => props.theme.font.size.xxl};
-`
-
-export const PrimaryText = styled.span`
-  color: ${(props) => props.theme.colors.primary.main};
 `
 
 export const IntroParagraphs = styled.p`
@@ -45,10 +33,10 @@ export const Nav = styled.nav`
 `
 
 export const SCILeftArrowAlt = styled(LeftArrowAlt)`
-  width: 30px;
-  height: 50%;
+  width: 20px;
+  height: 20px;
 `
 export const SCIRightArrowAlt = styled(RightArrowAlt)`
-  width: 30px;
-  height: 50%;
+  width: 20px;
+  height: 20px;
 `
