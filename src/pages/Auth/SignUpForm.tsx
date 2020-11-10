@@ -91,7 +91,7 @@ const SignUpForm = ({ refetchAuthUser }: SignUpFormProps) => {
         </FormItem>
       ))}
 
-      <FormItem>
+      <FormItem top="lg">
         <Button buttonType="primary" block>
           SIGN UP <SCIRightArrowAlt />
         </Button>

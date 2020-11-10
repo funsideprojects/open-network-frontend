@@ -13,7 +13,8 @@ export const Form = styled.form`
 `
 export const FormItem = styled.div<FormItemProps>`
   width: 100%;
-  padding: 10px 0 0;
+  /* padding: 10px 0 0; */
+  margin-top: ${(props) => props.theme.spacing.sm};
   margin-bottom: ${(props) => props.theme.spacing.xs};
   ${(props) => props.top && `margin-top: ${props.theme.spacing[props.top]}`};
   ${(props) => props.right && `margin-right: ${props.theme.spacing[props.right]}`};

@@ -42,7 +42,12 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
       onExited={() => history.push(nextDest, { from: history.location.pathname })}
     >
       {(transitionState) => (
-        <Drawer data-name="sign-in-drawer" style={{ ...defaultStyle, ...transitionStyles[transitionState] }}>
+        <Drawer
+          fullHeight
+          data-name="sign-in-drawer"
+          float="right"
+          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
+        >
           <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
             <SCILeftArrowAlt />
           </Button>
@@ -51,8 +56,12 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
             <PrimaryText>Sign in</PrimaryText> to get in touch with your community
           </Title>
 
-          <SignInForm refetchAuthUser={refetchAuthUser} />
-          <Hint>
+          <SignInForm
+            refetchAuthUser={refetchAuthUser}
+            handleForgotPasswordClick={() => handleSetNextDest(Routes.FORGOT_PASSWORD)}
+          />
+
+          <Hint align="right">
             Don't have an account? <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_UP)}>Sign up</PrimaryText>
           </Hint>
         </Drawer>

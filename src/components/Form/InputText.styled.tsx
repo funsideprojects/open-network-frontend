@@ -47,25 +47,25 @@ export const InputBase = styled.input<InputBaseProps>`
   letter-spacing: 1.5px;
 `
 
-// ? Components for input type authControl
+// ? Components for input type animated label
 
-interface ACInputProps {
-  Label: typeof ACInputLabel
-  Underline: typeof ACInputUnderline
+interface ALInputProps {
+  Label: typeof ALInputLabel
+  Underline: typeof ALInputUnderline
 }
 
-export const ACInputLabel = styled.span`
+export const ALInputLabel = styled.span`
   cursor: text;
   user-select: none;
   position: absolute;
-  top: 7px;
+  top: 12px;
   font-family: ${(props) => props.theme.font.primary};
   font-size: ${(props) => props.theme.font.size.xs};
   color: ${(props) => props.theme.colors.grey[400]};
   transition: 0.3s;
 `
 
-export const ACInputUnderline = styled.span`
+export const ALInputUnderline = styled.span`
   width: 0;
   height: 2px;
   position: absolute;
@@ -76,7 +76,7 @@ export const ACInputUnderline = styled.span`
   transition: 0.3s;
 `
 
-export const ACInput = styled(InputBase)<ACInputProps>`
+export const ALInput = styled(InputBase)<ALInputProps>`
   border: 0 solid ${(props) => props.theme.colors.primary.grey};
   border-bottom-width: 2px;
   background-color: transparent;

@@ -6,8 +6,8 @@ import { Button } from 'components/Form/index'
 
 import * as Routes from 'routes'
 
-import { PrimaryText } from './Generic.styled'
-import { Drawer, Title, IntroParagraphs, Nav, SCILeftArrowAlt, SCIRightArrowAlt } from './Welcome.styled'
+import { Drawer, PrimaryText, Paragraphs } from './Generic.styled'
+import { Title, Nav, SCILeftArrowAlt, SCIRightArrowAlt } from './Welcome.styled'
 
 // ? Transition config
 const tDuration = 300 // ? ms
@@ -43,17 +43,21 @@ const WelcomeDrawer = () => {
       onExited={() => history.push(nextDest, { from: history.location.pathname })}
     >
       {(transitionState) => (
-        <Drawer data-name="welcome-drawer" style={{ ...defaultStyle, ...transitionStyles[transitionState] }}>
+        <Drawer
+          data-name="welcome-drawer"
+          float="left"
+          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
+        >
           <Title>
             Find your community at <PrimaryText>PrJx</PrimaryText>
           </Title>
 
-          <IntroParagraphs>
+          <Paragraphs>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce imperdiet sem at est semper, et congue nunc
             semper. Cras orci dolor, maximus vel enim in, aliquet fermentum orci. Vestibulum tincidunt odio sed ante
             pellentesque, in pellentesque ante sodales. Praesent porta leo vel ultrices condimentum. Nunc vel malesuada
             urna. Quisque maximus ipsum at risus placerat, et commodo turpis placerat.
-          </IntroParagraphs>
+          </Paragraphs>
 
           <Nav>
             <Button buttonType="primary" onClick={() => handleSetNextDest(Routes.SIGN_UP)}>

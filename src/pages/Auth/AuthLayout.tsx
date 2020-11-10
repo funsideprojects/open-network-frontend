@@ -36,10 +36,10 @@ const Background = styled.div`
 `
 
 const WelcomeDrawer = React.lazy(() => import('./WelcomeDrawer'))
-// const ForgotPasswordForm = React.lazy(() => import('./ForgotPassword'))
 // const ResetPasswordForm = React.lazy(() => import('./ResetPassword'))
 const SignInDrawer = React.lazy(() => import('./SignInDrawer'))
 const SignUpDrawer = React.lazy(() => import('./SignUpDrawer'))
+const ForgotPasswordDrawer = React.lazy(() => import('./ForgotPasswordDrawer'))
 
 // @refresh reset
 const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
@@ -50,12 +50,6 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       strict: true,
       Component: WelcomeDrawer,
     },
-    // {
-    //   path: Routes.SIGN_IN,
-    //   exact: true,
-    //   strict: true,
-    //   Component: SignInForm,
-    // },
     {
       path: Routes.SIGN_IN,
       exact: true,
@@ -67,6 +61,12 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       exact: true,
       strict: true,
       Component: SignUpDrawer,
+    },
+    {
+      path: Routes.FORGOT_PASSWORD,
+      exact: true,
+      strict: true,
+      Component: ForgotPasswordDrawer,
     },
   ]
 

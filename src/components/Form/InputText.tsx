@@ -5,32 +5,32 @@ import {
   InputBaseProps,
   InputContainer,
   InputPrimary,
-  ACInput,
-  ACInputLabel,
-  ACInputUnderline,
+  ALInput,
+  ALInputLabel,
+  ALInputUnderline,
 } from './InputText.styled'
 
 interface Props extends Omit<JSX.IntrinsicElements['input'], 'ref'>, InputBaseProps {
-  authControl?: boolean
+  animatedLabel?: boolean
 }
 
 export const Input = React.forwardRef<HTMLInputElement, Props>(
-  ({ authControl = false, hasPrefix: Prefix, hasSuffix: Suffix, hasError, ...inputProps }, forwardedRef) => {
+  ({ animatedLabel = false, hasPrefix: Prefix, hasSuffix: Suffix, hasError, ...inputProps }, forwardedRef) => {
     return (
       <InputContainer>
-        {authControl ? (
+        {animatedLabel ? (
           <>
-            <ACInput
+            <ALInput
               {...inputProps}
               ref={forwardedRef}
-              Label={ACInputLabel}
-              Underline={ACInputUnderline}
+              Label={ALInputLabel}
+              Underline={ALInputUnderline}
               hasPrefix={Prefix}
               hasSuffix={Suffix}
               hasError={hasError}
             />
-            <ACInputLabel>{inputProps.placeholder}</ACInputLabel>
-            <ACInputUnderline />
+            <ALInputLabel>{inputProps.placeholder}</ALInputLabel>
+            <ALInputUnderline />
           </>
         ) : (
           <InputPrimary {...inputProps} ref={forwardedRef} hasPrefix={Prefix} hasSuffix={Suffix} hasError={hasError} />

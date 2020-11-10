@@ -10,14 +10,14 @@ import { Input, Button } from 'components/Form/index'
 import { Form, FormItem } from './Form.styled'
 
 import { SCIUser, SCIUserCheck, SCIUserX, SCIKey } from './SignIn.styled'
-import { SCIRightArrowAlt } from './Generic.styled'
+import { SCIRightArrowAlt, Hint, PrimaryText } from './Generic.styled'
 
 enum SignInBy {
   USERNAME = 'Username',
   EMAIL = 'Email address',
 }
 
-const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
+const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormProps) => {
   const client = useApolloClient()
 
   const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
@@ -70,7 +70,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
     <Form name="sign-in-form" onSubmit={handleSignIn}>
       <FormItem>
         <Input
-          authControl
+          animatedLabel
           autoFocus
           ref={emailOrUsernameRef}
           hasPrefix={validation.emailOrUsername ? SCIUserX : formData.emailOrUsername ? SCIUserCheck : SCIUser}
@@ -84,7 +84,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
 
       <FormItem>
         <Input
-          authControl
+          animatedLabel
           autoComplete="on"
           type="password"
           ref={passwordRef}
@@ -94,6 +94,12 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
           value={formData.password}
           onChange={handleSetFormData}
         />
+      </FormItem>
+
+      <FormItem top="none">
+        <Hint align="left">
+          <PrimaryText onClick={handleForgotPasswordClick}>Forgot password?</PrimaryText>
+        </Hint>
       </FormItem>
 
       <FormItem top="lg">
@@ -107,6 +113,7 @@ const SignInForm = ({ refetchAuthUser }: SignInFormProps) => {
 
 const signInFormProps = {
   refetchAuthUser: PropTypes.func.isRequired,
+  handleForgotPasswordClick: PropTypes.func.isRequired,
 }
 
 SignInForm.propTypes = signInFormProps
