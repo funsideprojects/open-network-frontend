@@ -40,29 +40,33 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
       timeout={{ enter: 0, exit: tDuration }}
       onExited={() => history.push(nextDest, { from: history.location.pathname })}
     >
-      {(transitionState) => (
-        <Drawer
-          fullHeight
-          data-name="sign-in-drawer"
-          float="left"
-          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
-        >
-          <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
-            <SCILeftArrowAlt />
-          </Button>
+      {(transitionState) => {
+        return (
+          <Drawer
+            fullHeight
+            data-name="sign-in-drawer"
+            float="left"
+            style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
+          >
+            <Button
+              buttonType="default"
+              icon={SCILeftArrowAlt}
+              onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}
+            />
 
-          <Title>
-            <PrimaryText>Sign up</PrimaryText> to get in touch with your community
-          </Title>
+            <Title>
+              <PrimaryText>Sign up</PrimaryText> to get in touch with your community
+            </Title>
 
-          <SignUpForm refetchAuthUser={refetchAuthUser} />
+            <SignUpForm refetchAuthUser={refetchAuthUser} />
 
-          <Hint align="right">
-            Already have an account?{' '}
-            <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_IN)}>Sign in</PrimaryText>
-          </Hint>
-        </Drawer>
-      )}
+            <Hint align="right">
+              Already have an account?{' '}
+              <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_IN)}>Sign in</PrimaryText>
+            </Hint>
+          </Drawer>
+        )
+      }}
     </Transition>
   )
 }

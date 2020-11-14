@@ -8,7 +8,7 @@ import {
   ButtonDefault,
   ButtonPrimary,
   ButtonText,
-  ButtonIconContainer,
+  ContentWrapper,
 } from './Button.styled'
 
 interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, ButtonBaseProps {
@@ -27,19 +27,17 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
     { buttonType = 'default', icon: Icon, block, danger, loading, children, disabled, ...buttonProps },
     forwardedRef
   ) => {
-    const ButtonRender = AvailButtons[buttonType]
+    const ButtonToRender = AvailButtons[buttonType]
 
     const renderChildren = Icon ? (
-      <ButtonIconContainer>
-        {loading ? (
-          <Loading />
-        ) : (
-          <>
-            <Icon />
-            {children}
-          </>
-        )}
-      </ButtonIconContainer>
+      loading ? (
+        <Loading />
+      ) : (
+        <>
+          <Icon />
+          {children}
+        </>
+      )
     ) : (
       <>
         {loading ? <Loading /> : <></>}
@@ -49,9 +47,9 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
 
     return (
       <ButtonContainer block={block}>
-        <ButtonRender type="button" {...buttonProps} disabled={loading || disabled} ref={forwardedRef}>
-          {renderChildren}
-        </ButtonRender>
+        <ButtonToRender type="button" {...buttonProps} disabled={loading || disabled} ref={forwardedRef}>
+          <ContentWrapper>{renderChildren}</ContentWrapper>
+        </ButtonToRender>
       </ButtonContainer>
     )
   }

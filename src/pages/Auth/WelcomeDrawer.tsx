@@ -55,8 +55,7 @@ const WelcomeDrawer = () => {
           <Paragraphs>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce imperdiet sem at est semper, et congue nunc
             semper. Cras orci dolor, maximus vel enim in, aliquet fermentum orci. Vestibulum tincidunt odio sed ante
-            pellentesque, in pellentesque ante sodales. Praesent porta leo vel ultrices condimentum. Nunc vel malesuada
-            urna. Quisque maximus ipsum at risus placerat, et commodo turpis placerat.
+            pellentesque, in pellentesque ante sodales. Praesent porta leo vel ultrices condimentum.
           </Paragraphs>
 
           <Nav>

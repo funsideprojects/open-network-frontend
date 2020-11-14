@@ -12,7 +12,7 @@ export default {
     },
     size: {
       tiny: '11px',
-      xxs: '13px',
+      xxs: '12px',
       xs: '14px',
       sm: '16px',
       md: '18px',
@@ -39,7 +39,13 @@ export default {
     none: 'transparent',
     black: '#000',
     white: '#FFF',
-    body: '#F7F7F7',
+
+    text: {
+      primary: 'rgba(0, 0, 0, 0.87)',
+      secondary: 'rgba(0, 0, 0, 0.54)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
+      hint: 'rgba(0, 0, 0, 0.38)',
+    },
 
     primary: {
       grey: '#E4E3E3',
@@ -49,19 +55,11 @@ export default {
       dark: '#204051',
       contrastText: '#FFF',
     },
-
     secondary: {
       light: '#FF4081',
       main: '#F50057',
       dark: '#C51162',
       contrastText: '#FFF',
-    },
-
-    text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.54)',
-      disabled: 'rgba(0, 0, 0, 0.38)',
-      hint: 'rgba(0, 0, 0, 0.38)',
     },
 
     error: {
@@ -71,11 +69,34 @@ export default {
       dark: '#F5222D',
       contrastText: '#FFF',
     },
-
-    info: '#4169E1',
-    success: '#34A853',
-    warning: '#FFB818',
-    err: '#F44336',
+    warning: {
+      lighter: '#FFFBE6',
+      light: '#FFF1B8',
+      main: '#FFE58F',
+      dark: '#FAAD14',
+      contrastText: '#000',
+    },
+    success: {
+      lighter: '#F6FFED',
+      light: '#D9F7BE',
+      main: '#95DE64',
+      dark: '#52C41A',
+      contrastText: '#FFF',
+    },
+    info: {
+      lighter: '#E6F7FF',
+      light: '#BAE7FF',
+      main: '#40A9FF',
+      dark: '#1890FF',
+      contrastText: '#FFF',
+    },
+    default: {
+      lighter: '#FAFAFA',
+      light: '#F5F5F5',
+      main: '#BDBDBD',
+      dark: '#9E9E9E',
+      contrastText: '#000',
+    },
 
     grey: {
       50: '#FAFAFA',

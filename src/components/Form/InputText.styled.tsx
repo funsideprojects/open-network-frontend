@@ -8,8 +8,7 @@ export const InputContainer = styled.label`
   display: flex;
   flex-direction: column;
 
-  & > svg {
-    cursor: pointer;
+  > svg {
     width: 30px;
     height: 30px;
     position: absolute;
@@ -18,19 +17,22 @@ export const InputContainer = styled.label`
 
     &.prefix-icon {
       left: 5px;
+      transition: 0.8s;
     }
 
     &.suffix-icon {
       right: 5px;
+      transition: 0.8s;
     }
   }
 `
 
 // ? Base
+
 export interface InputBaseProps {
   hasPrefix?: GenericSC
   hasSuffix?: GenericSC
-  hasError?: boolean
+  hasError?: string
 }
 
 export const InputBase = styled.input<InputBaseProps>`
@@ -117,7 +119,11 @@ export const ALInput = styled(InputBase)<ALInputProps>`
 
 // ? Primary
 
-export const InputPrimary = styled(InputBase)`
+interface InputPrimaryProps {
+  messageElement: GenericSC
+}
+
+export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
   border: 0;
   border-radius: ${(props) => props.theme.radius.md};
   padding-left: ${(props) => props.theme.spacing[props.hasPrefix ? 'lg' : 'sm']};
@@ -132,7 +138,7 @@ export const InputPrimary = styled(InputBase)`
     background: ${(props) => props.theme.colors.primary.grey};
   }
 
-  &:not([disabled]):not(:focus):hover {
+  &:enabled:not(:focus):hover {
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
 
@@ -140,4 +146,16 @@ export const InputPrimary = styled(InputBase)`
       color: ${(props) => props.theme.colors.white};
     }
   }
+`
+
+// ? Error Message
+
+export const ErrorMessage = styled.span`
+  user-select: none;
+  width: 100%;
+  padding: 3px ${(props) => props.theme.spacing.xxs} 0;
+  font-size: ${(props) => props.theme.font.size.xxs};
+  word-break: break-word;
+  box-decoration-break: clone;
+  color: ${(props) => props.theme.colors.error.dark};
 `

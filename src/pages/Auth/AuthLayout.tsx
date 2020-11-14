@@ -68,6 +68,12 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       strict: true,
       Component: ForgotPasswordDrawer,
     },
+    // {
+    //   path: Routes.RESET_PASSWORD,
+    //   exact: true,
+    //   strict: true,
+    //   Component: ForgotPasswordDrawer,
+    // }
   ]
 
   return (

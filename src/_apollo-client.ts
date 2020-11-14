@@ -8,7 +8,7 @@ import { sha256 } from 'crypto-hash'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { ApolloClient } from '@apollo/client/core'
 
-import { servicesStatus, connectionStatus } from 'graphql/local-state'
+import { globalLoading, servicesStatus, connectionStatus } from 'graphql/local-state'
 
 // ? Create a Auth Link, that attach credentials to each request
 const createAuthLink = () => {
@@ -88,6 +88,11 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        globalLoading: {
+          read() {
+            return globalLoading()
+          },
+        },
         servicesStatus: {
           read() {
             return servicesStatus()

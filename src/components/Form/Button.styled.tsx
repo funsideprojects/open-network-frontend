@@ -4,9 +4,6 @@ import styled from 'styled-components'
 
 export const ButtonContainer = styled.div<ButtonBaseProps>`
   width: ${(props) => (props.block ? '100%' : 'fit-content')};
-  min-width: 40px;
-  height: 40px;
-  max-height: 40px;
   position: relative;
 `
 
@@ -23,21 +20,19 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   cursor: pointer;
   user-select: none;
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-block;
   outline: none;
   border-width: ${(props) => (props.bordered ? '2px' : 0)};
   border-style: solid;
   border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
-  padding: 0 ${(props) => props.theme.spacing.xs};
-  font-family: ${(props) => props.theme.font.primary};
-  font-weight: ${(props) => props.theme.font.weight.semi};
-  font-size: ${(props) => props.theme.font.size.xs};
+  padding: ${(props) => props.theme.spacing.xs};
+  font-weight: ${(props) => props.theme.font.weight.bold};
+  font-size: 1rem;
   letter-spacing: 2px;
-  transition: 0.2s;
+  transition: 0.3s;
 `
 
 export const ButtonDefault = styled(ButtonBase)`
@@ -70,18 +65,9 @@ export const ButtonText = styled(ButtonBase)`
   }
 `
 
-export const ButtonIconContainer = styled.span`
-  width: 32px;
-  height: 100%;
+export const ContentWrapper = styled.span`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  font-size: 22px;
-  background: transparent;
-
-  & > svg {
-    width: 100%;
-    height: 100%;
-  }
 `

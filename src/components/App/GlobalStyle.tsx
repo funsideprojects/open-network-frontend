@@ -1,6 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components'
-
-import theme from 'theme'
+import { StyledIconBase } from '@styled-icons/styled-icon'
 
 const Scroll = css`
   /* ? Width */
@@ -47,9 +46,17 @@ export default createGlobalStyle`
     direction: ltr;
     margin: 0;
     padding: 0;
-    font-family: ${theme.font.primary};
-    color: ${theme.colors.text.primary};
-    background-color: ${theme.colors.body};
+    font-family: ${(props) => props.theme.font.primary};
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    font-size: ${(props) => props.theme.font.size.sm};
+    color: ${(props) => props.theme.colors.text.primary};
+    background-color: ${(props) => props.theme.colors.white};
+
+    ${StyledIconBase} {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   #app-mountpoint {

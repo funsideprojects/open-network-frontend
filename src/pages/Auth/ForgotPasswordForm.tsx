@@ -7,7 +7,7 @@ import { REQUEST_PASSWORD_RESET } from 'graphql/user'
 import { Input, Button } from 'components/Form/index'
 
 import { Form, FormItem } from './Form.styled'
-import { SCICheck, SCIX } from './SignUp.styled'
+import { SCICheck, SCIX } from './Generic.styled'
 
 const SignUpForm = () => {
   const client = useApolloClient()
@@ -41,7 +41,7 @@ const SignUpForm = () => {
           name="emailOrUsername"
           hasSuffix={formData.emailOrUsername ? (validation.emailOrUsername ? SCIX : SCICheck) : undefined}
           placeholder="Username or Email address"
-          hasError={!!validation.emailOrUsername}
+          hasError={validation.emailOrUsername}
           value={formData.emailOrUsername}
           onChange={handleSetFormData}
         />

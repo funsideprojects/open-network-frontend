@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
-import { LoadingOutlined } from '@ant-design/icons'
+import styled, { keyframes } from 'styled-components'
+import { Spinner3 } from '@styled-icons/evil/Spinner3'
 
 export const Overlay = styled.div<Props>`
   width: 100%;
@@ -11,7 +11,6 @@ export const Overlay = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
   background: ${(p) => p.theme.colors.overlay.translucent};
   z-index: ${(p) => p.theme.zIndex.xl};
 `
@@ -22,9 +21,25 @@ const Container = styled.div`
   background: ${(props) => props.theme.colors.overlay.opaque};
 `
 
-const StyledLoadingOutlined = styled(LoadingOutlined)<Props>`
-  position: relative;
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+const SCSpinner = styled(Spinner3)<{ large?: boolean }>`
+  ${(props) =>
+    props.large
+      ? `
+width: 30px !important;
+height: 30px !important;
+  `
+      : ''}
   color: ${(props) => props.theme.colors.primary.light};
+  animation: 2s linear ${spinAnimation} infinite;
 `
 
 interface Props {
@@ -37,41 +52,11 @@ export const Loading = ({ overlay, block }: Props) => {
     return (
       <Overlay block={block}>
         <Container>
-          <StyledLoadingOutlined />
+          <SCSpinner large />
         </Container>
       </Overlay>
     )
   }
 
-  return <StyledLoadingOutlined />
+  return <SCSpinner />
 }
-
-/**
- * Displays loading dots
- */
-export const LoadingDots = styled.div`
-  &::after {
-    content: '.';
-    display: block;
-    animation: ellipsis 1s infinite;
-    text-align: center;
-    font-size: ${(p) => p.theme.font.size.xl};
-    color: ${(p) => (p.color ? p.theme.colors[p.color] : p.theme.colors.text.secondary)};
-  }
-
-  @keyframes ellipsis {
-    0% {
-      content: '.';
-    }
-    33% {
-      content: '..';
-    }
-    66% {
-      content: '...';
-    }
-  }
-`
-
-export const WrapperLoading = styled.div`
-  padding: 24px;
-`

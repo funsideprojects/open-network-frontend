@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { LeftArrowAlt, RightArrowAlt } from '@styled-icons/boxicons-regular'
+import { LeftArrowAlt, RightArrowAlt, Check, X } from '@styled-icons/boxicons-regular'
 
 interface DrawerProps {
   fullHeight?: boolean
@@ -25,14 +25,25 @@ border-top-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme.ra
 border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme.radius.lg};
 `
       : ''}
-  padding: ${(props) => props.theme.spacing.xxl};
+  padding: ${(props) => props.theme.spacing.lg};
   background: ${(props) => props.theme.colors.white};
+
+  @media only screen and (min-width: ${(props) => props.theme.screen.lg}) {
+    & {
+      padding: ${(props) => props.theme.spacing.xl};
+    }
+  }
+
+  @media only screen and (min-width: ${(props) => props.theme.screen.xl}) {
+    & {
+      padding: ${(props) => props.theme.spacing.xxl};
+    }
+  }
 `
 
 export const Title = styled.h1`
   margin: ${(props) => props.theme.spacing.lg} 0;
   font-weight: ${(props) => props.theme.font.weight.extra};
-  font-size: ${(props) => props.theme.font.size.xl};
 `
 
 export const PrimaryText = styled.span`
@@ -75,11 +86,10 @@ export const Hint = styled.p<HintProps>`
 `
 
 export const SCILeftArrowAlt = styled(LeftArrowAlt)`
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
 `
 
-export const SCIRightArrowAlt = styled(RightArrowAlt)`
-  width: 20px;
-  height: 20px;
-`
+export const SCIRightArrowAlt = styled(RightArrowAlt)``
+export const SCICheck = styled(Check)``
+export const SCIX = styled(X)``

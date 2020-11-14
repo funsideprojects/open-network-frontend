@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useApolloClient } from '@apollo/client'
 
-import { EmailRegex } from 'constants/RegExr'
+import { emailRegex } from 'constants/RegExr'
 import { SIGN_IN } from 'graphql/user'
 
 import { Input, Button } from 'components/Form/index'
@@ -55,7 +55,7 @@ const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormPr
 
     if (!formData.emailOrUsername) {
       newPlaceholder = 'Username or Email address'
-    } else if (EmailRegex.test(formData.emailOrUsername)) {
+    } else if (emailRegex.test(formData.emailOrUsername)) {
       newPlaceholder = SignInBy.EMAIL
     } else {
       newPlaceholder = SignInBy.USERNAME
@@ -76,7 +76,7 @@ const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormPr
           hasPrefix={validation.emailOrUsername ? SCIUserX : formData.emailOrUsername ? SCIUserCheck : SCIUser}
           name="emailOrUsername"
           placeholder={placeholder}
-          hasError={!!validation.emailOrUsername}
+          hasError={validation.emailOrUsername}
           value={formData.emailOrUsername}
           onChange={handleSetFormData}
         />
