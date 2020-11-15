@@ -17,3 +17,5 @@ export const Checkbox = React.forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+Checkbox.displayName = 'Checkbox'

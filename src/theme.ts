@@ -72,15 +72,15 @@ export default {
     warning: {
       lighter: '#FFFBE6',
       light: '#FFF1B8',
-      main: '#FFE58F',
+      main: '#FFC53D',
       dark: '#FAAD14',
       contrastText: '#000',
     },
     success: {
-      lighter: '#F6FFED',
-      light: '#D9F7BE',
-      main: '#95DE64',
-      dark: '#52C41A',
+      lighter: '#D9FFE4',
+      light: '#C0EBCD',
+      main: '#7DD196',
+      dark: '#75BD8A',
       contrastText: '#FFF',
     },
     info: {
@@ -117,6 +117,7 @@ export default {
     },
 
     overlay: {
+      none: 'rgba(0,0,0,0)',
       translucent: 'rgba(0, 0, 0, 0.25)',
       hazy: 'rgba(0, 0, 0, 0.45)',
       opaque: 'rgba(0, 0, 0, 0.75)',

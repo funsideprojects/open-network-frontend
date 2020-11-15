@@ -34,21 +34,17 @@ const App = () => {
 
       {globalLoadingStatus.globalLoading || loading || !mode ? <Loading overlay /> : <></>}
 
-      {mode ? (
-        <Suspense fallback={<></>}>
-          <ScrollToTop>
-            <Switch>
-              {authUserData?.getAuthUser ? (
-                <Route exact render={() => <></>} />
-              ) : (
-                <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />
-              )}
-            </Switch>
-          </ScrollToTop>
-        </Suspense>
-      ) : (
-        <></>
-      )}
+      <Suspense fallback={<></>}>
+        <ScrollToTop>
+          <Switch>
+            {authUserData?.getAuthUser ? (
+              <Route exact render={() => <></>} />
+            ) : (
+              <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />
+            )}
+          </Switch>
+        </ScrollToTop>
+      </Suspense>
     </Router>
   )
 }

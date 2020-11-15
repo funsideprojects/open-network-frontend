@@ -5,14 +5,16 @@ import { Spinner3 } from '@styled-icons/evil/Spinner3'
 export const Overlay = styled.div<Props>`
   width: 100%;
   height: 100%;
+  overflow: hidden;
   position: ${(props) => (props.block ? 'relative' : 'fixed')};
   top: 0;
+  right: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${(p) => p.theme.colors.overlay.translucent};
-  z-index: ${(p) => p.theme.zIndex.xl};
+  background: ${(props) => props.theme.colors.overlay.translucent};
+  z-index: ${(props) => props.theme.zIndex.xxl};
 `
 
 const Container = styled.div`
@@ -48,6 +50,17 @@ interface Props {
 }
 
 export const Loading = ({ overlay, block }: Props) => {
+  React.useEffect(() => {
+    if (overlay) {
+      const now = Date.now()
+      document.body.classList.add(`no-scroll-${now}`)
+
+      return () => {
+        document.body.classList.remove(`no-scroll-${now}`)
+      }
+    }
+  }, [overlay])
+
   if (overlay || block) {
     return (
       <Overlay block={block}>

@@ -27,10 +27,10 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
   const [nextDest, setNextDest] = React.useState(Routes.SIGN_IN)
   const [isMounted, setIsMounted] = React.useState(true)
 
-  const handleSetNextDest = (dest: string) => {
+  const handleSetNextDest = React.useCallback((dest: string) => {
     setNextDest(dest)
     setIsMounted(false)
-  }
+  }, [])
 
   return (
     <Transition
@@ -58,7 +58,7 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
               <PrimaryText>Sign up</PrimaryText> to get in touch with your community
             </Title>
 
-            <SignUpForm refetchAuthUser={refetchAuthUser} />
+            <SignUpForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
 
             <Hint align="right">
               Already have an account?{' '}

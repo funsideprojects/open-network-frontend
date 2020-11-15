@@ -2,7 +2,9 @@ import styled from 'styled-components'
 
 // ? Container
 
-export const CheckboxContainer = styled.label``
+export const CheckboxContainer = styled.label`
+  outline: none;
+`
 
 // ? Checkbox
 

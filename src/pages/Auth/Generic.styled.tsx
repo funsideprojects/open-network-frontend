@@ -7,7 +7,8 @@ interface DrawerProps {
 }
 
 export const Drawer = styled.section<DrawerProps>`
-  width: 40%;
+  width: 50%;
+  max-width: 550px;
   height: ${(props) => (props.fullHeight ? '100%' : 'fit-content')};
   max-height: 100%;
   overflow-x: hidden;
@@ -30,6 +31,7 @@ border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme
 
   @media only screen and (min-width: ${(props) => props.theme.screen.lg}) {
     & {
+      width: 40%;
       padding: ${(props) => props.theme.spacing.xl};
     }
   }
@@ -42,7 +44,8 @@ border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme
 `
 
 export const Title = styled.h1`
-  margin: ${(props) => props.theme.spacing.lg} 0;
+  margin: ${(props) => props.theme.spacing.lg} 0 ${(props) => props.theme.spacing.sm};
+  font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.extra};
 `
 

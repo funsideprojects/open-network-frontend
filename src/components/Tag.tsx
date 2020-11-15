@@ -4,21 +4,32 @@ import styled from 'styled-components'
 
 import { X } from '@styled-icons/boxicons-regular'
 
+export enum TagColor {
+  Error = 'error',
+  Warning = 'warning',
+  Success = 'success',
+  Info = 'info',
+  Default = 'default',
+}
+
 const TagComponent = styled.span<Partial<TagProps>>`
   user-select: none;
   width: ${(props) => (props.block ? '100%' : 'fit-content')};
   height: auto;
+  min-height: 22px;
   position: relative;
-  display: ${(props) => (props.visible ? 'inline-block' : 'none')};
+  display: inline-block;
   border-width: 1px;
   border-style: solid;
-  border-color: ${(props) => props.theme.colors[props.color!].dark};
+  border-color: ${(props) => props.theme.colors[props.tagColor!].dark};
   border-radius: ${(props) => props.theme.radius.sm};
   padding: 0 ${(props) => (props.closable ? 25 : 10)}px 0 ${(props) => (props.icon ? 25 : 10)}px;
   font-size: ${(props) => props.theme.font.size.xxs};
   line-height: 20px;
-  color: ${(props) => props.theme.colors[props.color === 'default' ? 'black' : props.color!].dark};
-  background-color: ${(props) => props.theme.colors[props.color!].lighter};
+  color: ${(props) => props.theme.colors[props.tagColor === TagColor.Default ? 'black' : (props.tagColor as any)].dark};
+  background-color: ${(props) => props.theme.colors[props.tagColor!].lighter};
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.visible ? 1 : 0)};
   transition: 0.3s;
 
   > svg {
@@ -43,9 +54,9 @@ const TagComponent = styled.span<Partial<TagProps>>`
   }
 `
 
-export const Tag: React.FC<TagProps> = ({ color, onClose, children, ...restProps }) => {
+const Tag = ({ tagColor, onClose, children, ...restProps }: TagProps) => {
   return (
-    <TagComponent {...restProps} color={color || 'default'}>
+    <TagComponent {...restProps} tagColor={tagColor || TagColor.Default}>
       {restProps.icon}
       {children}
       {restProps.closable ? (
@@ -58,8 +69,15 @@ export const Tag: React.FC<TagProps> = ({ color, onClose, children, ...restProps
 }
 
 const tagProps = {
+  children: PropTypes.node,
   visible: PropTypes.bool,
-  color: PropTypes.oneOf(['error', 'warning', 'success', 'info', 'default']),
+  tagColor: PropTypes.oneOf<TagColor>([
+    TagColor.Error,
+    TagColor.Warning,
+    TagColor.Success,
+    TagColor.Info,
+    TagColor.Default,
+  ]),
   icon: PropTypes.node,
   block: PropTypes.bool,
   closable: PropTypes.bool,
@@ -68,3 +86,5 @@ const tagProps = {
 
 Tag.propTypes = tagProps
 type TagProps = PropTypes.InferProps<typeof tagProps>
+
+export default Tag

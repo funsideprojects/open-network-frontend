@@ -29,6 +29,7 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
   padding: ${(props) => props.theme.spacing.xs};
+  font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.bold};
   font-size: 1rem;
   letter-spacing: 2px;

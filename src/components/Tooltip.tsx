@@ -28,7 +28,7 @@ const Tooltip: React.FC<any> = ({ children, visible, title, type = 'error', plac
     default:
   }
 
-  return createPortal(<>dasdasd</>, document.getElementById('portal-mountpoint')!)
+  return createPortal(<>{titleToShow}</>, document.getElementById('portal-mountpoint')!)
 }
 
 // Tooltip.propTypes = {

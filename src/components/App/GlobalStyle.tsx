@@ -53,6 +53,10 @@ export default createGlobalStyle`
     color: ${(props) => props.theme.colors.text.primary};
     background-color: ${(props) => props.theme.colors.white};
 
+    &[class^='no-scroll'] {
+      overflow: hidden;
+    }
+
     ${StyledIconBase} {
       width: 20px;
       height: 20px;

@@ -16,7 +16,8 @@ const Background = styled.div`
   min-height: 100%;
   overflow-x: hidden;
   position: relative;
-  background: url(${backgroundDesktop}) no-repeat center center / cover;
+  background: url(${backgroundDesktop}) no-repeat top center / cover;
+  background-attachment: fixed;
 
   &::before {
     content: '';
