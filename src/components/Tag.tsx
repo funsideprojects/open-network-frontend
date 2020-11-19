@@ -15,7 +15,6 @@ export enum TagColor {
 const TagComponent = styled.span<Partial<TagProps>>`
   user-select: none;
   width: ${(props) => (props.block ? '100%' : 'fit-content')};
-  height: auto;
   min-height: 22px;
   position: relative;
   display: inline-block;
@@ -24,7 +23,7 @@ const TagComponent = styled.span<Partial<TagProps>>`
   border-color: ${(props) => props.theme.colors[props.tagColor!].dark};
   border-radius: ${(props) => props.theme.radius.sm};
   padding: 0 ${(props) => (props.closable ? 25 : 10)}px 0 ${(props) => (props.icon ? 25 : 10)}px;
-  font-size: ${(props) => props.theme.font.size.xxs};
+  font-size: 0.8rem;
   line-height: 20px;
   color: ${(props) => props.theme.colors[props.tagColor === TagColor.Default ? 'black' : (props.tagColor as any)].dark};
   background-color: ${(props) => props.theme.colors[props.tagColor!].lighter};

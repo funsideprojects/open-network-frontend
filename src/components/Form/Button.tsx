@@ -11,9 +11,8 @@ import {
   ContentWrapper,
 } from './Button.styled'
 
-interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, ButtonBaseProps {
+interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, Omit<ButtonBaseProps, 'isLoading'> {
   icon?: GenericSC
-  loading?: boolean
 }
 
 const AvailButtons = {
@@ -22,15 +21,27 @@ const AvailButtons = {
   text: ButtonText,
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, Props>(
-  (
-    { buttonType = 'default', icon: Icon, block, danger, loading, children, disabled, ...buttonProps },
-    forwardedRef
-  ) => {
+export interface ButtonRefAttributes extends HTMLButtonElement {
+  setLoading: (state: boolean) => void
+}
+
+export const Button = React.forwardRef<ButtonRefAttributes, Props>(
+  ({ buttonType = 'default', icon: Icon, block, danger, children, disabled, ...buttonProps }, forwardedRef) => {
+    const [isLoading, setIsLoading] = React.useState(false)
+
+    React.useImperativeHandle(forwardedRef, () => {
+      return {
+        ...(forwardedRef as any).current,
+        setLoading(state: boolean) {
+          setIsLoading(state)
+        },
+      }
+    })
+
     const ButtonToRender = AvailButtons[buttonType]
 
     const renderChildren = Icon ? (
-      loading ? (
+      isLoading ? (
         <Loading />
       ) : (
         <>
@@ -40,14 +51,20 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
       )
     ) : (
       <>
-        {loading ? <Loading /> : <></>}
+        {isLoading ? <Loading /> : <></>}
         {children}
       </>
     )
 
     return (
       <ButtonContainer block={block}>
-        <ButtonToRender type="button" {...buttonProps} disabled={loading || disabled} ref={forwardedRef}>
+        <ButtonToRender
+          type="button"
+          {...buttonProps}
+          isLoading={isLoading}
+          disabled={isLoading || disabled}
+          ref={forwardedRef}
+        >
           <ContentWrapper>{renderChildren}</ContentWrapper>
         </ButtonToRender>
       </ButtonContainer>

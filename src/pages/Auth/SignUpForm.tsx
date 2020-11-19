@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { useApolloClient } from '@apollo/client'
 
-import { emailRegex, usernameRegex, passwordRegex } from 'constants/RegExr'
+import { emailRegex, usernameRegex, passwordRegex, responsePrefixRegex } from 'constants/RegExr'
 import { SIGN_UP } from 'graphql/user'
-import { Form, FormItem, Input, Checkbox, Button } from 'components/Form'
+import { Form, FormItem, Input, Checkbox, Button, ButtonRefAttributes } from 'components/Form'
 import Tag, { TagColor } from 'components/Tag'
-import { ExposedModalValues } from 'components/Modal'
+import { ModalRefAttributes } from 'components/Modal'
 
 import { SCIRightArrowAlt, SCICheck, SCIX } from './Generic.styled'
-import ModalFlashMessage from './ModalFlashMessage'
+import FlashMessageModal from './FlashMessageModal'
 
 interface FormFields {
   fullName: string
@@ -23,28 +23,20 @@ interface FormFields {
 
 const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
   const client = useApolloClient()
-  const { register, handleSubmit, errors, getValues, trigger, reset, formState } = useForm<FormFields>({
-    mode: 'onSubmit',
-    reValidateMode: 'onChange',
-    defaultValues: {
-      fullName: 'Ovrx',
-      email: 'ovrx@mail.os',
-      username: 'ovrx',
-      password: 'asdasd',
-      confirm: 'asdasd',
-      autoSignIn: true,
-    },
+  const { register, handleSubmit, getValues, trigger, reset, setError, errors, formState } = useForm<FormFields>({
+    mode: 'onTouched',
+    defaultValues: { autoSignIn: true },
+    shouldFocusError: true,
   })
-  const [isLoading, setIsLoading] = React.useState(false)
   const [response, setResponse] = React.useState<{ type?: TagColor; message?: string }>({
     type: undefined,
     message: undefined,
   })
-  const modalRef = React.useRef<ExposedModalValues>(null)
+  const modalRef = React.useRef<ModalRefAttributes>(null)
+  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
   const handleSignUp = async ({ confirm, autoSignIn, ...values }: FormFields) => {
-    setResponse({ type: undefined, message: undefined })
-    setIsLoading(true)
+    buttonRef.current?.setLoading(true)
 
     return await client
       .mutate({
@@ -58,27 +50,36 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
         if (autoSignIn) {
           refetchAuthUser()
         } else {
-          setIsLoading(false)
-          reset(
-            {},
-            {
-              errors: false,
-              touched: false,
-              isDirty: false,
-              isValid: false,
-              isSubmitted: false,
-              dirtyFields: false,
-              submitCount: false,
-            }
-          )
+          buttonRef.current?.setLoading(false)
+          if (response.type) {
+            setResponse({ type: undefined, message: undefined })
+          }
           modalRef.current?.open()
         }
       })
       .catch((gqlError) => {
-        setIsLoading(false)
-        setResponse({ type: TagColor.Error, message: gqlError.message })
+        buttonRef.current?.setLoading(false)
+
+        const errField = gqlError.message.startsWith('__USERNAME__')
+          ? 'username'
+          : gqlError.message.startsWith('__EMAIL__')
+          ? 'email'
+          : undefined
+        if (errField) {
+          setError(errField, { message: gqlError.message.replace(responsePrefixRegex, '') })
+        } else {
+          setResponse({ type: TagColor.Error, message: gqlError.message })
+        }
       })
   }
+
+  React.useEffect(() => {
+    const isAutoSignIn = getValues('autoSignIn')
+
+    if (formState.isSubmitSuccessful && !isAutoSignIn && !response.message) {
+      reset(undefined, { isSubmitted: false })
+    }
+  }, [formState.isSubmitSuccessful, response.message, getValues, reset])
 
   const formItems = [
     {
@@ -149,8 +150,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
       }),
       hasError: errors.password?.message,
       onChange: () => {
-        const confirmationValue = getValues('confirm')
-        if (confirmationValue) {
+        if (getValues('confirm')) {
           trigger('confirm')
         }
       },
@@ -174,7 +174,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
 
   return (
     <>
-      <ModalFlashMessage modalRef={modalRef} navigate={navigate} />
+      <FlashMessageModal modalRef={modalRef} navigate={navigate} />
 
       <Form name="sign-up-form" onSubmit={handleSubmit(handleSignUp)}>
         <FormItem>
@@ -187,7 +187,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
           <FormItem key={itemProps.name}>
             <Input
               {...itemProps}
-              hasSuffix={itemProps.hasError ? SCIX : formState.errors[itemProps.name] ? SCICheck : undefined}
+              hasSuffix={itemProps.hasError ? SCIX : formState.touched[itemProps.name] ? SCICheck : undefined}
             />
           </FormItem>
         ))}
@@ -197,7 +197,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
         </FormItem>
 
         <FormItem top="lg">
-          <Button block type="submit" buttonType="primary" icon={SCIRightArrowAlt} loading={isLoading}></Button>
+          <Button block ref={buttonRef} type="submit" buttonType="primary" icon={SCIRightArrowAlt} />
         </FormItem>
       </Form>
     </>

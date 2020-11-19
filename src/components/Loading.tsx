@@ -41,7 +41,7 @@ height: 30px !important;
   `
       : ''}
   color: ${(props) => props.theme.colors.primary.light};
-  animation: 2s linear ${spinAnimation} infinite;
+  animation: 1.5s linear ${spinAnimation} infinite;
 `
 
 interface Props {

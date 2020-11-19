@@ -14,6 +14,7 @@ export interface ButtonBaseProps {
   block?: boolean
   bordered?: boolean
   danger?: boolean
+  isLoading?: boolean
 }
 
 export const ButtonBase = styled.button<ButtonBaseProps>`
@@ -34,6 +35,12 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   font-size: 1rem;
   letter-spacing: 2px;
   transition: 0.3s;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: ${(props) => props.theme.colors.white} !important;
+    background: ${(props) => props.theme.colors.grey[props.isLoading ? 200 : 400]} !important;
+  }
 `
 
 export const ButtonDefault = styled(ButtonBase)`

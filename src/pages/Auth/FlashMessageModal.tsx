@@ -7,7 +7,7 @@ import { FlashMessage, FlashMessageType } from 'components/FlashMessage'
 
 import * as Routes from 'routes'
 
-import { Title, Paragraph, Footer } from './SignUp.styled'
+import { Title, Paragraph, Footer } from './FlashMessageModal.styled'
 
 const ModalFlashMessage = ({ modalRef, navigate }: ModalFlashMessageProps) => {
   return (

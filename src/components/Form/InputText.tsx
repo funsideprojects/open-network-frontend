@@ -21,9 +21,9 @@ interface Props extends Omit<JSX.IntrinsicElements['input'], 'ref'>, InputBasePr
 const tDuration = 200
 const defaultStyle = { transition: `${tDuration}ms`, opacity: 0, position: 'absolute', zIndex: -1 }
 const transitionStyles = {
-  entering: { opacity: 0, position: 'absolute', zIndex: -1 },
-  entered: { opacity: 1, position: 'relative', zIndex: 1 },
-  exiting: { opacity: 0, position: 'relative' },
+  entering: { opacity: 0, position: 'absolute', top: 0, zIndex: -1 },
+  entered: { opacity: 1, position: 'relative', top: 3, zIndex: 1 },
+  exiting: { opacity: 0, position: 'relative', top: 0 },
   exited: { opacity: 0, position: 'absolute', zIndex: -1 },
 }
 

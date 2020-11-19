@@ -9,8 +9,8 @@ export const InputContainer = styled.label`
   flex-direction: column;
 
   > svg {
-    width: 30px;
-    height: 30px;
+    width: 30px !important;
+    height: 30px !important;
     position: absolute;
     top: 5px;
     padding: 3px;
@@ -59,6 +59,7 @@ interface ALInputProps {
 export const ALInputLabel = styled.span`
   cursor: text;
   user-select: none;
+  pointer-events: none;
   position: absolute;
   top: 12px;
   font-family: ${(props) => props.theme.font.primary};
@@ -93,14 +94,19 @@ export const ALInput = styled(InputBase)<ALInputProps>`
     transition: 0.3s;
   }
 
+  & ~ ${(props) => props.Label} {
+    left: ${(props) => props.theme.spacing[props.hasPrefix ? 'lg' : 'none']};
+    opacity: 0;
+    transform-origin: top left;
+  }
+
+  &:placeholder-shown ~ ${(props) => props.Label} {
+    opacity: 1;
+  }
+
   &:focus ~ ${(props) => props.hasPrefix} {
     color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].main};
     transition: 0.3s;
-  }
-
-  & ~ ${(props) => props.Label} {
-    left: ${(props) => props.theme.spacing[props.hasPrefix ? 'lg' : 'none']};
-    opacity: ${(props) => (props.value ? 0 : 1)};
   }
 
   &:focus ~ ${(props) => props.Label} {
@@ -108,7 +114,6 @@ export const ALInput = styled(InputBase)<ALInputProps>`
     color: ${(props) => props.theme.colors.primary.main};
     opacity: 1;
     transform: scale(0.8);
-    transform-origin: top left;
   }
 
   &:focus ~ ${(props) => props.Underline} {
@@ -153,7 +158,7 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
 export const ErrorMessage = styled.span`
   user-select: none;
   width: 100%;
-  padding: 3px ${(props) => props.theme.spacing.xxs} 0;
+  padding: 0 ${(props) => props.theme.spacing.xxs};
   font-size: ${(props) => props.theme.font.size.xxs};
   word-break: break-word;
   box-decoration-break: clone;

@@ -23,9 +23,9 @@ const Content = styled.div<Partial<ModalProps & { open: boolean }>>`
   max-width: 90%;
   height: auto;
   max-height: 90%;
-  margin-top: ${(props) => props.theme.spacing[props.centered ? 'none' : 'lg']};
   overflow-x: hidden;
   border-radius: ${(props) => props.theme.radius.lg};
+  margin-top: ${(props) => props.theme.spacing[props.centered ? 'none' : 'lg']};
   background: ${(props) => props.theme.colors.white};
   opacity: ${(props) => (props.open ? 1 : 0)};
   transform: ${(props) => (props.open ? 'translateY(0)' : `translateY(-${props.theme.spacing.lg})`)};
@@ -36,12 +36,12 @@ const Content = styled.div<Partial<ModalProps & { open: boolean }>>`
   }
 `
 
-export interface ExposedModalValues {
+export interface ModalRefAttributes {
   open: () => void
   close: () => void
 }
 
-const Modal = React.forwardRef<ExposedModalValues, ModalProps>(
+const Modal = React.forwardRef<ModalRefAttributes, ModalProps>(
   ({ hasMask, maskClosable, defaultOpen, centered, width, children }, forwardedRef) => {
     const [open, setOpen] = React.useState(!!defaultOpen)
 

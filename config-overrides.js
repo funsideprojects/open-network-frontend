@@ -10,7 +10,6 @@ module.exports = {
       ...(process.env.NODE_ENV === 'production' ? [['transform-remove-console', { exclude: ['debug'] }]] : []),
       ['babel-plugin-styled-components', { displayName: process.env.NODE_ENV === 'development', pure: true }]
     ),
-
     addLessLoader({
       lessOptions: {
         javascriptEnabled: true,

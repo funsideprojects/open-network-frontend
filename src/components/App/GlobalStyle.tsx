@@ -58,6 +58,7 @@ export default createGlobalStyle`
     }
 
     ${StyledIconBase} {
+      user-select: none;
       width: 20px;
       height: 20px;
     }

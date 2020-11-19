@@ -4,4 +4,6 @@ export const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(
 
 export const usernameRegex = /^(?!.*[_.]{2,})(?=^[^_.].*[^_.]$)[\w_.]{3,20}$/
 
-export const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,}$/
+export const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]*$/
+
+export const responsePrefixRegex = /^(__[\w]{0,}__)/

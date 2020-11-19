@@ -41,7 +41,15 @@
       "border-color",
       "border-radius",
       "margin",
+      "margin-top",
+      "margin-right",
+      "margin-bottom",
+      "margin-left",
       "padding",
+      "padding-top",
+      "padding-right",
+      "padding-bottom",
+      "padding-left",
       "font",
       "font-family",
       "font-style",
@@ -61,6 +69,7 @@
       "opacity",
       "z-index",
       "transform",
+      "transform-origin",
       "transition"
     ]
   }

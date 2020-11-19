@@ -56,10 +56,7 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
             <PrimaryText>Sign in</PrimaryText> to get in touch with your community
           </Title>
 
-          <SignInForm
-            refetchAuthUser={refetchAuthUser}
-            handleForgotPasswordClick={() => handleSetNextDest(Routes.FORGOT_PASSWORD)}
-          />
+          <SignInForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
 
           <Hint align="right">
             Don't have an account? <PrimaryText onClick={() => handleSetNextDest(Routes.SIGN_UP)}>Sign up</PrimaryText>

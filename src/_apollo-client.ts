@@ -1,5 +1,6 @@
 import { ApolloLink, from, Observable, split } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { InMemoryCache } from '@apollo/client/cache'
 import { createUploadLink } from 'apollo-upload-client'
@@ -61,25 +62,28 @@ const websocketApiUrl = WEBSOCKET_API_URL
   : apiUrl!.replace('https://', 'wss://').replace('http://', 'ws://')
 
 // ? WebSocket link
-const wsLink = new WebSocketLink({
-  uri: websocketApiUrl,
-  options: {
-    lazy: true,
-    timeout: 60000,
-    reconnect: true,
-    connectionParams: () => {
-      // todo: Get token to cookie
-      const authToken = localStorage.getItem('token')
+const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
+  lazy: true,
+  timeout: 60000,
+  reconnect: true,
+  connectionParams: () => {
+    // todo: Get token to cookie
+    const authToken = localStorage.getItem('token')
 
-      return {
-        authorization: authToken,
-      }
-    },
+    return {
+      authorization: authToken,
+    }
   },
 })
+// subscriptionClient.onConnecting(() => {})
+// subscriptionClient.onConnected(() => {})
+// subscriptionClient.onDisconnected(() => {})
+// subscriptionClient.onReconnecting(() => {})
+// subscriptionClient.onReconnected(() => {})
+// subscriptionClient.onError(() => {})
 
 export const closeSubscription = () => {
-  wsLink['subscriptionClient'].close()
+  subscriptionClient.close()
 }
 
 // ? Caching
@@ -113,6 +117,8 @@ export const createApolloClient = () => {
   const errorLink = createErrorLink()
   const uploadLink = createUploadLink({ uri: apiUrl }) // ? Create upload link as well as an HTTP link
   const persistedQueriesLink = createPersistedQueryLink({ sha256 })
+
+  const wsLink = new WebSocketLink(subscriptionClient)
 
   // ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
   // ! https://github.com/apollographql/subscriptions-transport-ws/issues/377

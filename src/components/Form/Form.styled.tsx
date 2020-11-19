@@ -19,4 +19,5 @@ export const FormItem = styled.div<FormItemProps>`
   ${(props) => props.right && `margin-right: ${props.theme.spacing[props.right]}`};
   ${(props) => props.bottom && `margin-bottom: ${props.theme.spacing[props.bottom]}`};
   ${(props) => props.left && `margin-left: ${props.theme.spacing[props.left]}`};
+  font-size: 0rem;
 `

@@ -100,9 +100,7 @@ export const SIGN_IN = gql`
 /** Request reset password */
 export const REQUEST_PASSWORD_RESET = gql`
   mutation($input: RequestPasswordResetInput!) {
-    requestPasswordReset(input: $input) {
-      message
-    }
+    requestPasswordReset(input: $input)
   }
 `
 

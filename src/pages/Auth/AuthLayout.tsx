@@ -2,14 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { RouteProps, Switch, Route, Redirect } from 'react-router-dom'
-// import { NodeDotJs, Graphql, Apollographql, ReactLogo, StyledComponents } from '@styled-icons/simple-icons'
 
+import backgroundDesktop from 'assets/images/background-desktop.png'
 import { Loading } from 'components/Loading'
 
 import * as Routes from 'routes'
-
-// import backgroundMobile from 'assets/images/background-mobile.png'
-import backgroundDesktop from 'assets/images/background-desktop.png'
 
 const Background = styled.div`
   width: 100%;
@@ -64,7 +61,7 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       Component: SignUpDrawer,
     },
     {
-      path: Routes.FORGOT_PASSWORD,
+      path: [Routes.FORGOT_PASSWORD, Routes.FORGOT_PASSWORD_PATH],
       exact: true,
       strict: true,
       Component: ForgotPasswordDrawer,

@@ -1,84 +1,66 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useApolloClient } from '@apollo/client'
+import { useForm } from 'react-hook-form'
 
-import { emailRegex } from 'constants/RegExr'
 import { SIGN_IN } from 'graphql/user'
+import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
+import Tag, { TagColor } from 'components/Tag'
 
-import { Input, Button } from 'components/Form/index'
+import * as Routes from 'routes'
 
-import { Form, FormItem } from './Form.styled'
-
-import { SCIUser, SCIUserCheck, SCIUserX, SCIKey } from './SignIn.styled'
 import { SCIRightArrowAlt, Hint, PrimaryText } from './Generic.styled'
+import { SCIUser, SCIUserCheck, SCIUserX, SCIKey } from './SignIn.styled'
 
-enum SignInBy {
-  USERNAME = 'Username',
-  EMAIL = 'Email address',
+interface FormFields {
+  emailOrUsername: string
+  password: string
 }
 
-const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormProps) => {
+const SignInForm = ({ refetchAuthUser, navigate }: SignInFormProps) => {
   const client = useApolloClient()
+  const { register, handleSubmit, getValues, errors, formState } = useForm<FormFields>({
+    mode: 'onTouched',
+    shouldFocusError: true,
+  })
+  const [response, setResponse] = React.useState<{ type?: TagColor; message?: string }>({
+    type: undefined,
+    message: undefined,
+  })
+  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
-  const emailOrUsernameRef = React.useRef<HTMLInputElement>(null)
-  const passwordRef = React.useRef<HTMLInputElement>(null)
-  const [formData, setFormData] = React.useState({ emailOrUsername: '', password: '' })
-  const [validation, setValidation] = React.useState({ emailOrUsername: '', password: '' })
-  const [placeholder, setPlaceholder] = React.useState('Username or Email address')
+  const handleSignIn = async (values: FormFields) => {
+    buttonRef.current?.setLoading(true)
 
-  const handleSetFormData = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({ ...prevState, [name]: value }))
-    setValidation((prevState) => ({ ...prevState, [name]: '' }))
-  }
-
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    client
+    return await client
       .mutate({
         mutation: SIGN_IN,
         variables: {
-          input: { ...formData },
+          input: { ...values },
         },
       })
-      .then(async ({ data }) => {
+      .then(async () => {
         await refetchAuthUser()
       })
-      .catch((gqlErrors) => {
-        setValidation((prevState) => ({ ...prevState, emailOrUsername: gqlErrors.message }))
-        emailOrUsernameRef.current?.focus()
+      .catch((gqlError) => {
+        buttonRef.current?.setLoading(false)
+        setResponse({ type: TagColor.Error, message: gqlError.message })
       })
   }
 
-  React.useEffect(() => {
-    let newPlaceholder: string
-
-    if (!formData.emailOrUsername) {
-      newPlaceholder = 'Username or Email address'
-    } else if (emailRegex.test(formData.emailOrUsername)) {
-      newPlaceholder = SignInBy.EMAIL
-    } else {
-      newPlaceholder = SignInBy.USERNAME
-    }
-
-    if (newPlaceholder !== placeholder) {
-      setPlaceholder(newPlaceholder)
-    }
-  }, [formData.emailOrUsername, placeholder])
-
   return (
-    <Form name="sign-in-form" onSubmit={handleSignIn}>
+    <Form name="sign-in-form" onSubmit={handleSubmit(handleSignIn)}>
       <FormItem>
         <Input
           animatedLabel
           autoFocus
-          ref={emailOrUsernameRef}
-          hasPrefix={validation.emailOrUsername ? SCIUserX : formData.emailOrUsername ? SCIUserCheck : SCIUser}
           name="emailOrUsername"
-          placeholder={placeholder}
-          hasError={validation.emailOrUsername}
-          value={formData.emailOrUsername}
-          onChange={handleSetFormData}
+          placeholder="Username or Email address"
+          ref={register({ required: 'Please enter your email or username' })}
+          hasPrefix={
+            errors.emailOrUsername?.message ? SCIUserX : formState.touched.emailOrUsername ? SCIUserCheck : SCIUser
+          }
+          hasError={errors.emailOrUsername?.message}
         />
       </FormItem>
 
@@ -87,25 +69,36 @@ const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormPr
           animatedLabel
           autoComplete="on"
           type="password"
-          ref={passwordRef}
-          hasPrefix={SCIKey}
           name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange={handleSetFormData}
+          ref={register({ required: 'Please enter your password' })}
+          hasPrefix={SCIKey}
+          hasError={errors.password?.message}
         />
       </FormItem>
 
       <FormItem top="none">
         <Hint align="left">
-          <PrimaryText onClick={handleForgotPasswordClick}>Forgot password?</PrimaryText>
+          <PrimaryText
+            onClick={() => {
+              const emailOrUsernameValue = getValues('emailOrUsername')
+
+              navigate(`${Routes.FORGOT_PASSWORD}${emailOrUsernameValue ? `/${emailOrUsernameValue}` : ''}`)
+            }}
+          >
+            Forgot password?
+          </PrimaryText>
         </Hint>
       </FormItem>
 
-      <FormItem top="lg">
-        <Button buttonType="primary" type="submit" block>
-          SIGN IN <SCIRightArrowAlt />
-        </Button>
+      <FormItem top="sm">
+        <Tag block visible={!!response.message} tagColor={response.type}>
+          {response.message}
+        </Tag>
+      </FormItem>
+
+      <FormItem top="none">
+        <Button block ref={buttonRef} buttonType="primary" type="submit" icon={SCIRightArrowAlt} />
       </FormItem>
     </Form>
   )
@@ -113,10 +106,10 @@ const SignInForm = ({ refetchAuthUser, handleForgotPasswordClick }: SignInFormPr
 
 const signInFormProps = {
   refetchAuthUser: PropTypes.func.isRequired,
-  handleForgotPasswordClick: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
 }
 
 SignInForm.propTypes = signInFormProps
 type SignInFormProps = PropTypes.InferProps<typeof signInFormProps>
 
-export default SignInForm
+export default React.memo(SignInForm)
