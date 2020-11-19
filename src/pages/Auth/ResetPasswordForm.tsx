@@ -36,14 +36,10 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
   })
   const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
-  const resetResponse = () => {
+  const handleResetPassword = async (values: FormFields) => {
     if (response.message) {
       setResponse({ type: undefined, message: undefined })
     }
-  }
-
-  const handleSignUp = async (values: FormFields) => {
-    resetResponse()
     buttonRef.current?.setLoading(true)
 
     return await client
@@ -58,18 +54,18 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         history.replace(Routes.RESET_PASSWORD, { succeeded: true })
       })
       .catch((gqlError) => {
+        buttonRef.current?.setLoading(false)
         if (gqlError.message.startsWith('__INPUT__')) {
           setError('password', { message: gqlError.message.replace(responsePrefixRegex, '') })
         } else {
           setResponse({ type: TagColor.Error, message: gqlError.message })
         }
       })
-      .finally(() => buttonRef.current?.setLoading(false))
   }
 
   React.useEffect(() => {
     if (!token && !history.location.state?.succeeded) {
-      history.push(Routes.HOME)
+      history.replace(Routes.HOME)
     }
   }, [token, history])
 
@@ -125,7 +121,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         including only word, digit and allowed special character(!, @, #, $, %, ^, &, *)
       </Paragraphs>
 
-      <Form name="sign-up-form" onSubmit={handleSubmit(handleSignUp)}>
+      <Form name="reset-password-form" onSubmit={handleSubmit(handleResetPassword)}>
         <FormItem>
           <Input
             autoFocus
