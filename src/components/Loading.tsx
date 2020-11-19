@@ -13,11 +13,13 @@ export const Overlay = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: ${(props) => props.theme.radius[props.radiusBorder ? 'md' : 'none']};
+  padding: ${(props) => (props.block ? '60px' : '0')};
   background: ${(props) => props.theme.colors.overlay.translucent};
   z-index: ${(props) => props.theme.zIndex.xxl};
 `
 
-const Container = styled.div`
+const Container = styled.div<Props>`
   border-radius: ${(props) => props.theme.radius.md};
   padding: ${(props) => props.theme.spacing.md};
   background: ${(props) => props.theme.colors.overlay.opaque};
@@ -47,9 +49,10 @@ height: 30px !important;
 interface Props {
   overlay?: boolean
   block?: boolean
+  radiusBorder?: boolean
 }
 
-export const Loading = ({ overlay, block }: Props) => {
+export const Loading = ({ overlay, block, radiusBorder }: Props) => {
   React.useEffect(() => {
     if (overlay) {
       const now = Date.now()
@@ -63,8 +66,8 @@ export const Loading = ({ overlay, block }: Props) => {
 
   if (overlay || block) {
     return (
-      <Overlay block={block}>
-        <Container>
+      <Overlay block={block} radiusBorder={radiusBorder}>
+        <Container block={block}>
           <SCSpinner large />
         </Container>
       </Overlay>

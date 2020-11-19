@@ -6,8 +6,8 @@ import { Button } from 'components/Form/index'
 
 import * as Routes from 'routes'
 
-import { Drawer, PrimaryText, Paragraphs } from './Generic.styled'
-import { Title, Nav, SCILeftArrowAlt, SCIRightArrowAlt } from './Welcome.styled'
+import { Drawer, Title, PrimaryText, Paragraphs } from './Generic.styled'
+import { Nav, SCILeftArrowAlt, SCIRightArrowAlt } from './Welcome.styled'
 
 // ? Transition config
 const tDuration = 300 // ? ms
@@ -48,7 +48,7 @@ const WelcomeDrawer = () => {
           float="left"
           style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
         >
-          <Title>
+          <Title noMarginTop>
             Find your community at <PrimaryText>PrJx</PrimaryText>
           </Title>
 

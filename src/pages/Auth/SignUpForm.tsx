@@ -35,7 +35,14 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
   const modalRef = React.useRef<ModalRefAttributes>(null)
   const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
+  const resetResponse = () => {
+    if (response.message) {
+      setResponse({ type: undefined, message: undefined })
+    }
+  }
+
   const handleSignUp = async ({ confirm, autoSignIn, ...values }: FormFields) => {
+    resetResponse()
     buttonRef.current?.setLoading(true)
 
     return await client
@@ -46,14 +53,11 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(() => {
+      .then(async () => {
         if (autoSignIn) {
-          refetchAuthUser()
+          await refetchAuthUser()
         } else {
           buttonRef.current?.setLoading(false)
-          if (response.type) {
-            setResponse({ type: undefined, message: undefined })
-          }
           modalRef.current?.open()
         }
       })
@@ -132,8 +136,8 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     },
     {
       name: 'password',
-      autoComplete: 'on',
       type: 'password',
+      autoComplete: 'on',
       placeholder: 'Password',
       ref: register({
         required: 'Password is required',
@@ -157,8 +161,8 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     },
     {
       name: 'confirm',
-      autoComplete: 'on',
       type: 'password',
+      autoComplete: 'on',
       placeholder: 'Confirmation password',
       ref: register({
         required: 'Confirmation password is required',

@@ -3,6 +3,8 @@ import { onError } from '@apollo/client/link/error'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { InMemoryCache } from '@apollo/client/cache'
+import { extractFiles } from 'extract-files'
+import { BatchHttpLink } from '@apollo/client/link/batch-http'
 import { createUploadLink } from 'apollo-upload-client'
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries'
 import { sha256 } from 'crypto-hash'
@@ -16,14 +18,14 @@ const createAuthLink = () => {
   return new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        let handle
+        let handler
 
         Promise.resolve(operation)
-          .then((op) => {
-            op.setContext({ fetchOptions: { credentials: 'include' } })
+          .then(({ setContext }) => {
+            setContext({ fetchOptions: { credentials: 'include' } })
           })
           .then(() => {
-            handle = forward(operation).subscribe({
+            handler = forward(operation).subscribe({
               next: observer.next.bind(observer),
               error: observer.error.bind(observer),
               complete: observer.complete.bind(observer),
@@ -32,7 +34,7 @@ const createAuthLink = () => {
           .catch(observer.error.bind(observer))
 
         return () => {
-          if (handle) handle.unsubscribe()
+          if (handler) handler.unsubscribe()
         }
       })
   )
@@ -118,6 +120,7 @@ export const createApolloClient = () => {
   const uploadLink = createUploadLink({ uri: apiUrl }) // ? Create upload link as well as an HTTP link
   const persistedQueriesLink = createPersistedQueryLink({ sha256 })
 
+  const batchHttpLink = new BatchHttpLink({ uri: apiUrl })
   const wsLink = new WebSocketLink(subscriptionClient)
 
   // ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
@@ -133,7 +136,9 @@ export const createApolloClient = () => {
       return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
     },
     wsLink,
-    persistedQueriesLink.concat(uploadLink)
+    persistedQueriesLink.concat(
+      split((operation) => extractFiles(operation).files.size > 0, uploadLink as any, batchHttpLink)
+    )
   )
 
   return new ApolloClient({

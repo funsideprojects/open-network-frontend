@@ -21,8 +21,10 @@ const transitionStyles = {
   exiting: { opacity: 0, left: '-40%' },
 }
 
+type RouteState = { from?: string }
+
 const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
-  const history = useHistory<{ from?: string }>()
+  const history = useHistory<RouteState>()
 
   const [nextDest, setNextDest] = React.useState(Routes.SIGN_IN)
   const [isMounted, setIsMounted] = React.useState(true)

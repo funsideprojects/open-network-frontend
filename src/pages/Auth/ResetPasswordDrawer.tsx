@@ -2,14 +2,12 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 
-import { Button } from 'components/Form/index'
+import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
 
-import { Drawer } from './Generic.styled'
-import { Title, Paragraphs, SCILeftArrowAlt } from './Generic.styled'
-
-import RequestPasswordResetForm from './RequestPasswordResetForm'
+import { Drawer, SCIHomeAlt } from './Generic.styled'
+import ResetPasswordForm from './ResetPasswordForm'
 
 // ? Transition config
 const tDuration = 300 // ? ms
@@ -24,7 +22,7 @@ const transitionStyles = {
 
 type RouteState = { from?: string }
 
-const ForgotPasswordDrawer = () => {
+const ResetPasswordDrawer = () => {
   const history = useHistory<RouteState>()
 
   const [nextDest, setNextDest] = React.useState(Routes.HOME)
@@ -48,29 +46,19 @@ const ForgotPasswordDrawer = () => {
     >
       {(transitionState) => (
         <Drawer
-          data-name="forgot-password-drawer"
+          data-name="reset-password-drawer"
           float="left"
           style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
         >
-          <Button
-            buttonType="default"
-            onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.SIGN_IN)}
-          >
-            <SCILeftArrowAlt />
+          <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
+            <SCIHomeAlt />
           </Button>
 
-          <Title>Forgot your password?</Title>
-
-          <Paragraphs noMargin>
-            Please enter your username or email address. <br />
-            We'll email instructions on how to reset your password
-          </Paragraphs>
-
-          <RequestPasswordResetForm />
+          {transitionState === 'entered' ? <ResetPasswordForm navigate={handleSetNextDest} /> : <></>}
         </Drawer>
       )}
     </Transition>
   )
 }
 
-export default ForgotPasswordDrawer
+export default ResetPasswordDrawer

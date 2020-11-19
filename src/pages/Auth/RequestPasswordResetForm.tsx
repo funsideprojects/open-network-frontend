@@ -1,5 +1,4 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { useApolloClient } from '@apollo/client'
 import { useForm } from 'react-hook-form'
@@ -18,7 +17,7 @@ interface FormFields {
   emailOrUsername: string
 }
 
-const SignUpForm = () => {
+const RequestPasswordResetForm = () => {
   const { emailOrUsername = '' } = useParams<RouteParams>()
   const client = useApolloClient()
   const { register, handleSubmit, setError, errors, formState } = useForm<FormFields>({
@@ -38,7 +37,7 @@ const SignUpForm = () => {
     }
   }
 
-  const handleSignUp = async (values: FormFields) => {
+  const handleRequestPasswordReset = async (values: FormFields) => {
     resetResponse()
     buttonRef.current?.setLoading(true)
     const isEmail = emailRegex.test(values.emailOrUsername)
@@ -51,8 +50,11 @@ const SignUpForm = () => {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(async () => {
-        setResponse({ type: TagColor.Success, message: 'An email has been sent. Please check your mailbox' })
+      .then(() => {
+        setResponse({
+          type: TagColor.Success,
+          message: 'An instruction email has been sent. Please check your mailbox',
+        })
       })
       .catch((gqlError) => {
         if (gqlError.message.startsWith('__INPUT__')) {
@@ -64,8 +66,10 @@ const SignUpForm = () => {
       .finally(() => buttonRef.current?.setLoading(false))
   }
 
+  console.log('render')
+
   return (
-    <Form name="sign-up-form" onSubmit={handleSubmit(handleSignUp)}>
+    <Form name="request-password-reset-form" onSubmit={handleSubmit(handleRequestPasswordReset)}>
       <FormItem top="xs">
         <Input
           autoFocus
@@ -76,7 +80,7 @@ const SignUpForm = () => {
           hasError={errors.emailOrUsername?.message}
           onChange={({ target: { value } }) => {
             resetResponse()
-            window.history.replaceState(null, 'Forgot Password', `${Routes.FORGOT_PASSWORD}${value ? `/${value}` : ''}`)
+            window.history.replaceState(null, '', `${Routes.FORGOT_PASSWORD}${value ? `/${value}` : ''}`)
           }}
         />
       </FormItem>
@@ -94,11 +98,4 @@ const SignUpForm = () => {
   )
 }
 
-// const signUpFormProps = {
-//   refetchAuthUser: PropTypes.func.isRequired,
-// }
-
-// SignUpForm.propTypes = signUpFormProps
-// type SignUpFormProps = PropTypes.InferProps<typeof signUpFormProps>
-
-export default SignUpForm
+export default React.memo(RequestPasswordResetForm)

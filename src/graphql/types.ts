@@ -3,12 +3,13 @@ export const userPayload = `
   id
   fullName
   email
+  emailVerified
   username
   image
   imagePublicId
   coverImage
   coverImagePublicId
-  isOnline
+  online
   lastActiveAt
 
   createdAt

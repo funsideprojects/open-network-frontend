@@ -7,6 +7,7 @@ export const SIGN_UP = '/sign-up'
 export const FORGOT_PASSWORD = '/forgot-password'
 export const FORGOT_PASSWORD_PATH = `${FORGOT_PASSWORD}/:emailOrUsername`
 export const RESET_PASSWORD = '/reset-password'
+export const RESET_PASSWORD_PATH = `${RESET_PASSWORD}/:token`
 
 // ? Need auth routes
 export const USER_PROFILE = '/profile'

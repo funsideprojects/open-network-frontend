@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { LeftArrowAlt, RightArrowAlt, Check, X } from '@styled-icons/boxicons-regular'
+import { LeftArrowAlt, RightArrowAlt, Check, X, HomeAlt } from '@styled-icons/boxicons-regular'
 
 interface DrawerProps {
   fullHeight?: boolean
@@ -43,8 +43,12 @@ border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme
   }
 `
 
-export const Title = styled.h1`
-  margin: ${(props) => props.theme.spacing.lg} 0 ${(props) => props.theme.spacing.sm};
+type TitleProps = {
+  noMarginTop?: boolean
+}
+
+export const Title = styled.h1<TitleProps>`
+  margin: ${(props) => props.theme.spacing[props.noMarginTop ? 'none' : 'lg']} 0 ${(props) => props.theme.spacing.sm};
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.extra};
 `
@@ -66,7 +70,7 @@ transition: 0.3s;
   color: ${(props) => props.theme.colors.primary.main};
 `
 
-interface ParagraphsProps {
+type ParagraphsProps = {
   noMargin?: boolean
 }
 
@@ -78,7 +82,7 @@ export const Paragraphs = styled.p<ParagraphsProps>`
   color: ${(props) => props.theme.colors.grey[500]};
 `
 
-interface HintProps {
+type HintProps = {
   align: 'left' | 'right'
 }
 
@@ -96,3 +100,4 @@ export const SCILeftArrowAlt = styled(LeftArrowAlt)`
 export const SCIRightArrowAlt = styled(RightArrowAlt)``
 export const SCICheck = styled(Check)``
 export const SCIX = styled(X)``
+export const SCIHomeAlt = styled(HomeAlt)``

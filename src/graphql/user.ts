@@ -12,7 +12,7 @@ export const GET_CONVERSATIONS = gql`
       username
       fullName
       image
-      isOnline
+      online
       seen
       lastMessage
       lastMessageSender
@@ -20,8 +20,7 @@ export const GET_CONVERSATIONS = gql`
     }
   }
 `
-// DONE:
-/** Get authenticated user */
+
 export const GET_AUTH_USER = gql`
   query getAuthUser {
     getAuthUser {
@@ -78,49 +77,35 @@ export const SEARCH_USERS = gql`
   }
 `
 
-// *_: Mutations
+// * Mutations
 
-// DONE:
-/** Sign up user */
 export const SIGN_UP = gql`
   mutation($input: SignUpInput!) {
     signup(input: $input)
   }
 `
 
-// DONE:
-/** Sign in user */
 export const SIGN_IN = gql`
   mutation($input: SignInInput!) {
     signin(input: $input)
   }
 `
 
-// DONE:
-/** Request reset password */
 export const REQUEST_PASSWORD_RESET = gql`
   mutation($input: RequestPasswordResetInput!) {
     requestPasswordReset(input: $input)
   }
 `
 
-// DONE:
-/** Verify reset password token */
-export const VERIFY_RESET_PASSWORD_TOKEN = gql`
-  query($email: String!, $token: String!) {
-    verifyResetPasswordToken(email: $email, token: $token) {
-      message
-    }
+export const VERIFY_PASSWORD_RESET_TOKEN = gql`
+  query($token: String!) {
+    verifyPasswordResetToken(token: $token)
   }
 `
 
-// DONE:
-/** Reset password */
 export const RESET_PASSWORD = gql`
   mutation($input: ResetPasswordInput!) {
-    resetPassword(input: $input) {
-      token
-    }
+    resetPassword(input: $input)
   }
 `
 
@@ -134,7 +119,7 @@ export const UPDATE_USER_PHOTO = gql`
   }
 `
 
-// *_: Subscriptions
+// * Subscriptions
 
 // DONE:
 /** Check if user is online in real time */
@@ -142,7 +127,7 @@ export const IS_USER_ONLINE_SUBSCRIPTION = gql`
   subscription($userId: ID!) {
     isUserOnline(userId: $userId) {
       userId
-      isOnline
+      online
       lastActiveAt
     }
   }
