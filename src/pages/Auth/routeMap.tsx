@@ -7,7 +7,8 @@ import { RouteConfig } from 'hooks/usePrefetch'
 const WelcomeDrawer = () => import(/* webpackChunkName: "WelcomeDrawer" */ './WelcomeDrawer')
 const SignInDrawer = () => import(/* webpackChunkName: "SignInDrawer" */ './SignInDrawer')
 const SignUpDrawer = () => import(/* webpackChunkName: "SignUpDrawer" */ './SignUpDrawer')
-const ForgotPasswordDrawer = () => import(/* webpackChunkName: "ForgotPasswordDrawer" */ './ForgotPasswordDrawer')
+const RequestPasswordResetDrawer = () =>
+  import(/* webpackChunkName: "RequestPasswordResetDrawer" */ './RequestPasswordResetDrawer')
 const ResetPasswordDrawer = () => import(/* webpackChunkName: "ResetPasswordDrawer" */ './ResetPasswordDrawer')
 
 export const routeMap: Array<RouteConfig & { Component: React.LazyExoticComponent<any> }> = [
@@ -24,11 +25,11 @@ export const routeMap: Array<RouteConfig & { Component: React.LazyExoticComponen
   {
     path: Routes.SIGN_IN,
     Component: React.lazy(SignInDrawer),
-    relatedRoutes: [WelcomeDrawer, ForgotPasswordDrawer, SignUpDrawer],
+    relatedRoutes: [WelcomeDrawer, RequestPasswordResetDrawer, SignUpDrawer],
   },
   {
     path: [Routes.FORGOT_PASSWORD, Routes.FORGOT_PASSWORD_PATH],
-    Component: React.lazy(ForgotPasswordDrawer),
+    Component: React.lazy(RequestPasswordResetDrawer),
     relatedRoutes: [WelcomeDrawer, SignInDrawer],
   },
   {

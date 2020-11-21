@@ -24,7 +24,7 @@ const transitionStyles = {
 
 type RouteState = { from?: string }
 
-const ForgotPasswordDrawer = () => {
+const RequestPasswordResetDrawer = () => {
   const history = useHistory<RouteState>()
 
   const [nextDest, setNextDest] = React.useState(Routes.HOME)
@@ -48,7 +48,7 @@ const ForgotPasswordDrawer = () => {
     >
       {(transitionState) => (
         <Drawer
-          data-name="forgot-password-drawer"
+          data-name="request-password-reset-drawer"
           float="left"
           style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
         >
@@ -73,4 +73,4 @@ const ForgotPasswordDrawer = () => {
   )
 }
 
-export default ForgotPasswordDrawer
+export default RequestPasswordResetDrawer
