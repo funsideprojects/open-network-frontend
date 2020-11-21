@@ -5,7 +5,7 @@ import { useApolloClient, useQuery } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
 import { passwordRegex, responsePrefixRegex } from 'constants/RegExr'
-import { VERIFY_PASSWORD_RESET_TOKEN, RESET_PASSWORD } from 'graphql/user'
+import { VERIFY_TOKEN, RESET_PASSWORD } from 'graphql/user'
 import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
 import { Loading } from 'components/Loading'
 import Tag, { TagColor } from 'components/Tag'
@@ -69,7 +69,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
     }
   }, [token, history])
 
-  const { loading, data: verificationResult } = useQuery(VERIFY_PASSWORD_RESET_TOKEN, {
+  const { loading, data: verificationResult } = useQuery(VERIFY_TOKEN, {
     variables: { token },
     fetchPolicy: 'no-cache',
   })

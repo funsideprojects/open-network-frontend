@@ -97,9 +97,9 @@ export const REQUEST_PASSWORD_RESET = gql`
   }
 `
 
-export const VERIFY_PASSWORD_RESET_TOKEN = gql`
+export const VERIFY_TOKEN = gql`
   query($token: String!) {
-    verifyPasswordResetToken(token: $token)
+    verifyToken(token: $token)
   }
 `
 

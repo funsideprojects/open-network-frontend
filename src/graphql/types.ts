@@ -1,5 +1,5 @@
-// ? User
-export const userPayload = `
+// ? authUser
+export const authUserPayload = `
   id
   fullName
   email
@@ -9,11 +9,29 @@ export const userPayload = `
   imagePublicId
   coverImage
   coverImagePublicId
+  visbileToEveryone
   online
+  displayOnlineStatus
   lastActiveAt
 
   createdAt
   updatedAt
+`
+
+// ? User
+export const userPayload = `
+  id
+  fullName
+  email
+  username
+  image
+  imagePublicId
+  coverImage
+  coverImagePublicId
+  online
+  lastActiveAt
+
+  createdAt
 `
 
 // ? Comment

@@ -65,7 +65,7 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   timeout: 60000,
   reconnect: true,
   connectionParams: () => {
-    // todo: Get token to cookie
+    // todo - Get token to cookie
     const authToken = localStorage.getItem('token')
 
     return {
@@ -73,6 +73,7 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
     }
   },
 })
+// todo - Handle detect user connectivity
 // subscriptionClient.onConnecting(() => {})
 // subscriptionClient.onConnected(() => {})
 // subscriptionClient.onDisconnected(() => {})
