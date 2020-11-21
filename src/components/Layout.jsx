@@ -26,23 +26,23 @@ export const Footer = styled.footer``
  * @param {boolean} color
  */
 export const Container = styled.div`
-  position: relative;
-  margin: 0 auto;
-  margin-top: ${(p) => (p.marginTop ? p.theme.spacing[p.marginTop] : 0)};
   width: 100%;
   max-width: ${(p) => p.maxWidth && p.theme.screen[p.maxWidth]};
+  position: relative;
+  border-radius: ${(p) => p.radius && p.theme.radius[p.radius]};
+  margin: 0 auto;
+  margin-top: ${(p) => (p.marginTop ? p.theme.spacing[p.marginTop] : 0)};
   padding: ${(p) => (p.padding ? `0 ${p.theme.spacing[p.padding]}` : `0 ${p.theme.spacing.sm}`)};
   z-index: ${(p) => p.zIndex && p.theme.zIndex[p.zIndex]};
   background-color: ${(p) => p.color && p.theme.colors[p.color]};
-  border-radius: ${(p) => p.radius && p.theme.radius[p.radius]};
 `
 
 export const Content = styled.div`
+  width: 100%;
+  min-height: 500px;
   position: relative;
   margin: 0 auto;
-  width: 100%;
   z-index: ${(p) => p.zIndex && p.theme.zIndex[p.zIndex]};
-  min-height: 500px;
 
   @media (min-width: ${(p) => p.theme.screen.md}) {
     width: ${(p) => p.theme.screen.xs};

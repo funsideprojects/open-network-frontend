@@ -1,5 +1,8 @@
 // ? All available routes for the app
 
+// ?
+export const NOTFOUND = '/not-found'
+
 // ? No auth needed routes
 export const HOME = '/'
 export const SIGN_IN = '/sign-in'

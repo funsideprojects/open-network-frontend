@@ -2,21 +2,19 @@ import React, { Suspense } from 'react'
 import { useQuery } from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import { Loading } from 'components/Loading'
 import { GET_AUTH_USER } from 'graphql/user'
 import {
   // GET_SERVICES_STATUS,
   GET_GLOBAL_LOADING,
 } from 'graphql/local-state'
-
 import { useWindowSize } from 'hooks/useWindowSize'
+import theme from 'theme'
 
-import { Loading } from 'components/Loading'
 import GlobalStyle from './GlobalStyle'
 import ScrollToTop from './ScrollToTop'
 
-import theme from 'theme'
-
-// const AppLayout = React.lazy(() => import('./AppLayout')) <AppLayout authUser={data.getAuthUser} />
+const AppLayout = React.lazy(() => import(/* webpackChunkName: "AppLayout" */ './AppLayout'))
 const AuthLayout = React.lazy(() => import(/* webpackChunkName: "AuthLayout" */ 'pages/Auth/AuthLayout'))
 
 const App = () => {
@@ -32,19 +30,21 @@ const App = () => {
     <Router>
       <GlobalStyle />
 
-      {globalLoadingStatus.globalLoading || loading || !mode ? <Loading overlay /> : <></>}
-
-      <Suspense fallback={<></>}>
-        <ScrollToTop>
-          <Switch>
-            {authUserData?.getAuthUser ? (
-              <Route exact render={() => <></>} />
-            ) : (
-              <Route exact render={() => <AuthLayout refetchAuthUser={refetch} />} />
-            )}
-          </Switch>
-        </ScrollToTop>
-      </Suspense>
+      {globalLoadingStatus.globalLoading || loading || !mode ? (
+        <Loading overlay />
+      ) : (
+        <Suspense fallback={<></>}>
+          <ScrollToTop>
+            <Switch>
+              {authUserData?.getAuthUser ? (
+                <Route render={() => <AppLayout authUser={authUserData.getAuthUser} />} />
+              ) : (
+                <Route render={() => <AuthLayout refetchAuthUser={refetch} />} />
+              )}
+            </Switch>
+          </ScrollToTop>
+        </Suspense>
+      )}
     </Router>
   )
 }

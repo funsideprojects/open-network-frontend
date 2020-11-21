@@ -208,12 +208,12 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
   )
 }
 
-const signUpFormProps = {
+const signUpFormPropTypes = {
   refetchAuthUser: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
 }
 
-SignUpForm.propTypes = signUpFormProps
-type SignUpFormProps = PropTypes.InferProps<typeof signUpFormProps>
+SignUpForm.propTypes = signUpFormPropTypes
+type SignUpFormProps = PropTypes.InferProps<typeof signUpFormPropTypes>
 
 export default React.memo(SignUpForm)

@@ -100,7 +100,7 @@ const Modal = React.forwardRef<ModalRefAttributes, ModalProps>(
 
 Modal.displayName = 'Modal'
 
-const modalProps = {
+const modalPropTypes = {
   children: PropTypes.node,
   hasMask: PropTypes.bool,
   maskClosable: PropTypes.bool,
@@ -109,7 +109,7 @@ const modalProps = {
   width: PropTypes.number,
 }
 
-Modal.propTypes = modalProps
-type ModalProps = PropTypes.InferProps<typeof modalProps>
+Modal.propTypes = modalPropTypes
+type ModalProps = PropTypes.InferProps<typeof modalPropTypes>
 
 export default Modal

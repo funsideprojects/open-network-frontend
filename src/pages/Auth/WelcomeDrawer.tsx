@@ -40,10 +40,7 @@ const WelcomeDrawer = () => {
         appear
         unmountOnExit
         in={isMounted}
-        timeout={{
-          enter: 0,
-          exit: tDuration,
-        }}
+        timeout={{ enter: 0, exit: tDuration }}
         onExited={() => history.push(nextDest, { from: history.location.pathname })}
       >
         {(transitionState) => (

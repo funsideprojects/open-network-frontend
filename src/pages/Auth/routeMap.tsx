@@ -10,31 +10,37 @@ const SignUpDrawer = () => import(/* webpackChunkName: "SignUpDrawer" */ './Sign
 const RequestPasswordResetDrawer = () =>
   import(/* webpackChunkName: "RequestPasswordResetDrawer" */ './RequestPasswordResetDrawer')
 const ResetPasswordDrawer = () => import(/* webpackChunkName: "ResetPasswordDrawer" */ './ResetPasswordDrawer')
+const NotFoundDrawer = () => import(/* webpackChunkName: "NotFoundDrawer" */ './NotFoundDrawer')
 
 export const routeMap: Array<RouteConfig & { Component: React.LazyExoticComponent<any> }> = [
   {
     path: Routes.HOME,
     Component: React.lazy(WelcomeDrawer),
-    relatedRoutes: [SignUpDrawer, SignInDrawer],
+    relatedRoutes: [SignUpDrawer, SignInDrawer, NotFoundDrawer],
   },
   {
     path: Routes.SIGN_UP,
     Component: React.lazy(SignUpDrawer),
-    relatedRoutes: [WelcomeDrawer, SignInDrawer],
+    relatedRoutes: [WelcomeDrawer, SignInDrawer, NotFoundDrawer],
   },
   {
     path: Routes.SIGN_IN,
     Component: React.lazy(SignInDrawer),
-    relatedRoutes: [WelcomeDrawer, RequestPasswordResetDrawer, SignUpDrawer],
+    relatedRoutes: [WelcomeDrawer, RequestPasswordResetDrawer, SignUpDrawer, NotFoundDrawer],
   },
   {
     path: [Routes.FORGOT_PASSWORD, Routes.FORGOT_PASSWORD_PATH],
     Component: React.lazy(RequestPasswordResetDrawer),
-    relatedRoutes: [WelcomeDrawer, SignInDrawer],
+    relatedRoutes: [WelcomeDrawer, SignInDrawer, NotFoundDrawer],
   },
   {
     path: [Routes.RESET_PASSWORD, Routes.RESET_PASSWORD_PATH],
     Component: React.lazy(ResetPasswordDrawer),
-    relatedRoutes: [WelcomeDrawer, SignInDrawer],
+    relatedRoutes: [WelcomeDrawer, SignInDrawer, NotFoundDrawer],
+  },
+  {
+    path: Routes.NOTFOUND,
+    Component: React.lazy(NotFoundDrawer),
+    relatedRoutes: [WelcomeDrawer],
   },
 ]

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useHistory, Switch, Route, matchPath } from 'react-router-dom'
 import styled from 'styled-components'
 import { useApolloClient } from '@apollo/client'
-import NotificationComponent from 'react-notifications-component'
 
 // import Header from 'components/App/Header'
 import NotFound from 'components/NotFound'
@@ -12,7 +11,7 @@ import NotFound from 'components/NotFound'
 // import UserSuggestions from './UserSuggestions'
 // import MessageBox from 'components/MessageBox'
 
-import { GET_FOLLOWED_USERS } from 'graphql/follow'
+// import { GET_FOLLOWED_USERS } from 'graphql/follow'
 
 // import Explore from 'pages/Explore'
 // import Home from 'pages/Home'
@@ -22,7 +21,7 @@ import { GET_FOLLOWED_USERS } from 'graphql/follow'
 // import Profile from 'pages/Profile'
 // import Messages from 'pages/Messages'
 
-import NotificationSubscription from './NotificationSubscription'
+// import NotificationSubscription from './NotificationSubscription'
 // import FollowedUsersDrawer from './FollowedUsersDrawer'
 
 // import { useWindowSize } from 'hooks/useWindowSize'
@@ -30,9 +29,17 @@ import NotificationSubscription from './NotificationSubscription'
 
 import { useStore } from 'store'
 import { SET_AUTH_USER } from 'store/auth'
-import { SET_FOLLOW } from 'store/follow'
+// import { SET_FOLLOW } from 'store/follow'
 
 import * as Routes from 'routes'
+
+const Background = styled.div`
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
+  background-color: ${(props) => props.theme.colors.grey[200]};
+`
 
 const Root = styled.div`
   width: 100%;
@@ -73,12 +80,12 @@ const Root = styled.div`
 // `
 
 const SessionContent = styled.div`
-  width: ${(p) => (p.hideChat ? 'calc(100% - 280px)' : 'calc(100% - 560px)')};
+  width: 100%;
   height: auto;
 `
 
-const AppLayout = ({ authUser }) => {
-  const { location } = useHistory()
+const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
+  const history = useHistory()
   const client = useApolloClient()
   const [{ auth }, dispatch] = useStore()
 
@@ -88,14 +95,14 @@ const AppLayout = ({ authUser }) => {
     dispatch({ type: SET_AUTH_USER, payload: authUser })
   }, [dispatch, authUser])
 
-  React.useEffect(() => {
-    client
-      .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
-      .then(({ data }) => {
-        dispatch({ type: SET_FOLLOW, payload: data.getFollowedUsers })
-      })
-      .catch(() => {})
-  }, [client, dispatch])
+  // React.useEffect(() => {
+  //   client
+  //     .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
+  //     .then(({ data }) => {
+  //       dispatch({ type: SET_FOLLOW, payload: data.getFollowedUsers })
+  //     })
+  //     .catch(() => {})
+  // }, [client, dispatch])
 
   // useClickOutside(sideBarRef, () => {
   //   if (!isDesktop && isSideBarOpen) {
@@ -111,19 +118,21 @@ const AppLayout = ({ authUser }) => {
   //   }
   // }, [location.pathname, isDesktop])
 
-  if (!auth.user) return null
-
-  const hideChat = matchPath(location.pathname, {
+  const hideChat = matchPath(history.location.pathname, {
     path: [Routes.MESSAGES, Routes.PEOPLE, Routes.EXPLORE, Routes.USER_PROFILE],
   })
 
+  console.log(auth.user)
+
+  if (!auth.user) {
+    return <div>asdasdasd</div>
+  }
+
   return (
-    <>
+    <Background>
+      {/* {authUser && <NotificationSubscription />} */}
+
       {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
-
-      {authUser && <NotificationSubscription />}
-
-      <NotificationComponent />
 
       <Root>
         {/* <SessionLeft>
@@ -131,7 +140,7 @@ const AppLayout = ({ authUser }) => {
           <UserSuggestions pathname={location.pathname} />
         </SessionLeft> */}
 
-        <SessionContent hideChat={hideChat}>
+        <SessionContent>
           <Switch>
             {/* <Route exact path={Routes.HOME} component={Home} /> */}
 
@@ -150,24 +159,16 @@ const AppLayout = ({ authUser }) => {
             <Route component={NotFound} />
           </Switch>
         </SessionContent>
-
-        {/* {!hideChat ? (
-          <SessionRight>
-            <ListUser pathname={location.pathname} />
-            {chat.isShowMessageBox ? <MessageBox /> : <React.Fragment />}
-          </SessionRight>
-        ) : (
-          <React.Fragment />
-        )} */}
-
-        {/* <FollowedUsersDrawer /> */}
       </Root>
-    </>
+    </Background>
   )
 }
 
-AppLayout.propTypes = {
+const appLayoutPropTypes = {
   authUser: PropTypes.object.isRequired,
 }
+
+AppLayout.propTypes = appLayoutPropTypes
+type AppLayoutPropTypes = PropTypes.InferProps<typeof appLayoutPropTypes>
 
 export default AppLayout

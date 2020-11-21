@@ -6,7 +6,7 @@ export const RESET_AUTH_STORE = 'RESET_AUTH_STORE'
 
 // ? Initial state
 export const authInitialState = {
-  user: null,
+  user: undefined,
 }
 
 // * Types

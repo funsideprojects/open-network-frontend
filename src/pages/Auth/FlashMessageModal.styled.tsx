@@ -6,9 +6,9 @@ export const Title = styled.h2`
 `
 
 export const Paragraph = styled.p`
-  margin: 0;
+  margin: ${(props) => props.theme.spacing.xxs} 0 0;
   font-size: 0.9rem;
-  letter-spacing: -0.05rem;
+  letter-spacing: ${(props) => props.theme.font.spacing.letter.sm};
   text-align: center;
 `
 

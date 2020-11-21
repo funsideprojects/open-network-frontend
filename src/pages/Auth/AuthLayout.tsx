@@ -53,20 +53,20 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
             />
           ))}
 
-          <Redirect to={Routes.SIGN_IN} />
+          <Redirect to={Routes.NOTFOUND} />
         </Switch>
       </React.Suspense>
     </Background>
   )
 }
 
-const authLayoutProps = {
+const authLayoutPropTypes = {
   refetchAuthUser: PropTypes.func.isRequired,
 }
 
 // ? For run-time
-AuthLayout.propTypes = authLayoutProps
+AuthLayout.propTypes = authLayoutPropTypes
 // ? For compile-time (static)
-type AuthLayoutProps = PropTypes.InferProps<typeof authLayoutProps>
+type AuthLayoutProps = PropTypes.InferProps<typeof authLayoutPropTypes>
 
 export default AuthLayout

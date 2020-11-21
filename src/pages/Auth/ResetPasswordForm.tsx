@@ -185,11 +185,11 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
   )
 }
 
-const resetPasswordFormProps = {
+const resetPasswordFormPropTypes = {
   navigate: PropTypes.func.isRequired,
 }
 
-ResetPasswordForm.propTypes = resetPasswordFormProps
-type ResetPasswordFormProps = PropTypes.InferProps<typeof resetPasswordFormProps>
+ResetPasswordForm.propTypes = resetPasswordFormPropTypes
+type ResetPasswordFormProps = PropTypes.InferProps<typeof resetPasswordFormPropTypes>
 
 export default ResetPasswordForm

@@ -27,7 +27,7 @@ type RouteState = { from?: string }
 const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
   const history = useHistory<RouteState>()
 
-  const [nextDest, setNextDest] = React.useState(Routes.SIGN_IN)
+  const [nextDest, setNextDest] = React.useState(Routes.HOME)
   const [isMounted, setIsMounted] = React.useState(true)
 
   const handleSetNextDest = React.useCallback((dest: string) => {
@@ -78,11 +78,11 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
   )
 }
 
-const signUpDrawerProps = {
+const signUpDrawerPropTypes = {
   refetchAuthUser: PropTypes.func.isRequired,
 }
 
-SignUpDrawer.propTypes = signUpDrawerProps
-type SignUpDrawerProps = PropTypes.InferProps<typeof signUpDrawerProps>
+SignUpDrawer.propTypes = signUpDrawerPropTypes
+type SignUpDrawerProps = PropTypes.InferProps<typeof signUpDrawerPropTypes>
 
 export default SignUpDrawer

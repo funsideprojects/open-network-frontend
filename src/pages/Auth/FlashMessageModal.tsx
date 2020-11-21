@@ -25,12 +25,12 @@ const ModalFlashMessage = ({ modalRef, navigate }: ModalFlashMessageProps) => {
   )
 }
 
-const modalFlashMessageProps = {
+const modalFlashMessagePropTypes = {
   modalRef: PropTypes.any.isRequired,
   navigate: PropTypes.func.isRequired,
 }
 
-ModalFlashMessage.propTypes = modalFlashMessageProps
-type ModalFlashMessageProps = PropTypes.InferProps<typeof modalFlashMessageProps>
+ModalFlashMessage.propTypes = modalFlashMessagePropTypes
+type ModalFlashMessageProps = PropTypes.InferProps<typeof modalFlashMessagePropTypes>
 
 export default React.memo(ModalFlashMessage)

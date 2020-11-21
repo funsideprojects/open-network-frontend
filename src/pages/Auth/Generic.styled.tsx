@@ -3,27 +3,36 @@ import { LeftArrowAlt, RightArrowAlt, Check, X, HomeAlt } from '@styled-icons/bo
 
 interface DrawerProps {
   fullHeight?: boolean
-  float: 'left' | 'right'
+  float: 'top' | 'right' | 'left'
 }
 
 export const Drawer = styled.section<DrawerProps>`
-  width: 50%;
-  max-width: 550px;
+  width: ${(props) => (props.float === 'top' ? 'fit-content' : '50%')};
+  max-width: ${(props) => (props.float === 'top' ? '100%' : '550px')};
   height: ${(props) => (props.fullHeight ? '100%' : 'fit-content')};
   max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
-  top: 0;
   display: flex;
   flex-direction: column;
   box-shadow: ${(props) => props.theme.shadows.sm};
+
   ${(props) =>
-    !props.fullHeight
+    props.float !== 'top' && !props.fullHeight
       ? `
 top: ${props.theme.spacing.lg};
 border-top-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme.radius.lg};
-border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme.radius.lg};
+border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme.radius.lg};`
+      : `top: 0;`}
+
+  ${(props) =>
+    props.float === 'top'
+      ? `
+right: 0;
+left: 0;
+border-radius: 0 0 ${props.theme.radius.lg} ${props.theme.radius.lg};
+margin: 0 auto;
 `
       : ''}
   padding: ${(props) => props.theme.spacing.lg};
@@ -31,7 +40,7 @@ border-bottom-${props.float === 'left' ? 'right' : 'left'}-radius: ${props.theme
 
   @media only screen and (min-width: ${(props) => props.theme.screen.lg}) {
     & {
-      width: 40%;
+      width: ${(props) => (props.float === 'top' ? 'fit-content' : '40%')};
       padding: ${(props) => props.theme.spacing.xl};
     }
   }
@@ -77,7 +86,6 @@ type ParagraphsProps = {
 export const Paragraphs = styled.p<ParagraphsProps>`
   ${(props) => (props.noMargin ? 'margin: 0;' : `margin-bottom: ${props.theme.spacing.lg};`)}
   font-family: ${(props) => props.theme.font.secondary};
-  font-size: ${(props) => props.theme.font.size.sm};
   letter-spacing: ${(props) => props.theme.font.spacing.letter.md};
   color: ${(props) => props.theme.colors.grey[500]};
 `

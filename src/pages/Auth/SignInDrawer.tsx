@@ -28,7 +28,7 @@ type RouteState = { from?: string }
 const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
   const history = useHistory<RouteState>()
 
-  const [nextDest, setNextDest] = React.useState(Routes.SIGN_IN)
+  const [nextDest, setNextDest] = React.useState(Routes.HOME)
   const [isMounted, setIsMounted] = React.useState(true)
 
   const handleSetNextDest = (dest: string) => {
@@ -75,11 +75,11 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
   )
 }
 
-const signInDrawerProps = {
+const signInDrawerPropTypes = {
   refetchAuthUser: PropTypes.func.isRequired,
 }
 
-SignInDrawer.propTypes = signInDrawerProps
-type SignInDrawerProps = PropTypes.InferProps<typeof signInDrawerProps>
+SignInDrawer.propTypes = signInDrawerPropTypes
+type SignInDrawerProps = PropTypes.InferProps<typeof signInDrawerPropTypes>
 
 export default SignInDrawer
