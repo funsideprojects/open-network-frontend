@@ -1,32 +1,32 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, Switch, Route, matchPath } from 'react-router-dom'
 import styled from 'styled-components'
 import { useApolloClient } from '@apollo/client'
 import NotificationComponent from 'react-notifications-component'
 
-import Header from 'components/App/Header'
+// import Header from 'components/App/Header'
 import NotFound from 'components/NotFound'
-import SideBar from './SideBar'
-import ListUser from './ListChat'
-import UserSuggestions from './UserSuggestions'
-import MessageBox from 'components/MessageBox'
+// import SideBar from './SideBar'
+// import ListUser from './ListChat'
+// import UserSuggestions from './UserSuggestions'
+// import MessageBox from 'components/MessageBox'
 
 import { GET_FOLLOWED_USERS } from 'graphql/follow'
 
-import Explore from 'pages/Explore'
-import Home from 'pages/Home'
-import Notifications from 'pages/Notifications'
-import People from 'pages/People'
-import Post from 'pages/Post'
-import Profile from 'pages/Profile'
+// import Explore from 'pages/Explore'
+// import Home from 'pages/Home'
+// import Notifications from 'pages/Notifications'
+// import People from 'pages/People'
+// import Post from 'pages/Post'
+// import Profile from 'pages/Profile'
 // import Messages from 'pages/Messages'
 
 import NotificationSubscription from './NotificationSubscription'
-import FollowedUsersDrawer from './FollowedUsersDrawer'
+// import FollowedUsersDrawer from './FollowedUsersDrawer'
 
-import { useWindowSize } from 'hooks/useWindowSize'
-import { useClickOutside } from 'hooks/useClickOutside'
+// import { useWindowSize } from 'hooks/useWindowSize'
+// import { useClickOutside } from 'hooks/useClickOutside'
 
 import { useStore } from 'store'
 import { SET_AUTH_USER } from 'store/auth'
@@ -34,15 +34,13 @@ import { SET_FOLLOW } from 'store/follow'
 
 import * as Routes from 'routes'
 
-import theme from 'theme'
-
 const Root = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
   width: 100%;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
 
   @media (min-width: ${(p) => p.theme.screen.md}) {
     width: ${(p) => p.theme.screen.md};
@@ -53,26 +51,26 @@ const Root = styled.div`
   }
 `
 
-const SessionLeft = styled.div`
-  width: 280px;
-  height: calc(100vh - 64px);
-  background: #fff;
-  position: sticky;
-  top: 64px;
-  overflow-y: auto;
+// const SessionLeft = styled.div`
+//   width: 280px;
+//   height: calc(100vh - 64px);
+//   overflow-y: auto;
+//   position: sticky;
+//   top: 64px;
+//   background: #fff;
 
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`
+//   ::-webkit-scrollbar {
+//     display: none;
+//   }
+// `
 
-const SessionRight = styled.div`
-  width: 280px;
-  height: calc(100vh - 64px);
-  position: sticky;
-  top: 64px;
-  z-index: 10;
-`
+// const SessionRight = styled.div`
+//   width: 280px;
+//   height: calc(100vh - 64px);
+//   position: sticky;
+//   top: 64px;
+//   z-index: 10;
+// `
 
 const SessionContent = styled.div`
   width: ${(p) => (p.hideChat ? 'calc(100% - 280px)' : 'calc(100% - 560px)')};
@@ -84,18 +82,13 @@ const AppLayout = ({ authUser }) => {
   const client = useApolloClient()
   const [{ auth }, dispatch] = useStore()
 
-  //
-  const windowSize = useWindowSize()
-  const isDesktop = windowSize.width >= parseInt(theme.screen.md, 10)
-  const [isSideBarOpen, setIsSidebarOpen] = useState(isDesktop)
+  // const sideBarRef = React.useRef(null)
 
-  const sideBarRef = useRef('')
-
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch({ type: SET_AUTH_USER, payload: authUser })
   }, [dispatch, authUser])
 
-  useEffect(() => {
+  React.useEffect(() => {
     client
       .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
       .then(({ data }) => {
@@ -104,23 +97,19 @@ const AppLayout = ({ authUser }) => {
       .catch(() => {})
   }, [client, dispatch])
 
-  useClickOutside(sideBarRef, () => {
-    if (!isDesktop && isSideBarOpen) {
-      setIsSidebarOpen(false)
-    }
-  })
+  // useClickOutside(sideBarRef, () => {
+  //   if (!isDesktop && isSideBarOpen) {
+  //     setIsSidebarOpen(false)
+  //   }
+  // })
 
-  useEffect(() => {
-    setIsSidebarOpen(isDesktop)
-  }, [isDesktop])
-
-  useEffect(() => {
-    return () => {
-      if (!isDesktop) {
-        setIsSidebarOpen(false)
-      }
-    }
-  }, [location.pathname, isDesktop])
+  // React.useEffect(() => {
+  //   return () => {
+  //     if (!isDesktop) {
+  //       setIsSidebarOpen(false)
+  //     }
+  //   }
+  // }, [location.pathname, isDesktop])
 
   if (!auth.user) return null
 
@@ -130,17 +119,17 @@ const AppLayout = ({ authUser }) => {
 
   return (
     <>
-      <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} />
+      {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
 
       {authUser && <NotificationSubscription />}
 
       <NotificationComponent />
 
       <Root>
-        <SessionLeft>
+        {/* <SessionLeft>
           <SideBar isOpen={isSideBarOpen} sideBarRef={sideBarRef} />
           <UserSuggestions pathname={location.pathname} />
-        </SessionLeft>
+        </SessionLeft> */}
 
         <SessionContent hideChat={hideChat}>
           <Switch>
@@ -171,7 +160,7 @@ const AppLayout = ({ authUser }) => {
           <React.Fragment />
         )} */}
 
-        <FollowedUsersDrawer />
+        {/* <FollowedUsersDrawer /> */}
       </Root>
     </>
   )

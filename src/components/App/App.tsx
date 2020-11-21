@@ -17,7 +17,7 @@ import ScrollToTop from './ScrollToTop'
 import theme from 'theme'
 
 // const AppLayout = React.lazy(() => import('./AppLayout')) <AppLayout authUser={data.getAuthUser} />
-const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
+const AuthLayout = React.lazy(() => import(/* webpackChunkName: "AuthLayout" */ 'pages/Auth/AuthLayout'))
 
 const App = () => {
   // ? Responsive

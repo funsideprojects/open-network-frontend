@@ -2,7 +2,8 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 
-import { Button } from 'components/Form/index'
+import Head from 'components/Head'
+import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
 
@@ -36,40 +37,44 @@ const RequestPasswordResetDrawer = () => {
   }
 
   return (
-    <Transition
-      appear
-      unmountOnExit
-      in={isMounted}
-      timeout={{
-        enter: 0,
-        exit: tDuration,
-      }}
-      onExited={() => history.push(nextDest, { from: history.location.pathname })}
-    >
-      {(transitionState) => (
-        <Drawer
-          data-name="request-password-reset-drawer"
-          float="left"
-          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
-        >
-          <Button
-            buttonType="default"
-            onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.SIGN_IN)}
+    <>
+      <Head title="PrJx - Request Password Reset" />
+
+      <Transition
+        appear
+        unmountOnExit
+        in={isMounted}
+        timeout={{
+          enter: 0,
+          exit: tDuration,
+        }}
+        onExited={() => history.push(nextDest, { from: history.location.pathname })}
+      >
+        {(transitionState) => (
+          <Drawer
+            data-name="request-password-reset-drawer"
+            float="left"
+            style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
           >
-            <SCILeftArrowAlt />
-          </Button>
+            <Button
+              buttonType="default"
+              onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.SIGN_IN)}
+            >
+              <SCILeftArrowAlt />
+            </Button>
 
-          <Title>Forgot your password?</Title>
+            <Title>Forgot your password?</Title>
 
-          <Paragraphs noMargin>
-            Please enter your username or email address. <br />
-            We'll email instructions on how to reset your password
-          </Paragraphs>
+            <Paragraphs noMargin>
+              Please enter your username or email address. <br />
+              We'll email instructions on how to reset your password
+            </Paragraphs>
 
-          <RequestPasswordResetForm />
-        </Drawer>
-      )}
-    </Transition>
+            <RequestPasswordResetForm />
+          </Drawer>
+        )}
+      </Transition>
+    </>
   )
 }
 

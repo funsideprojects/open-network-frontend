@@ -2,7 +2,8 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 
-import { Button } from 'components/Form/index'
+import Head from 'components/Head'
+import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
 
@@ -32,44 +33,48 @@ const WelcomeDrawer = () => {
   }
 
   return (
-    <Transition
-      appear
-      unmountOnExit
-      in={isMounted}
-      timeout={{
-        enter: 0,
-        exit: tDuration,
-      }}
-      onExited={() => history.push(nextDest, { from: history.location.pathname })}
-    >
-      {(transitionState) => (
-        <Drawer
-          data-name="welcome-drawer"
-          float="left"
-          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
-        >
-          <Title noMarginTop>
-            Find your community at <PrimaryText>PrJx</PrimaryText>
-          </Title>
+    <>
+      <Head />
 
-          <Paragraphs>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce imperdiet sem at est semper, et congue nunc
-            semper. Cras orci dolor, maximus vel enim in, aliquet fermentum orci. Vestibulum tincidunt odio sed ante
-            pellentesque, in pellentesque ante sodales. Praesent porta leo vel ultrices condimentum.
-          </Paragraphs>
+      <Transition
+        appear
+        unmountOnExit
+        in={isMounted}
+        timeout={{
+          enter: 0,
+          exit: tDuration,
+        }}
+        onExited={() => history.push(nextDest, { from: history.location.pathname })}
+      >
+        {(transitionState) => (
+          <Drawer
+            data-name="welcome-drawer"
+            float="left"
+            style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
+          >
+            <Title noMarginTop>
+              Find your community at <PrimaryText>PrJx</PrimaryText>
+            </Title>
 
-          <Nav>
-            <Button buttonType="primary" onClick={() => handleSetNextDest(Routes.SIGN_UP)}>
-              <SCILeftArrowAlt /> SIGN UP
-            </Button>
+            <Paragraphs>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce imperdiet sem at est semper, et congue nunc
+              semper. Cras orci dolor, maximus vel enim in, aliquet fermentum orci. Vestibulum tincidunt odio sed ante
+              pellentesque, in pellentesque ante sodales. Praesent porta leo vel ultrices condimentum.
+            </Paragraphs>
 
-            <Button bordered buttonType="default" onClick={() => handleSetNextDest(Routes.SIGN_IN)}>
-              SIGN IN <SCIRightArrowAlt />
-            </Button>
-          </Nav>
-        </Drawer>
-      )}
-    </Transition>
+            <Nav>
+              <Button buttonType="primary" onClick={() => handleSetNextDest(Routes.SIGN_UP)}>
+                <SCILeftArrowAlt /> SIGN UP
+              </Button>
+
+              <Button bordered buttonType="default" onClick={() => handleSetNextDest(Routes.SIGN_IN)}>
+                SIGN IN <SCIRightArrowAlt />
+              </Button>
+            </Nav>
+          </Drawer>
+        )}
+      </Transition>
+    </>
   )
 }
 

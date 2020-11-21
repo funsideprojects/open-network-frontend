@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 
+import Head from 'components/Head'
 import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
@@ -34,30 +35,34 @@ const ResetPasswordDrawer = () => {
   }
 
   return (
-    <Transition
-      appear
-      unmountOnExit
-      in={isMounted}
-      timeout={{
-        enter: 0,
-        exit: tDuration,
-      }}
-      onExited={() => history.push(nextDest, { from: history.location.pathname })}
-    >
-      {(transitionState) => (
-        <Drawer
-          data-name="reset-password-drawer"
-          float="left"
-          style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
-        >
-          <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
-            <SCIHomeAlt />
-          </Button>
+    <>
+      <Head title="PrJx - Reset Password" />
 
-          {transitionState === 'entered' ? <ResetPasswordForm navigate={handleSetNextDest} /> : <></>}
-        </Drawer>
-      )}
-    </Transition>
+      <Transition
+        appear
+        unmountOnExit
+        in={isMounted}
+        timeout={{
+          enter: 0,
+          exit: tDuration,
+        }}
+        onExited={() => history.push(nextDest, { from: history.location.pathname })}
+      >
+        {(transitionState) => (
+          <Drawer
+            data-name="reset-password-drawer"
+            float="left"
+            style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
+          >
+            <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
+              <SCIHomeAlt />
+            </Button>
+
+            {transitionState === 'entered' ? <ResetPasswordForm navigate={handleSetNextDest} /> : <></>}
+          </Drawer>
+        )}
+      </Transition>
+    </>
   )
 }
 
