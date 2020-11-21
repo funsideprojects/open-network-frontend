@@ -1,5 +1,4 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 
 import { usePrevious } from 'hooks/usePrevious'

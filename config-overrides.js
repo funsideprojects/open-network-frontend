@@ -1,6 +1,11 @@
 const { join } = require('path')
 const { override, addBabelPlugins, addLessLoader, overrideDevServer } = require('customize-cra')
 
+// Just in case of webpack modification is needed
+const additionalConfig = () => (config) => {
+  return config
+}
+
 module.exports = {
   webpack: override(
     ...addBabelPlugins(
@@ -15,7 +20,8 @@ module.exports = {
         javascriptEnabled: true,
       },
       sourceMap: false,
-    })
+    }),
+    additionalConfig()
   ),
   devServer: overrideDevServer((devServerConfig) => {
     return {

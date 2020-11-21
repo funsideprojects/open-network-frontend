@@ -13,47 +13,7 @@ import { ApolloClient } from '@apollo/client/core'
 
 import { globalLoading, servicesStatus, connectionStatus } from 'graphql/local-state'
 
-// ? Create a Auth Link, that attach credentials to each request
-const createAuthLink = () => {
-  return new ApolloLink(
-    (operation, forward) =>
-      new Observable((observer) => {
-        let handler
-
-        Promise.resolve(operation)
-          .then(({ setContext }) => {
-            setContext({ fetchOptions: { credentials: 'include' } })
-          })
-          .then(() => {
-            handler = forward(operation).subscribe({
-              next: observer.next.bind(observer),
-              error: observer.error.bind(observer),
-              complete: observer.complete.bind(observer),
-            })
-          })
-          .catch(observer.error.bind(observer))
-
-        return () => {
-          if (handler) handler.unsubscribe()
-        }
-      })
-  )
-}
-
-// ? Create a Error Link that handles error cases
-const createErrorLink = () => {
-  return onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      console.debug('graphQLErrors', graphQLErrors)
-    }
-
-    if (networkError) {
-      console.debug('networkError', networkError)
-    }
-  })
-}
-
-// ? GraphQL HTTP URL
+// ? GraphQL api URL
 const apiUrl = process.env.REACT_APP_API_URL
 
 // ? GraphQL WebSocket (subscriptions) URL.
@@ -63,7 +23,43 @@ const websocketApiUrl = WEBSOCKET_API_URL
   ? WEBSOCKET_API_URL
   : apiUrl!.replace('https://', 'wss://').replace('http://', 'ws://')
 
-// ? WebSocket link
+// ? Auth-link attaches credentials to each request
+const authLink = new ApolloLink(
+  (operation, forward) =>
+    new Observable((observer) => {
+      let handler
+
+      Promise.resolve(operation)
+        .then(({ setContext }) => {
+          setContext({ fetchOptions: { credentials: 'include' } })
+        })
+        .then(() => {
+          handler = forward(operation).subscribe({
+            next: observer.next.bind(observer),
+            error: observer.error.bind(observer),
+            complete: observer.complete.bind(observer),
+          })
+        })
+        .catch(observer.error.bind(observer))
+
+      return () => {
+        if (handler) handler.unsubscribe()
+      }
+    })
+)
+
+// ? Error-link handles error cases
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    console.debug('graphQLErrors', graphQLErrors)
+  }
+
+  if (networkError) {
+    console.debug('networkError', networkError)
+  }
+})
+
+// ? WebSocket-link
 const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   lazy: true,
   timeout: 60000,
@@ -87,6 +83,13 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
 export const closeSubscription = () => {
   subscriptionClient.close()
 }
+
+const wsLink = new WebSocketLink(subscriptionClient)
+
+// ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
+// ! https://github.com/apollographql/subscriptions-transport-ws/issues/377
+wsLink['subscriptionClient'].maxConnectTimeGenerator.duration = () =>
+  wsLink['subscriptionClient'].maxConnectTimeGenerator.max
 
 // ? Caching
 const cache = new InMemoryCache({
@@ -114,36 +117,29 @@ const cache = new InMemoryCache({
   },
 })
 
-export const createApolloClient = () => {
-  const authLink = createAuthLink()
-  const errorLink = createErrorLink()
-  const uploadLink = createUploadLink({ uri: apiUrl }) // ? Create upload link as well as an HTTP link
-  const persistedQueriesLink = createPersistedQueryLink({ sha256 })
+const batchHttpLink = new BatchHttpLink({ uri: apiUrl })
 
-  const batchHttpLink = new BatchHttpLink({ uri: apiUrl })
-  const wsLink = new WebSocketLink(subscriptionClient)
+// ? Create Upload-link as well as an HTTP link
+const uploadLink = createUploadLink({ uri: apiUrl })
 
-  // ! Temporary fix for early websocket closure resulting in websocket connections not being instantiated
-  // ! https://github.com/apollographql/subscriptions-transport-ws/issues/377
-  wsLink['subscriptionClient'].maxConnectTimeGenerator.duration = () =>
-    wsLink['subscriptionClient'].maxConnectTimeGenerator.max
+// ? Persisted-Queries-link that hash query string for optimization purpose
+const persistedQueriesLink = createPersistedQueryLink({ sha256 })
 
-  // ? Split links, so we can send data to each link depending on what kind of operation is being sent
-  const terminatingLink = split(
-    ({ query }) => {
-      const definition = getMainDefinition(query)
+// ? Split links, so we can send data to each link depending on what kind of operation is being sent
+const terminatingLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
 
-      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
-    },
-    wsLink,
-    persistedQueriesLink.concat(
-      split((operation) => extractFiles(operation).files.size > 0, uploadLink as any, batchHttpLink)
-    )
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+  },
+  wsLink,
+  persistedQueriesLink.concat(
+    split((operation) => extractFiles(operation).files.size > 0, uploadLink as any, batchHttpLink)
   )
+)
 
-  return new ApolloClient({
-    link: from([errorLink, authLink, terminatingLink]),
-    cache,
-    connectToDevTools: process.env.NODE_ENV === 'development',
-  })
-}
+export const apolloClient = new ApolloClient({
+  link: from([errorLink, authLink, terminatingLink]),
+  cache,
+  connectToDevTools: process.env.NODE_ENV === 'development',
+})

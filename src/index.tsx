@@ -6,17 +6,14 @@ import { HelmetProvider } from 'react-helmet-async'
 
 import 'normalize.css'
 import 'fonts.less'
-import 'react-notifications-component/dist/theme.css'
 
-import { createApolloClient } from '_apollo-client'
+import { apolloClient } from '_apollo-client'
 import { StoreProvider } from 'store'
 import theme from 'theme'
 
 import App from 'components/App'
 
 import * as serviceWorker from './serviceWorker'
-
-const apolloClient = createApolloClient()
 
 render(
   <ApolloProvider client={apolloClient}>

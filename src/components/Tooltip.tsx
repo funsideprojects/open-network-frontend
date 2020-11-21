@@ -1,5 +1,4 @@
 import React from 'react'
-import { createPortal } from 'react-dom'
 // import PropTypes from 'prop-types'
 
 import { usePrevious } from 'hooks/usePrevious'
@@ -28,7 +27,8 @@ const Tooltip: React.FC<any> = ({ children, visible, title, type = 'error', plac
     default:
   }
 
-  return createPortal(<>{titleToShow}</>, document.getElementById('portal-mountpoint')!)
+  // return createPortal(<>{titleToShow}</>, document.getElementById('portal-mountpoint')!)
+  return <div>{titleToShow}</div>
 }
 
 // Tooltip.propTypes = {

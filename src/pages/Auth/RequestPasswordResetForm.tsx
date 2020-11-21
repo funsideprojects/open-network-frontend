@@ -66,8 +66,6 @@ const RequestPasswordResetForm = () => {
       .finally(() => buttonRef.current?.setLoading(false))
   }
 
-  console.log('render')
-
   return (
     <Form name="request-password-reset-form" onSubmit={handleSubmit(handleRequestPasswordReset)}>
       <FormItem top="xs">
