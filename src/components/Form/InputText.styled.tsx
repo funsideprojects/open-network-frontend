@@ -89,6 +89,16 @@ export const ALInput = styled(InputBase)<ALInputProps>`
     opacity: 0;
   }
 
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 40px inset white;
+  }
+
+  &:-webkit-autofill ~ ${(props) => props.Label} {
+    left: ${(props) => props.theme.spacing[props.hasPrefix ? 'lg' : 'none']};
+    opacity: 0;
+    transform-origin: top left;
+  }
+
   & ~ ${(props) => props.hasPrefix} {
     color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
     transition: 0.3s;

@@ -15,7 +15,6 @@ import SignInForm from './SignInForm'
 const tDuration = 300 // ? ms
 const defaultStyle = {
   transition: `${tDuration}ms`,
-  visibility: 'hidden',
 }
 const transitionStyles = {
   entering: { opacity: 0, right: '-40%', visibility: 'hidden' },
@@ -62,7 +61,11 @@ const SignInDrawer = ({ refetchAuthUser }: SignInDrawerProps) => {
               <PrimaryText>Sign in</PrimaryText> to get in touch with your community
             </Title>
 
-            <SignInForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
+            {transitionState === 'entered' || transitionState === 'exiting' ? (
+              <SignInForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
+            ) : (
+              <></>
+            )}
 
             <Hint align="right">
               Don't have an account?{' '}

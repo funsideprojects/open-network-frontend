@@ -121,7 +121,13 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         including only word, digit and allowed special character(!, @, #, $, %, ^, &, *)
       </Paragraphs>
 
-      <Form name="reset-password-form" onSubmit={handleSubmit(handleResetPassword)}>
+      <Form
+        name="reset-password-form"
+        onSubmit={(event) => {
+          event.preventDefault()
+          handleSubmit(handleResetPassword)(event)
+        }}
+      >
         <FormItem>
           <Input
             autoFocus

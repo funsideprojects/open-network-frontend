@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useHistory, Switch, Route, matchPath } from 'react-router-dom'
+import { useHistory, Switch, Route, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { useApolloClient } from '@apollo/client'
+
+import { CookieEvents } from './CookieEvents'
 
 // import Header from 'components/App/Header'
 import NotFound from 'components/NotFound'
@@ -110,57 +112,49 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
   //   }
   // })
 
-  // React.useEffect(() => {
-  //   return () => {
-  //     if (!isDesktop) {
-  //       setIsSidebarOpen(false)
-  //     }
-  //   }
-  // }, [location.pathname, isDesktop])
-
-  const hideChat = matchPath(history.location.pathname, {
-    path: [Routes.MESSAGES, Routes.PEOPLE, Routes.EXPLORE, Routes.USER_PROFILE],
-  })
-
-  console.log(auth.user)
-
   if (!auth.user) {
     return <div>asdasdasd</div>
   }
 
   return (
-    <Background>
-      {/* {authUser && <NotificationSubscription />} */}
+    <>
+      <CookieEvents />
 
-      {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
+      <Background>
+        {/* {authUser && <NotificationSubscription />} */}
 
-      <Root>
-        {/* <SessionLeft>
+        {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
+
+        <Root>
+          {/* <SessionLeft>
           <SideBar isOpen={isSideBarOpen} sideBarRef={sideBarRef} />
           <UserSuggestions pathname={location.pathname} />
         </SessionLeft> */}
 
-        <SessionContent>
-          <Switch>
-            {/* <Route exact path={Routes.HOME} component={Home} /> */}
+          <SessionContent>
+            <Switch>
+              {/* <Route exact path={Routes.HOME} component={Home} /> */}
 
-            {/* <Route exact path={Routes.EXPLORE} component={Explore} /> */}
+              {/* <Route exact path={Routes.EXPLORE} component={Explore} /> */}
 
-            {/* <Route exact path={Routes.NOTIFICATIONS} component={Notifications} /> */}
+              {/* <Route exact path={Routes.NOTIFICATIONS} component={Notifications} /> */}
 
-            {/* <Route exact path={Routes.MESSAGES} component={Messages} /> */}
+              {/* <Route exact path={Routes.MESSAGES} component={Messages} /> */}
 
-            {/* <Route exact path={Routes.PEOPLE} component={People} /> */}
+              {/* <Route exact path={Routes.PEOPLE} component={People} /> */}
 
-            {/* <Route exact path={Routes.POST} component={Post} /> */}
+              {/* <Route exact path={Routes.POST} component={Post} /> */}
 
-            {/* <Route exact path={Routes.USER_PROFILE} component={Profile} /> */}
+              {/* <Route exact path={Routes.USER_PROFILE} component={Profile} /> */}
 
-            <Route component={NotFound} />
-          </Switch>
-        </SessionContent>
-      </Root>
-    </Background>
+              <Route path={Routes.NOTFOUND} render={() => <NotFound navigate={() => history.push(Routes.HOME)} />} />
+
+              <Redirect to={Routes.NOTFOUND} />
+            </Switch>
+          </SessionContent>
+        </Root>
+      </Background>
+    </>
   )
 }
 

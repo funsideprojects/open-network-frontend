@@ -64,7 +64,11 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
                 <PrimaryText>Sign up</PrimaryText> to get in touch with your community
               </Title>
 
-              <SignUpForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
+              {transitionState === 'entered' || transitionState === 'exiting' ? (
+                <SignUpForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
+              ) : (
+                <></>
+              )}
 
               <Hint align="right">
                 Already have an account?{' '}

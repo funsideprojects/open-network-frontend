@@ -25,8 +25,9 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   min-height: 40px;
   display: inline-block;
   outline: none;
-  border-width: ${(props) => (props.bordered ? '2px' : 0)};
+  border-width: 2px;
   border-style: solid;
+  border-color: ${(props) => (props.bordered ? props.theme.colors.primary.main : props.theme.colors.white)};
   border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
   padding: ${(props) => props.theme.spacing.xs};
@@ -44,32 +45,41 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
 `
 
 export const ButtonDefault = styled(ButtonBase)`
-  border-color: ${(props) => props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.primary.main};
   background: ${(props) => props.theme.colors.white};
 
   &:hover {
     background: ${(props) => props.theme.colors.primary.lighter};
   }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.main};
+  }
 `
 
 export const ButtonPrimary = styled(ButtonBase)`
-  border-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.white};
   background: ${(props) => props.theme.colors.primary.main};
 
   &:hover {
     background: ${(props) => props.theme.colors.primary.light};
   }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.light};
+  }
 `
 
 export const ButtonText = styled(ButtonBase)`
-  border-color: ${(props) => props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.primary.main};
   background: ${(props) => props.theme.colors.none};
 
   &:hover {
     background: ${(props) => props.theme.colors.primary.grey};
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.lighter};
   }
 `
 

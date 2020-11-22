@@ -67,7 +67,13 @@ const RequestPasswordResetForm = () => {
   }
 
   return (
-    <Form name="request-password-reset-form" onSubmit={handleSubmit(handleRequestPasswordReset)}>
+    <Form
+      name="request-password-reset-form"
+      onSubmit={(event) => {
+        event.preventDefault()
+        handleSubmit(handleRequestPasswordReset)(event)
+      }}
+    >
       <FormItem top="xs">
         <Input
           autoFocus

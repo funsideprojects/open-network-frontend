@@ -137,7 +137,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     {
       name: 'password',
       type: 'password',
-      autoComplete: 'on',
+      autoComplete: 'new-password',
       placeholder: 'Password',
       ref: register({
         required: 'Password is required',
@@ -162,7 +162,7 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     {
       name: 'confirm',
       type: 'password',
-      autoComplete: 'on',
+      autoComplete: 'new-password',
       placeholder: 'Confirmation password',
       ref: register({
         required: 'Confirmation password is required',
@@ -180,7 +180,13 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     <>
       <FlashMessageModal modalRef={modalRef} navigate={navigate} />
 
-      <Form name="sign-up-form" onSubmit={handleSubmit(handleSignUp)}>
+      <Form
+        name="sign-up-form"
+        onSubmit={(event) => {
+          event.preventDefault()
+          handleSubmit(handleSignUp)(event)
+        }}
+      >
         <FormItem>
           <Tag block visible={!!response.message} tagColor={response.type}>
             {response.message}
@@ -216,4 +222,4 @@ const signUpFormPropTypes = {
 SignUpForm.propTypes = signUpFormPropTypes
 type SignUpFormProps = PropTypes.InferProps<typeof signUpFormPropTypes>
 
-export default React.memo(SignUpForm)
+export default SignUpForm

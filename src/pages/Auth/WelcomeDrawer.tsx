@@ -64,7 +64,7 @@ const WelcomeDrawer = () => {
                 <SCILeftArrowAlt /> SIGN UP
               </Button>
 
-              <Button bordered buttonType="default" onClick={() => handleSetNextDest(Routes.SIGN_IN)}>
+              <Button buttonType="default" onClick={() => handleSetNextDest(Routes.SIGN_IN)}>
                 SIGN IN <SCIRightArrowAlt />
               </Button>
             </Nav>

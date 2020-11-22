@@ -49,7 +49,13 @@ const SignInForm = ({ refetchAuthUser, navigate }: SignInFormProps) => {
   }
 
   return (
-    <Form name="sign-in-form" onSubmit={handleSubmit(handleSignIn)}>
+    <Form
+      name="sign-in-form"
+      onSubmit={(event) => {
+        event.preventDefault()
+        handleSubmit(handleSignIn)(event)
+      }}
+    >
       <FormItem>
         <Input
           animatedLabel
@@ -112,4 +118,4 @@ const signInFormPropTypes = {
 SignInForm.propTypes = signInFormPropTypes
 type SignInFormProps = PropTypes.InferProps<typeof signInFormPropTypes>
 
-export default React.memo(SignInForm)
+export default SignInForm
