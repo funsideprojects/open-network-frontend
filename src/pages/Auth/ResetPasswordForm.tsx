@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { passwordRegex, responsePrefixRegex } from 'constants/RegExr'
 import { VERIFY_TOKEN, RESET_PASSWORD } from 'graphql/user'
 import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
-import { Loading } from 'components/Loading'
+import Loading from 'components/Loading'
 import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'

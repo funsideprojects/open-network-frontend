@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { useQuery } from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import { Loading } from 'components/Loading'
+import Loading from 'components/Loading'
 import { GET_AUTH_USER } from 'graphql/user'
 import {
   // GET_SERVICES_STATUS,
@@ -26,26 +26,32 @@ const App = () => {
   const { data: globalLoadingStatus } = useQuery(GET_GLOBAL_LOADING)
   // const { data: servicesStatusData } = useQuery(GET_SERVICES_STATUS)
 
-  return (
+  return mode === 'desktop' ? (
     <Router>
       <GlobalStyle />
 
-      {globalLoadingStatus.globalLoading || loading || !mode ? (
+      {loading ? (
         <Loading overlay />
       ) : (
-        <Suspense fallback={<></>}>
-          <ScrollToTop>
-            <Switch>
-              {authUserData?.getAuthUser ? (
-                <Route render={() => <AppLayout authUser={authUserData.getAuthUser} />} />
-              ) : (
-                <Route render={() => <AuthLayout refetchAuthUser={refetch} />} />
-              )}
-            </Switch>
-          </ScrollToTop>
-        </Suspense>
+        <>
+          <Suspense fallback={<></>}>
+            <ScrollToTop>
+              <Switch>
+                {authUserData?.getAuthUser ? (
+                  <Route render={() => <AppLayout authUser={authUserData.getAuthUser} />} />
+                ) : (
+                  <Route render={() => <AuthLayout refetchAuthUser={refetch} />} />
+                )}
+              </Switch>
+            </ScrollToTop>
+          </Suspense>
+
+          {globalLoadingStatus.globalLoading ? <Loading overlay /> : <></>}
+        </>
       )}
     </Router>
+  ) : (
+    <div>Download Mobile app</div>
   )
 }
 

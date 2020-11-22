@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import backgroundDesktop from 'assets/images/background-desktop.png'
-import { Loading } from 'components/Loading'
+import Loading from 'components/Loading'
 import { usePrefetch } from 'hooks/usePrefetch'
 
 import * as Routes from 'routes'

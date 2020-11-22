@@ -43,6 +43,7 @@ export const H4 = styled.h4`
 export const H5 = styled.h4`
   ${genericTextStyles('0.85rem')};
 `
+
 export const H6 = styled.h4`
   ${genericTextStyles('0.75rem')};
 `

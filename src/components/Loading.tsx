@@ -35,7 +35,7 @@ const spinAnimation = keyframes`
   }
 `
 
-const SCSpinner = styled(Spinner3)<{ large?: boolean }>`
+const SCISpinner = styled(Spinner3)<{ large?: boolean }>`
   ${(props) =>
     props.large
       ? `
@@ -47,7 +47,7 @@ height: 30px !important;
   animation: 1.5s linear ${spinAnimation} infinite;
 `
 
-export const Loading = ({ overlay, block, radiusBorder }: LoadingPropTypes) => {
+const Loading = ({ overlay, block, radiusBorder }: LoadingPropTypes) => {
   React.useEffect(() => {
     if (overlay) {
       const now = Date.now()
@@ -63,13 +63,13 @@ export const Loading = ({ overlay, block, radiusBorder }: LoadingPropTypes) => {
     return (
       <Overlay block={block} radiusBorder={radiusBorder}>
         <Container block={block}>
-          <SCSpinner large />
+          <SCISpinner large />
         </Container>
       </Overlay>
     )
   }
 
-  return <SCSpinner />
+  return <SCISpinner />
 }
 
 const loadingPropTypes = {
@@ -80,3 +80,5 @@ const loadingPropTypes = {
 
 Loading.propTypes = loadingPropTypes
 type LoadingPropTypes = PropTypes.InferProps<typeof loadingPropTypes>
+
+export default Loading
