@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { useApolloClient } from '@apollo/client'
+// import { useApolloClient } from '@apollo/client'
 import styled from 'styled-components'
-
-import { CookieEvents } from './CookieEvents'
 
 // import Header from 'components/App/Header'
 import NotFound from 'pages/NotFound'
@@ -23,7 +21,7 @@ import NotFound from 'pages/NotFound'
 // import Profile from 'pages/Profile'
 // import Messages from 'pages/Messages'
 
-// import NotificationSubscription from './NotificationSubscription'
+import Subscription from './Subscription'
 // import FollowedUsersDrawer from './FollowedUsersDrawer'
 
 // import { useWindowSize } from 'hooks/useWindowSize'
@@ -53,10 +51,11 @@ const Container = styled.div`
 `
 
 const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
-  const client = useApolloClient()
+  // const client = useApolloClient()
   const [, dispatch] = useStore()
 
   React.useEffect(() => {
+    console.log('trig')
     dispatch({ type: SET_AUTH_USER, payload: authUser })
   }, [dispatch, authUser])
 
@@ -75,11 +74,11 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
   //   }
   // })
 
+  console.log('renderx')
+
   return (
     <>
-      <CookieEvents />
-
-      {/* {authUser && <NotificationSubscription />} */}
+      <Subscription />
 
       {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
 

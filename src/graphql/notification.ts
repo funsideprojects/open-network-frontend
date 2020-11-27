@@ -48,9 +48,6 @@ export const UPDATE_NOTIFICATION_SEEN = gql`
   }
 `
 
-/**
- * DONE: Get user's notifications in real time
- */
 export const NOTIFICATION_UPDATED = gql`
   subscription {
     notificationUpdated {

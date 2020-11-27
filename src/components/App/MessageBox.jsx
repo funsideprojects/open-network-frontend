@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useStore } from 'store'
+// import { useStore } from 'store'
 
 import Avatar from 'components/Avatar'
 
@@ -207,14 +207,14 @@ const Typing = styled.div`
 `
 
 const MessageBox = () => {
-  const [{ chat }, dispatch] = useStore()
+  // const [{ chat }, dispatch] = useStore()
 
-  const openMessageBox = () => {
-    // dispatch({ type: SET_CHAT, payload: {
-    //   isShowMessageBox: true,
-    //   infoUser: null
-    // }})
-  }
+  // const openMessageBox = () => {
+  // dispatch({ type: SET_CHAT, payload: {
+  //   isShowMessageBox: true,
+  //   infoUser: null
+  // }})
+  // }
 
   return (
     <Root>
@@ -224,41 +224,41 @@ const MessageBox = () => {
           <FullName>Trinh Nhat SInh</FullName>
         </WrapperInfo>
         <CloseButton>
-          <img src={closeIcon} alt='icon_close' />
+          <img src={closeIcon} alt="icon_close" />
         </CloseButton>
       </HeadBox>
       <BodyBox>
         <SessionChat>
           <ContentSession>
-            <WrapperMessage position='left'>
+            <WrapperMessage position="left">
               <Avatar size={32} isOnline={true} />
-              <ContentMessage position='left'>
-                <MessageItem position='left' type='top'>
+              <ContentMessage position="left">
+                <MessageItem position="left" type="top">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='left' type='center'>
+                <MessageItem position="left" type="center">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='left' type='bottom'>
+                <MessageItem position="left" type="bottom">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='left'>
+                <MessageItem position="left">
                   <span>xin chao</span>
                 </MessageItem>
               </ContentMessage>
             </WrapperMessage>
-            <WrapperMessage position='right'>
-              <ContentMessage position='right'>
-                <MessageItem position='right' type='top'>
+            <WrapperMessage position="right">
+              <ContentMessage position="right">
+                <MessageItem position="right" type="top">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='right' type='center'>
+                <MessageItem position="right" type="center">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='right' type='bottom'>
+                <MessageItem position="right" type="bottom">
                   <span>xin chao</span>
                 </MessageItem>
-                <MessageItem position='right'>
+                <MessageItem position="right">
                   <span>xin chao</span>
                 </MessageItem>
               </ContentMessage>
