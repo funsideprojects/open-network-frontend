@@ -55,7 +55,6 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
   const [, dispatch] = useStore()
 
   React.useEffect(() => {
-    console.log('trig')
     dispatch({ type: SET_AUTH_USER, payload: authUser })
   }, [dispatch, authUser])
 
@@ -73,8 +72,6 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
   //     setIsSidebarOpen(false)
   //   }
   // })
-
-  console.log('renderx')
 
   return (
     <>
