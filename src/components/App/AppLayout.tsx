@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
-// import { useApolloClient } from '@apollo/client'
 import styled from 'styled-components'
 
 // import Header from 'components/App/Header'
@@ -27,8 +26,6 @@ import Subscription from './Subscription'
 // import { useWindowSize } from 'hooks/useWindowSize'
 // import { useClickOutside } from 'hooks/useClickOutside'
 
-import { useStore } from 'store'
-import { SET_AUTH_USER } from 'store/auth'
 // import { SET_FOLLOW } from 'store/follow'
 
 import * as Routes from 'routes'
@@ -50,13 +47,8 @@ const Container = styled.div`
   margin: 0 auto;
 `
 
-const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
+const AppLayout = ({ refetchAuthUser }: AppLayoutPropTypes) => {
   // const client = useApolloClient()
-  const [, dispatch] = useStore()
-
-  React.useEffect(() => {
-    dispatch({ type: SET_AUTH_USER, payload: authUser })
-  }, [dispatch, authUser])
 
   // React.useEffect(() => {
   //   client
@@ -80,6 +72,8 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
       {/* <Header toggleSideBar={() => setIsSidebarOpen(!isSideBarOpen)} /> */}
 
       <Background>
+        <button onClick={() => refetchAuthUser()}>ref</button>
+
         <Container>
           {/* <SessionLeft>
           <SideBar isOpen={isSideBarOpen} sideBarRef={sideBarRef} />
@@ -112,7 +106,7 @@ const AppLayout = ({ authUser }: AppLayoutPropTypes) => {
 }
 
 const appLayoutPropTypes = {
-  authUser: PropTypes.object.isRequired,
+  refetchAuthUser: PropTypes.func.isRequired,
 }
 
 AppLayout.propTypes = appLayoutPropTypes

@@ -9,7 +9,7 @@ export const authUserPayload = `
   imagePublicId
   coverImage
   coverImagePublicId
-  visbileToEveryone
+  visibleToEveryone
   online
   displayOnlineStatus
   lastActiveAt

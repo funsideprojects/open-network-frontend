@@ -11,7 +11,7 @@ import { sha256 } from 'crypto-hash'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { ApolloClient } from '@apollo/client/core'
 
-import { globalLoading, servicesStatus, connectionStatus } from 'graphql/local-state'
+import { typePolicies } from 'graphql/local-state'
 
 // ? GraphQL api URL
 const apiUrl = process.env.REACT_APP_API_URL
@@ -64,14 +64,6 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   lazy: true,
   timeout: 60000,
   reconnect: true,
-  connectionParams: () => {
-    // todo - Get token to cookie
-    const authToken = localStorage.getItem('token')
-
-    return {
-      authorization: authToken,
-    }
-  },
 })
 // todo - Handle detect user connectivity
 // subscriptionClient.onConnecting(() => {})
@@ -95,27 +87,7 @@ wsLink['subscriptionClient'].maxConnectTimeGenerator.duration = () =>
 // ? Caching
 const cache = new InMemoryCache({
   addTypename: false,
-  typePolicies: {
-    Query: {
-      fields: {
-        globalLoading: {
-          read() {
-            return globalLoading()
-          },
-        },
-        servicesStatus: {
-          read() {
-            return servicesStatus()
-          },
-        },
-        connectionStatus: {
-          read() {
-            return connectionStatus()
-          },
-        },
-      },
-    },
-  },
+  typePolicies,
 })
 
 const batchHttpLink = new BatchHttpLink({ uri: apiUrl })

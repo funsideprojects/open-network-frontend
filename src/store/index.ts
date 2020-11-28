@@ -1,1 +1,1 @@
-export { StoreProvider, useStore } from './store'
+export * from './atoms'

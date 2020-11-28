@@ -1,10 +1,9 @@
 import { gql } from '@apollo/client'
 
-import { userPayload } from './types'
+import { authUserPayload, userPayload } from './types'
 
 // * Queries
 
-/** Get users with whom authUser had a conversation */
 export const GET_CONVERSATIONS = gql`
   query($authUserId: ID!) {
     getConversations(authUserId: $authUserId) {
@@ -24,13 +23,11 @@ export const GET_CONVERSATIONS = gql`
 export const GET_AUTH_USER = gql`
   query getAuthUser {
     getAuthUser {
-      ${userPayload}
+      ${authUserPayload}
     }
   }
 `
 
-// DONE:
-/** Get specific user by username */
 export const GET_USER = gql`
   query getUser($username: String, $id: ID) {
     getUser(username: $username, id: $id) {
@@ -39,8 +36,6 @@ export const GET_USER = gql`
   }
 `
 
-// DONE:
-/** Get all available users */
 export const GET_USERS = gql`
   query($skip: Int, $limit: Int) {
     getUsers(skip: $skip, limit: $limit) {
@@ -52,8 +47,6 @@ export const GET_USERS = gql`
   }
 `
 
-// DONE:
-/** People suggestions for auth user */
 export const USER_SUGGESTIONS = gql`
   query suggestPeople {
     suggestPeople {
@@ -64,8 +57,6 @@ export const USER_SUGGESTIONS = gql`
     }
   }
 `
-// DONE:
-/** Search users by username or fullName */
 export const SEARCH_USERS = gql`
   query($searchQuery: String!) {
     searchUsers(searchQuery: $searchQuery) {

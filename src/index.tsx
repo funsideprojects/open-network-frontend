@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { ApolloProvider } from '@apollo/client'
+import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from 'styled-components'
 import { HelmetProvider } from 'react-helmet-async'
 
@@ -8,7 +9,6 @@ import 'normalize.css'
 import 'fonts.less'
 
 import { apolloClient } from '_apollo-client'
-import { StoreProvider } from 'store'
 import theme from 'theme'
 
 import App from 'components/App'
@@ -17,13 +17,13 @@ import * as serviceWorker from './serviceWorker'
 
 render(
   <ApolloProvider client={apolloClient}>
-    <ThemeProvider theme={theme}>
-      <StoreProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
         <HelmetProvider>
           <App />
         </HelmetProvider>
-      </StoreProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </RecoilRoot>
   </ApolloProvider>,
   document.getElementById('app-mountpoint')
 )
