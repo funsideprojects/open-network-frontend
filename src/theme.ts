@@ -162,9 +162,13 @@ export default {
   zIndex: {
     xs: 10,
     sm: 20,
+    /** for Header Dropdowns */
     md: 30,
+    /** for Modal */
     lg: 40,
+    /** unset */
     xl: 50,
+    /** for Loading Overlay */
     xxl: 100,
   },
 

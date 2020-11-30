@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Root = styled.div<Partial<ModalProps & { open: boolean }>>`
+const Container = styled.div<Partial<ModalProps & { open: boolean }>>`
   ${(props) => (!props.hasMask ? 'pointer-events: none' : '')};
   width: 100%;
   height: 100%;
@@ -84,7 +84,7 @@ const Modal = React.forwardRef<ModalRefAttributes, ModalProps>(
     }, [open, hasMask, maskClosable])
 
     return (
-      <Root
+      <Container
         open={open}
         hasMask={hasMask}
         centered={centered}
@@ -93,7 +93,7 @@ const Modal = React.forwardRef<ModalRefAttributes, ModalProps>(
         <Content open={open} centered={centered} width={width} onClick={(event) => event.stopPropagation()}>
           {children}
         </Content>
-      </Root>
+      </Container>
     )
   }
 )

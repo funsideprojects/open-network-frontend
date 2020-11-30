@@ -7,6 +7,7 @@ export const InputContainer = styled.label`
   position: relative;
   display: flex;
   flex-direction: column;
+  color: ${(props) => props.theme.colors.primary.main};
 
   > svg {
     width: 30px !important;
@@ -14,15 +15,14 @@ export const InputContainer = styled.label`
     position: absolute;
     top: 5px;
     padding: 3px;
+    transition: 0.8s;
 
     &.prefix-icon {
       left: 5px;
-      transition: 0.8s;
     }
 
     &.suffix-icon {
       right: 5px;
-      transition: 0.8s;
     }
   }
 `
@@ -139,9 +139,13 @@ interface InputPrimaryProps {
 }
 
 export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
-  border: 0;
+  border: 2px solid ${(props) => props.theme.colors.white};
   border-radius: ${(props) => props.theme.radius.md};
-  padding-left: ${(props) => props.theme.spacing[props.hasPrefix ? 'lg' : 'sm']};
+  padding: ${(props) =>
+    `calc(${props.theme.spacing.xxs} - 2px) ` +
+    `calc(${props.theme.spacing[props.hasSuffix ? 'lg' : 'sm']} - 2px) ` +
+    `calc(${props.theme.spacing.xxs} - 2px) ` +
+    `calc(${props.theme.spacing[props.hasPrefix ? 'lg' : 'sm']} - 2px)`};
   background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].lighter};
   transition: 0.3s;
 
@@ -149,16 +153,37 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
     transition: 0.3s;
   }
 
+  &:focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.light};
+  }
+
   &:disabled {
     background: ${(props) => props.theme.colors.primary.grey};
   }
 
-  &:enabled:not(:focus):hover {
-    color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
-
-    ::placeholder {
+  &:enabled {
+    &:not(:focus):hover {
       color: ${(props) => props.theme.colors.white};
+      background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
+
+      ::placeholder {
+        color: ${(props) => props.theme.colors.white};
+      }
+
+      & ~ ${(props) => props.hasPrefix} {
+        color: ${(props) => props.theme.colors.white};
+        transition: 0.3s;
+      }
+
+      & ~ ${(props) => props.hasSuffix} {
+        color: ${(props) => props.theme.colors.white};
+        transition: 0.3s;
+      }
+    }
+
+    & ~ ${(props) => props.hasSuffix} {
+      color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].dark};
+      transition: 0.3s;
     }
   }
 `

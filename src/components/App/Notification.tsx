@@ -3,7 +3,7 @@ import { useApolloClient } from '@apollo/client'
 
 import { NOTIFICATION_UPDATED } from 'graphql/notification'
 
-const Subscription = () => {
+const Notification = () => {
   const client = useApolloClient()
 
   React.useEffect(() => {
@@ -16,4 +16,4 @@ const Subscription = () => {
   return <React.Fragment />
 }
 
-export default React.memo(Subscription)
+export default Notification

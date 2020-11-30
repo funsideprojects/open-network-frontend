@@ -115,4 +115,24 @@ export const apolloClient = new ApolloClient({
   link: from([errorLink, authLink, terminatingLink]),
   cache,
   connectToDevTools: process.env.NODE_ENV === 'development',
+  // credentials: 'include',
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+      // nextFetchPolicy(lastFetchPolicy) {
+      //   if (lastFetchPolicy === 'cache-and-network') {
+      //     return 'cache-first'
+      //   }
+
+      //   return lastFetchPolicy
+      // },
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+    mutate: {
+      errorPolicy: 'all',
+    },
+  },
 })

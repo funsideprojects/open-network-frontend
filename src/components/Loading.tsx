@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 import { Spinner3 } from '@styled-icons/evil/Spinner3'
 
-export const Overlay = styled.div<Partial<LoadingPropTypes>>`
+export const Overlay = styled.div<Partial<Props>>`
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -20,7 +20,7 @@ export const Overlay = styled.div<Partial<LoadingPropTypes>>`
   z-index: ${(props) => props.theme.zIndex.xxl};
 `
 
-const Container = styled.div<Partial<LoadingPropTypes>>`
+const Container = styled.div<Partial<Props>>`
   border-radius: ${(props) => props.theme.radius.md};
   padding: ${(props) => props.theme.spacing.md};
   background: ${(props) => props.theme.colors.overlay.opaque};
@@ -35,7 +35,7 @@ const spinAnimation = keyframes`
   }
 `
 
-const SCISpinner = styled(Spinner3)<{ large?: boolean }>`
+export const SCISpinner = styled(Spinner3)<{ large?: boolean }>`
   ${(props) =>
     props.large
       ? `
@@ -47,7 +47,7 @@ height: 30px !important;
   animation: 1.5s linear ${spinAnimation} infinite;
 `
 
-const Loading = ({ overlay, block, radiusBorder }: LoadingPropTypes) => {
+const Loading = ({ overlay, block, radiusBorder }: Props) => {
   React.useEffect(() => {
     if (overlay) {
       const now = Date.now()
@@ -72,13 +72,13 @@ const Loading = ({ overlay, block, radiusBorder }: LoadingPropTypes) => {
   return <SCISpinner />
 }
 
-const loadingPropTypes = {
+const componentPropTypes = {
   overlay: PropTypes.bool,
   block: PropTypes.bool,
   radiusBorder: PropTypes.bool,
 }
 
-Loading.propTypes = loadingPropTypes
-type LoadingPropTypes = PropTypes.InferProps<typeof loadingPropTypes>
+Loading.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default Loading

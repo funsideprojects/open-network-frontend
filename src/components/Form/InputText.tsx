@@ -61,6 +61,7 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(
           {Prefix ? <Prefix className="prefix-icon" /> : <></>}
           {Suffix ? <Suffix className="suffix-icon" /> : <></>}
         </InputContainer>
+
         <Transition appear in={!!hasError} timeout={tDuration}>
           {(transitionState) => (
             <ErrorMessage style={{ ...defaultStyle, ...transitionStyles[transitionState] }}>

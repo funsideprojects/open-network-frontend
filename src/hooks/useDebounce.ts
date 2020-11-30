@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import React from 'react'
 
 /** React hook for debouncing */
 export const useDebounce = (value: any, msDelay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+  const [debouncedValue, setDebouncedValue] = React.useState(value)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value)
     }, msDelay)

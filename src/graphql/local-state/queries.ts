@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client'
 
-import { authUserPayload } from 'graphql/types'
-
 // ? Queries
 export const GET_GLOBAL_LOADING = gql`
   query {
@@ -20,13 +18,5 @@ export const GET_SERVICES_STATUS = gql`
 export const GET_CONNECTION_STATUS = gql`
   query {
     connectionStatus @client
-  }
-`
-
-export const LS_GET_AUTH_USER = gql`
-  query {
-    authUser @client {
-      ${authUserPayload}
-    }
   }
 `

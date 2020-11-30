@@ -9,7 +9,7 @@ export const A = styled(Link)`
   transition: 0.3s;
 
   &:hover {
-    color: ${(p) => p.theme.colors.text.secondary};
+    color: ${(props) => props.theme.colors.text.secondary};
   }
 `
 

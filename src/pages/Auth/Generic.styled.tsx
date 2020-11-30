@@ -69,7 +69,6 @@ export const PrimaryText = styled.span`
 cursor: pointer;
 user-select: none;
 font-weight: ${props.theme.font.weight.semi};
-transition: 0.3s;
 
 &:hover {
   color: ${props.theme.colors.primary.light};
@@ -77,6 +76,7 @@ transition: 0.3s;
 `
       : ''}
   color: ${(props) => props.theme.colors.primary.main};
+  transition: 0.3s;
 `
 
 type ParagraphsProps = {

@@ -30,7 +30,7 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   border-color: ${(props) => (props.bordered ? props.theme.colors.primary.main : props.theme.colors.white)};
   border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
-  padding: ${(props) => props.theme.spacing.xs};
+  padding: calc(${(props) => props.theme.spacing.xs} - 2px);
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.bold};
   font-size: 1rem;
@@ -42,6 +42,10 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
     color: ${(props) => props.theme.colors.white} !important;
     background: ${(props) => props.theme.colors.grey[props.isLoading ? 200 : 400]} !important;
   }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.light};
+  }
 `
 
 export const ButtonDefault = styled(ButtonBase)`
@@ -50,10 +54,6 @@ export const ButtonDefault = styled(ButtonBase)`
 
   &:hover {
     background: ${(props) => props.theme.colors.primary.lighter};
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.main};
   }
 `
 
@@ -64,10 +64,6 @@ export const ButtonPrimary = styled(ButtonBase)`
   &:hover {
     background: ${(props) => props.theme.colors.primary.light};
   }
-
-  &:focus {
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.light};
-  }
 `
 
 export const ButtonText = styled(ButtonBase)`
@@ -76,10 +72,6 @@ export const ButtonText = styled(ButtonBase)`
 
   &:hover {
     background: ${(props) => props.theme.colors.primary.grey};
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.lighter};
   }
 `
 

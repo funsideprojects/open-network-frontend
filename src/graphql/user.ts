@@ -58,12 +58,15 @@ export const USER_SUGGESTIONS = gql`
   }
 `
 export const SEARCH_USERS = gql`
-  query($searchQuery: String!) {
-    searchUsers(searchQuery: $searchQuery) {
-      id
-      fullName
-      username
-      image
+  query($searchQuery: String!, $skip: Int!, $limit: Int!) {
+    searchUsers(searchQuery: $searchQuery, skip: $skip, limit: $limit) {
+      count
+      users {
+        id
+        fullName
+        username
+        image
+      }
     }
   }
 `

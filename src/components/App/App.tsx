@@ -1,11 +1,13 @@
 import React, { Suspense } from 'react'
 import { useQuery } from '@apollo/client'
+import { useSetRecoilState } from 'recoil'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Loading from 'components/Loading'
 import { GET_AUTH_USER } from 'graphql/user'
-import { authUser } from 'graphql/local-state'
 import { useWindowSize } from 'hooks/useWindowSize'
+import { authAtoms } from 'store'
+
 import theme from 'theme'
 
 import GlobalStyle from './GlobalStyle'
@@ -21,14 +23,16 @@ const App = () => {
   const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
   const { loading, data: authUserData, refetch } = useQuery(GET_AUTH_USER, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
     errorPolicy: 'ignore',
   })
 
+  const setAuthUser = useSetRecoilState(authAtoms.userState)
+
   React.useEffect(() => {
-    // ? Save result to graphQL local state
-    authUser(authUserData?.getAuthUser)
-  }, [authUserData])
+    // ? Save result to store
+    setAuthUser(authUserData?.getAuthUser)
+  }, [setAuthUser, authUserData])
 
   return mode === 'desktop' ? (
     <Router>

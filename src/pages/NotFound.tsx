@@ -8,7 +8,7 @@ import * as Routes from 'routes'
 
 const Container = styled.div`
   width: 100%;
-  padding-top: ${(props) => props.theme.spacing.lg};
+  height: 200vh;
 `
 
 const NotFound = () => {
