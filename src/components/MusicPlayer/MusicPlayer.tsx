@@ -20,7 +20,9 @@ const MusicPlayer = () => {
         <Infinite />
       </Button>
 
-      <Button onClick={() => setIsPlaying((prev) => !prev)}>{isPlaying ? <PauseCircle /> : <PlayCircle />}</Button>
+      <Button active={!isPlaying} onClick={() => setIsPlaying((prev) => !prev)}>
+        {isPlaying ? <PauseCircle /> : <PlayCircle />}
+      </Button>
 
       <Button active={isShuffle} onClick={() => setIsShuffle((prev) => !prev)}>
         <Shuffle />
@@ -31,7 +33,7 @@ const MusicPlayer = () => {
       </Button>
 
       <SongNameContainer>
-        <SongName isPlaying={isPlaying}>asdkal das aksj dakjsdh ajshdk ad</SongName>
+        <SongName isPlaying={isPlaying}>Dusk Till Dawn - ZAYN ft. Sia</SongName>
       </SongNameContainer>
 
       <Button small onClick={() => setIsPlaylistOpen((prev) => !prev)}>

@@ -13,6 +13,7 @@ import { useClickOutside } from 'hooks/useClickOutside'
 import { appAtoms } from 'store'
 
 const SCInput = styled(Input)`
+  border: 0;
   border-radius: ${(props) => props.theme.radius.xxl};
   background: ${(props) => props.theme.colors.grey[300]};
 `
