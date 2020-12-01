@@ -5,13 +5,16 @@ import styled from 'styled-components'
 import Image from 'components/Image'
 import { getImageLink } from 'utils/image-link'
 
-import { UserIcon } from './icons'
+import { DefaultAvatar } from './icons'
 
-const Container = styled.div<{ size?: number }>`
+const Container = styled.div<{ size: number; border?: 'success' | 'secondary' }>`
   user-select: none;
-  width: ${(props) => (props.size ? `${props.size}px` : '30px')};
-  height: ${(props) => (props.size ? `${props.size}px` : '30px')};
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
   position: relative;
+  display: flex;
+  box-shadow: 0 0 1px 2px ${(props) => (props.border ? props.theme.colors[props.border].dark : 'transparent')};
+  border: 1px solid white;
   border-radius: 50%;
   flex-shrink: 0;
 `
@@ -21,43 +24,18 @@ const Img = styled(Image)`
   border-radius: 50%;
 `
 
-const DotLayer = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-`
-
-const Dot = styled.div`
-  width: 8px;
-  height: 8px;
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  box-shadow: 0px 0px 1px 1px #d9f7be;
-  border-radius: 100%;
-  background: radial-gradient(#95de64, #73d13d, #52c41a);
-`
-
-const Avatar = ({ size, image, online }: Props) => (
-  <Container size={size}>
-    {image ? (
-      <Img src={getImageLink(image)} />
-    ) : (
-      <UserIcon width={size ? `${size}px` : 30} style={{ position: 'absolute' }} />
-    )}
-
-    {online && (
-      <DotLayer>
-        <Dot />
-      </DotLayer>
-    )}
+const Avatar = ({ size, image, username, hasStory, online }: Props) => (
+  <Container size={size ?? 30} border={hasStory ? 'secondary' : online ? 'success' : undefined}>
+    {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar width={`${(size ?? 30) - 1}px`} />}
   </Container>
 )
 
 const componentPropTypes = {
   size: PropTypes.number,
   image: PropTypes.string,
+  username: PropTypes.string.isRequired,
   online: PropTypes.bool,
+  hasStory: PropTypes.bool,
 }
 
 Avatar.propTypes = componentPropTypes

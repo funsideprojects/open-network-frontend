@@ -31,6 +31,10 @@ const Scroll = css`
 export default createGlobalStyle`
   ${Scroll}
 
+  html {
+    overflow-x: hidden;
+  }
+
   html, body {
     width: 100%;
     height: 100%;
@@ -69,4 +73,5 @@ export default createGlobalStyle`
     height: 100%;
     position: relative;
   }
+
 `

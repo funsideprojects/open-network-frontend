@@ -52,7 +52,7 @@ const SearchInput = ({ expand, setExpand }: Props) => {
   return (
     <SCInput
       name="search"
-      placeholder={expand ? 'Looking for something?' : 'Search'}
+      placeholder={expand ? 'Looking for someone?' : 'Search'}
       ref={inputRef}
       hasPrefix={loading ? SCISpinner : SCISearchAlt}
       hasSuffix={expand ? SCILeftArrowAlt : SCIRightArrowAlt}

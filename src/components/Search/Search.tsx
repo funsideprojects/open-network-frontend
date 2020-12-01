@@ -7,9 +7,23 @@ import SearchInput from './SearchInput'
 import SearchResult from './SearchResult'
 
 const Container = styled.div<{ expand?: boolean }>`
-  width: ${(props) => (props.expand ? '300px' : '140px')};
+  width: ${(props) => (props.expand ? '260px' : '140px')};
   position: relative;
   transition: 0.3s;
+
+  @media screen and (min-width: ${(props) => props.theme.screen.lg}) {
+    width: 260px;
+
+    label {
+      > input {
+        padding-right: calc(${(props) => props.theme.spacing.sm} - 2px);
+      }
+
+      > .suffix-icon {
+        display: none;
+      }
+    }
+  }
 `
 
 const Search = () => {

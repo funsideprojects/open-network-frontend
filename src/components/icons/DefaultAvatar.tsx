@@ -1,7 +1,7 @@
 import React from 'react'
 import theme from 'theme'
 
-export const UserIcon = ({ width = '24', ...svgProps }: HTMLOrSVGElement & { width?: string | number }) => {
+export const DefaultAvatar = ({ width = '24', ...svgProps }) => {
   return (
     <svg {...svgProps} xmlns="http://www.w3.org/2000/svg" width={width} viewBox="0 0 53 53">
       <path

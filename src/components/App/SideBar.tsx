@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Globe } from '@styled-icons/typicons/Globe'
 import { PlayCircle, PeopleCircle, Bookmark } from '@styled-icons/ionicons-outline'
 import { PlusCircle } from '@styled-icons/boxicons-regular'
@@ -8,6 +8,7 @@ import { PlusCircle } from '@styled-icons/boxicons-regular'
 import logoImg from 'assets/images/logo.png'
 
 import Image from 'components/Image'
+import Tooltip from 'components/Tooltip'
 
 import * as Routes from 'routes'
 
@@ -52,8 +53,12 @@ const Item = styled.li`
     transition: 0.3s;
 
     > a {
-      color: ${(props) => props.theme.colors.primary.main};
+      color: ${(props) => props.theme.colors.grey[500]};
       transition: 0.4s;
+
+      &.is-active {
+        color: ${(props) => props.theme.colors.primary.main};
+      }
 
       > svg {
         width: 24px !important;
@@ -89,7 +94,7 @@ const Logo = styled(Image)`
 const SideBar = () => {
   const items = [
     { to: Routes.HOME, component: <Logo src={logoImg} alt="x-logo" /> },
-    { to: Routes.HOME, component: <Globe /> },
+    { to: Routes.NOTFOUND, component: <Globe /> },
     { to: Routes.HOME, component: <PeopleCircle /> },
     'divider',
     { to: Routes.HOME, component: <PlayCircle /> },
@@ -104,9 +109,13 @@ const SideBar = () => {
         typeof item === 'string' ? (
           <Divider key={index} />
         ) : (
-          <Item key={index}>
-            <Link to={item.to}>{item.component}</Link>
-          </Item>
+          <Tooltip>
+            <Item key={index}>
+              <NavLink exact strict to={item.to} activeClassName="is-active">
+                {item.component}
+              </NavLink>
+            </Item>
+          </Tooltip>
         )
       )}
     </Container>

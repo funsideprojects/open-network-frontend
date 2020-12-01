@@ -1,42 +1,18 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
-import { usePrevious } from 'hooks/usePrevious'
+const Tooltip = ({ children }: Props) => {
+  const childRef = React.useRef(null)
+  console.log('Tooltip -> childRef', childRef)
 
-import theme from 'theme'
-
-const Tooltip: React.FC<any> = ({ children, visible, title, type = 'error', placement = 'top' }) => {
-  // ? Get previous title
-  const prevTitle = usePrevious(title)
-  let titleToShow
-
-  // Decide which title to show, prevent overlay's width change to 0 before hide
-  if (!visible && prevTitle) titleToShow = prevTitle
-  else titleToShow = title
-
-  const colorConfig = {}
-
-  switch (type) {
-    case 'error':
-      colorConfig['color'] = theme.colors.error.main
-      break
-
-    case 'info':
-      break
-
-    default:
-  }
-
-  // return createPortal(<>{titleToShow}</>, document.getElementById('portal-mountpoint')!)
-  return <div>{titleToShow}</div>
+  return children({ ref: childRef })
 }
 
-// Tooltip.propTypes = {
-//   children: PropTypes.node,
-//   visible: PropTypes.bool,
-//   title: PropTypes.any,
-//   type: PropTypes.string,
-//   placement: PropTypes.string,
-// }
+const componentPropTypes = {
+  children: PropTypes.any,
+}
+
+Tooltip.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default Tooltip
