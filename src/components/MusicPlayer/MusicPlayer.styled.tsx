@@ -50,10 +50,16 @@ export const SongNameContainer = styled.div`
 export const SongName = styled.span<{ isPlaying?: boolean }>`
   user-select: none;
   display: inline-block;
+  padding-left: 100%;
   font-size: 0.8rem;
   white-space: nowrap;
   color: ${(props) => props.theme.colors.grey[600]};
   animation: ${floatText} 15s infinite linear;
   animation-play-state: ${(props) => (props.isPlaying ? 'running' : 'paused')};
   transition: 0.3s;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.primary.main};
+    animation-play-state: paused;
+  }
 `
