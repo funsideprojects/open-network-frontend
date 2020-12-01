@@ -1,40 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { LogOut } from '@styled-icons/ionicons-outline'
 
 import Search from 'components/Search'
+import MusicPlayer from 'components/MusicPlayer'
+import { Button } from 'components/Form'
 import { useScrollPosition } from 'hooks/useScrollPosition'
 
+import { Container, HeaderItems } from './Header.styled'
 import Following from './Following'
 import Notification from './Notification'
 import Messaging from './Messaging'
 import Username from './Username'
 
-// import Avatar from 'components/Avatar'
+const SCILogOut = styled(LogOut)``
 
-const Container = styled.div<{ rising: boolean }>`
-  width: 100%;
-  height: 80px;
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 20px 15px -20px ${(props) => (props.rising ? props.theme.colors.grey[400] : 'transparent')};
-  padding: ${(props) => props.theme.spacing.sm};
-  z-index: ${(props) => props.theme.zIndex.md};
-  background-color: ${(props) => props.theme.colors.grey[props.rising ? 200 : 200]};
-  transition: 0.3s;
-`
-
-const HeaderItems = styled.div<{ side: 'start' | 'center' | 'end' }>`
-  position: relative;
-  display: flex;
-  justify-content: ${(props) => (props.side === 'center' ? 'center' : `flex-${props.side}`)};
-  align-items: center;
-`
-
-const Header = (props: Props) => {
+const Header = () => {
   const [rising, setRising] = React.useState(false)
 
   useScrollPosition({
@@ -49,10 +30,16 @@ const Header = (props: Props) => {
     waitMs: 200,
   })
 
+  const buttonRef = React.useRef(null)
+
   return (
     <Container rising={rising}>
       <HeaderItems side="start">
         <Search />
+      </HeaderItems>
+
+      <HeaderItems side="center">
+        <MusicPlayer />
       </HeaderItems>
 
       <HeaderItems side="end">
@@ -60,16 +47,10 @@ const Header = (props: Props) => {
         <Notification />
         <Messaging />
         <Username />
+        <Button ref={buttonRef} buttonType="primary" icon={SCILogOut} />
       </HeaderItems>
     </Container>
   )
 }
-
-const componentPropTypes = {
-  toggleSideBar: PropTypes.func,
-}
-
-Header.propTypes = componentPropTypes
-type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default Header

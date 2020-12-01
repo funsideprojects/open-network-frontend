@@ -5,12 +5,12 @@ import * as Routes from 'routes'
 
 import { Link } from './Header.styled'
 
-const Notification = () => {
+const Messaging = () => {
   return (
-    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={0}>
+    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={17}>
       <Chatbubbles />
     </Link>
   )
 }
 
-export default Notification
+export default Messaging

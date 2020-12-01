@@ -5,7 +5,7 @@ import * as Routes from 'routes'
 
 import { Link } from './Header.styled'
 
-const Notification = () => {
+const Following = () => {
   return (
     <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={0}>
       <People />
@@ -13,4 +13,4 @@ const Notification = () => {
   )
 }
 
-export default Notification
+export default Following

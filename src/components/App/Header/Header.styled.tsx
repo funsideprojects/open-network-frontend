@@ -1,7 +1,31 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
+export const Container = styled.div<{ rising: boolean }>`
+  width: 100%;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 20px 15px -20px ${(props) => (props.rising ? props.theme.colors.grey[400] : 'transparent')};
+  padding: ${(props) => props.theme.spacing.sm};
+  z-index: ${(props) => props.theme.zIndex.md};
+  background-color: ${(props) => props.theme.colors.grey[props.rising ? 200 : 200]};
+  transition: 0.3s;
+`
+
+export const HeaderItems = styled.div<{ side: 'start' | 'center' | 'end' }>`
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: ${(props) => (props.side === 'center' ? 'center' : `flex-${props.side}`)};
+  align-items: center;
+`
+
 export const Link = styled(NavLink)<{ count?: number }>`
+  position: relative;
   display: block;
   margin: 0 ${(props) => props.theme.spacing.xs};
   text-decoration: none;
@@ -13,7 +37,7 @@ export const Link = styled(NavLink)<{ count?: number }>`
   }
 
   &::before {
-    content: '${(props) => props.count || ''}';
+    content: '${(props) => (props.count ? (props.count > 99 ? '99+' : props.count) : '')}';
     min-width: ${(props) => (props.count ? '22px' : 0)};
     min-height: ${(props) => (props.count ? '18px' : 0)};
     position: absolute;

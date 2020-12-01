@@ -7,7 +7,7 @@ import { Link } from './Header.styled'
 
 const Notification = () => {
   return (
-    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={0}>
+    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={1001}>
       <Notifications />
     </Link>
   )
