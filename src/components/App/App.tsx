@@ -31,7 +31,7 @@ const App = () => {
 
   React.useEffect(() => {
     // ? Save result to store
-    setAuthUser(authUserData?.getAuthUser)
+    setAuthUser({ user: authUserData?.getAuthUser })
   }, [setAuthUser, authUserData])
 
   return mode === 'desktop' ? (

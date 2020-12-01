@@ -9,6 +9,7 @@ import { SearchAlt, RightArrowAlt, LeftArrowAlt } from '@styled-icons/boxicons-r
 import { Input } from 'components/Form'
 import { SCISpinner } from 'components/Loading'
 import { SEARCH_USERS } from 'graphql/user'
+import { useClickOutside } from 'hooks/useClickOutside'
 import { appAtoms } from 'store'
 
 const SCInput = styled(Input)`
@@ -20,7 +21,13 @@ const SCISearchAlt = styled(SearchAlt)``
 const SCIRightArrowAlt = styled(RightArrowAlt)``
 const SCILeftArrowAlt = styled(LeftArrowAlt)``
 
-const SearchInput = ({ expand, setExpand }: Props) => {
+const SearchInput = ({ containerRef, expand, setExpand }: Props) => {
+  useClickOutside(containerRef, () => {
+    if (document.activeElement !== inputRef.current) {
+      setExpand(false)
+    }
+  })
+
   const inputRef = React.useRef<HTMLInputElement>(null)
   const setSearchResult = useSetRecoilState(appAtoms.searchResultState)
   const resetSearchResult = useResetRecoilState(appAtoms.searchResultState)
@@ -64,6 +71,7 @@ const SearchInput = ({ expand, setExpand }: Props) => {
 }
 
 const componentPropTypes = {
+  containerRef: PropTypes.any,
   expand: PropTypes.bool.isRequired,
   setExpand: PropTypes.func.isRequired,
 }

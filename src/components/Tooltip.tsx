@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 const Tooltip = ({ children }: Props) => {
   const childRef = React.useRef(null)
-  console.log('Tooltip -> childRef', childRef)
 
   return children({ ref: childRef })
 }

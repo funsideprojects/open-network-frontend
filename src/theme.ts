@@ -66,7 +66,7 @@ export default {
       lighter: '#FFE5E3',
       light: '#FFA39E',
       main: '#FF7875',
-      dark: '#F5222D',
+      dark: '#FF4D4F',
       contrastText: '#FFF',
     },
     warning: {

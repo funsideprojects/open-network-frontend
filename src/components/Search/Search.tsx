@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useClickOutside } from 'hooks/useClickOutside'
-
 import SearchInput from './SearchInput'
 import SearchResult from './SearchResult'
 
@@ -30,13 +28,9 @@ const Search = () => {
   const containerRef = React.useRef(null)
   const [expand, setExpand] = React.useState(false)
 
-  useClickOutside(containerRef, () => {
-    setExpand(false)
-  })
-
   return (
     <Container ref={containerRef} expand={expand}>
-      <SearchInput expand={expand} setExpand={setExpand} />
+      <SearchInput containerRef={containerRef} expand={expand} setExpand={setExpand} />
       <SearchResult expand={expand} />
     </Container>
   )

@@ -30,6 +30,7 @@ export const InputContainer = styled.label`
 // ? Base
 
 export interface InputBaseProps {
+  // small?: boolean
   hasPrefix?: GenericSC
   hasSuffix?: GenericSC
   hasError?: string
@@ -150,7 +151,7 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
   transition: 0.3s;
 
   ::placeholder {
-    transition: 0.3s;
+    user-select: none;
   }
 
   &:focus {

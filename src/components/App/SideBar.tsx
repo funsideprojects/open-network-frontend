@@ -8,7 +8,6 @@ import { PlusCircle } from '@styled-icons/boxicons-regular'
 import logoImg from 'assets/images/logo.png'
 
 import Image from 'components/Image'
-import Tooltip from 'components/Tooltip'
 
 import * as Routes from 'routes'
 
@@ -28,6 +27,7 @@ const Container = styled.ul`
 `
 
 const Item = styled.li`
+  user-select: none;
   width: 40px;
   height: 40px;
   margin: ${(props) => props.theme.spacing.xs} 0;
@@ -67,10 +67,8 @@ const Item = styled.li`
     }
 
     &:hover {
-      background: ${(props) => props.theme.colors.primary.light};
-
       > a {
-        color: ${(props) => props.theme.colors.white};
+        color: ${(props) => props.theme.colors.primary.main};
       }
     }
   }
@@ -109,13 +107,11 @@ const SideBar = () => {
         typeof item === 'string' ? (
           <Divider key={index} />
         ) : (
-          <Tooltip>
-            <Item key={index}>
-              <NavLink exact strict to={item.to} activeClassName="is-active">
-                {item.component}
-              </NavLink>
-            </Item>
-          </Tooltip>
+          <Item key={index}>
+            <NavLink exact strict to={item.to} activeClassName="is-active">
+              {item.component}
+            </NavLink>
+          </Item>
         )
       )}
     </Container>
