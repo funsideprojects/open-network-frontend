@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Transition } from 'react-transition-group'
 
@@ -24,7 +23,7 @@ const transitionStyles = {
 
 type RouteState = { from?: string }
 
-const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
+const SignUpDrawer = () => {
   const history = useHistory<RouteState>()
 
   const [nextDest, setNextDest] = React.useState(Routes.HOME)
@@ -65,7 +64,7 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
               </Title>
 
               {transitionState === 'entered' || transitionState === 'exiting' ? (
-                <SignUpForm refetchAuthUser={refetchAuthUser} navigate={handleSetNextDest} />
+                <SignUpForm navigate={handleSetNextDest} />
               ) : (
                 <></>
               )}
@@ -81,12 +80,5 @@ const SignUpDrawer = ({ refetchAuthUser }: SignUpDrawerProps) => {
     </>
   )
 }
-
-const signUpDrawerPropTypes = {
-  refetchAuthUser: PropTypes.func.isRequired,
-}
-
-SignUpDrawer.propTypes = signUpDrawerPropTypes
-type SignUpDrawerProps = PropTypes.InferProps<typeof signUpDrawerPropTypes>
 
 export default SignUpDrawer

@@ -23,7 +23,6 @@ const transitionStyles = {
 
 const NotFoundDrawer = () => {
   const history = useHistory()
-
   const [isMounted, setIsMounted] = React.useState(true)
 
   return (

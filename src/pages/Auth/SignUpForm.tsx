@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { useApolloClient } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 
 import { emailRegex, usernameRegex, passwordRegex, responsePrefixRegex } from 'constants/RegExr'
-import { SIGN_UP } from 'graphql/user'
-import { Form, FormItem, Input, Checkbox, Button, ButtonRefAttributes } from 'components/Form'
+import { SIGN_UP, GET_AUTH_USER } from 'graphql/user'
+import { Form, FormItem, Input, Checkbox, Button } from 'components/Form'
 import Tag, { TagColor } from 'components/Tag'
 import { ModalRefAttributes } from 'components/Modal'
 
@@ -21,8 +21,8 @@ interface FormFields {
   autoSignIn: boolean
 }
 
-const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
-  const client = useApolloClient()
+const SignUpForm = ({ navigate }: Props) => {
+  const [signUp, { loading }] = useMutation(SIGN_UP)
   const { register, handleSubmit, getValues, trigger, reset, setError, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     defaultValues: { autoSignIn: true },
@@ -33,7 +33,6 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
     message: undefined,
   })
   const modalRef = React.useRef<ModalRefAttributes>(null)
-  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
   const resetResponse = () => {
     if (response.message) {
@@ -43,27 +42,19 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
 
   const handleSignUp = async ({ confirm, autoSignIn, ...values }: FormFields) => {
     resetResponse()
-    buttonRef.current?.setLoading(true)
 
-    return await client
-      .mutate({
-        mutation: SIGN_UP,
-        variables: {
-          input: { ...values, fullName: values.fullName.trim().replace(/\s\s+/g, ' '), autoSignIn },
-        },
-        fetchPolicy: 'no-cache',
-      })
+    return await signUp({
+      variables: {
+        input: { ...values, fullName: values.fullName.trim().replace(/\s\s+/g, ' '), autoSignIn },
+      },
+      ...(autoSignIn ? { refetchQueries: [{ query: GET_AUTH_USER }] } : {}),
+    })
       .then(async () => {
-        if (autoSignIn) {
-          await refetchAuthUser()
-        } else {
-          buttonRef.current?.setLoading(false)
+        if (!autoSignIn) {
           modalRef.current?.open()
         }
       })
       .catch((gqlError) => {
-        buttonRef.current?.setLoading(false)
-
         const errField = gqlError.message.startsWith('__USERNAME__')
           ? 'username'
           : gqlError.message.startsWith('__EMAIL__')
@@ -207,19 +198,18 @@ const SignUpForm = ({ refetchAuthUser, navigate }: SignUpFormProps) => {
         </FormItem>
 
         <FormItem top="lg">
-          <Button block ref={buttonRef} type="submit" buttonType="primary" icon={SCIRightArrowAlt} />
+          <Button block type="submit" buttonType="primary" loading={loading} icon={SCIRightArrowAlt} />
         </FormItem>
       </Form>
     </>
   )
 }
 
-const signUpFormPropTypes = {
-  refetchAuthUser: PropTypes.func.isRequired,
+const componentPropTypes = {
   navigate: PropTypes.func.isRequired,
 }
 
-SignUpForm.propTypes = signUpFormPropTypes
-type SignUpFormProps = PropTypes.InferProps<typeof signUpFormPropTypes>
+SignUpForm.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default SignUpForm

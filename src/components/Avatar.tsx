@@ -17,6 +17,10 @@ const Container = styled.div<{ size: number | string; border?: 'success' | 'seco
   border: 1px solid white;
   border-radius: 50%;
   flex-shrink: 0;
+
+  > svg {
+    width: 100%;
+  }
 `
 
 const Img = styled(Image)`
@@ -24,11 +28,13 @@ const Img = styled(Image)`
   border-radius: 50%;
 `
 
-const Avatar = ({ size, image, username, hasStory, online }: Props) => (
-  <Container size={size ?? '30px'} border={hasStory ? 'secondary' : online ? 'success' : undefined}>
-    {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar width={`${(size ?? 30) - 1}px`} />}
-  </Container>
-)
+const Avatar = ({ size, image, username, hasStory, online }: Props) => {
+  return (
+    <Container size={size ?? '30px'} border={hasStory ? 'secondary' : online ? 'success' : undefined}>
+      {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar />}
+    </Container>
+  )
+}
 
 const componentPropTypes = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

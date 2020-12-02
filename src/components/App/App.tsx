@@ -22,7 +22,7 @@ const App = () => {
   const windowSize = useWindowSize()
   const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
-  const { loading, data: authUserData, refetch } = useQuery(GET_AUTH_USER, {
+  const { loading, data: authUserData } = useQuery(GET_AUTH_USER, {
     fetchPolicy: 'cache-and-network',
     errorPolicy: 'ignore',
   })
@@ -30,7 +30,6 @@ const App = () => {
   const setAuthUser = useSetRecoilState(authAtoms.userState)
 
   React.useEffect(() => {
-    // ? Save result to store
     setAuthUser({ user: authUserData?.getAuthUser })
   }, [setAuthUser, authUserData])
 
@@ -45,11 +44,7 @@ const App = () => {
           <Suspense fallback={<></>}>
             <ScrollToTop>
               <Switch>
-                {authUserData?.getAuthUser ? (
-                  <Route render={() => <AppLayout refetchAuthUser={refetch} />} />
-                ) : (
-                  <Route render={() => <AuthLayout refetchAuthUser={refetch} />} />
-                )}
+                <Route render={() => (authUserData?.getAuthUser ? <AppLayout /> : <AuthLayout />)} />
               </Switch>
             </ScrollToTop>
           </Suspense>

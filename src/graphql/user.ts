@@ -85,6 +85,12 @@ export const SIGN_IN = gql`
   }
 `
 
+export const SIGN_OUT = gql`
+  mutation {
+    signout
+  }
+`
+
 export const REQUEST_PASSWORD_RESET = gql`
   mutation($input: RequestPasswordResetInput!) {
     requestPasswordReset(input: $input)

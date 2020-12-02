@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
-import { useApolloClient, useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
 import { passwordRegex, responsePrefixRegex } from 'constants/RegExr'
 import { VERIFY_TOKEN, RESET_PASSWORD } from 'graphql/user'
-import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
+import { Form, FormItem, Input, Button } from 'components/Form'
 import Loading from 'components/Loading'
 import Tag, { TagColor } from 'components/Tag'
 
@@ -24,7 +24,12 @@ interface FormFields {
 const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
   const history = useHistory<RouteState>()
   const { token } = useParams<RouteParams>()
-  const client = useApolloClient()
+  const { loading: tokenIsBeingValidating, data: verificationResult } = useQuery(VERIFY_TOKEN, {
+    variables: { token },
+    fetchPolicy: 'no-cache',
+  })
+
+  const [resetPassword, { loading: processingPasswordReset }] = useMutation(RESET_PASSWORD)
   const { register, handleSubmit, getValues, trigger, setError, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     shouldFocusError: true,
@@ -34,27 +39,17 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
     type: undefined,
     message: undefined,
   })
-  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
   const handleResetPassword = async (values: FormFields) => {
     if (response.message) {
       setResponse({ type: undefined, message: undefined })
     }
-    buttonRef.current?.setLoading(true)
 
-    return await client
-      .mutate({
-        mutation: RESET_PASSWORD,
-        variables: {
-          input: { token, password: values.password },
-        },
-        fetchPolicy: 'no-cache',
-      })
+    return await resetPassword({ variables: { input: { token, password: values.password } } })
       .then(() => {
         history.replace(Routes.RESET_PASSWORD, { succeeded: true })
       })
       .catch((gqlError) => {
-        buttonRef.current?.setLoading(false)
         if (gqlError.message.startsWith('__INPUT__')) {
           setError('password', { message: gqlError.message.replace(responsePrefixRegex, '') })
         } else {
@@ -68,11 +63,6 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
       history.replace(Routes.HOME)
     }
   }, [token, history])
-
-  const { loading, data: verificationResult } = useQuery(VERIFY_TOKEN, {
-    variables: { token },
-    fetchPolicy: 'no-cache',
-  })
 
   if (history.location.state?.succeeded) {
     return (
@@ -92,7 +82,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
     )
   }
 
-  if (loading) {
+  if (tokenIsBeingValidating) {
     return (
       <>
         <Title>Verifying your token...</Title>
@@ -184,7 +174,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         </FormItem>
 
         <FormItem top="xs">
-          <Button block ref={buttonRef} type="submit" buttonType="primary" icon={SCIRightArrowAlt} />
+          <Button block type="submit" buttonType="primary" loading={processingPasswordReset} icon={SCIRightArrowAlt} />
         </FormItem>
       </Form>
     </>

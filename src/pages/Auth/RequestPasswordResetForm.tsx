@@ -1,11 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useApolloClient } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
 import { emailRegex, responsePrefixRegex } from 'constants/RegExr'
 import { REQUEST_PASSWORD_RESET } from 'graphql/user'
-import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
+import { Form, FormItem, Input, Button } from 'components/Form'
 import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
@@ -19,7 +19,7 @@ interface FormFields {
 
 const RequestPasswordResetForm = () => {
   const { emailOrUsername = '' } = useParams<RouteParams>()
-  const client = useApolloClient()
+  const [requestPasswordReset, { loading }] = useMutation(REQUEST_PASSWORD_RESET)
   const { register, handleSubmit, setError, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     defaultValues: { emailOrUsername },
@@ -29,7 +29,6 @@ const RequestPasswordResetForm = () => {
     type: undefined,
     message: undefined,
   })
-  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
   const resetResponse = () => {
     if (response.message) {
@@ -39,17 +38,11 @@ const RequestPasswordResetForm = () => {
 
   const handleRequestPasswordReset = async (values: FormFields) => {
     resetResponse()
-    buttonRef.current?.setLoading(true)
     const isEmail = emailRegex.test(values.emailOrUsername)
 
-    return await client
-      .mutate({
-        mutation: REQUEST_PASSWORD_RESET,
-        variables: {
-          input: { [isEmail ? 'email' : 'username']: values.emailOrUsername },
-        },
-        fetchPolicy: 'no-cache',
-      })
+    return await requestPasswordReset({
+      variables: { input: { [isEmail ? 'email' : 'username']: values.emailOrUsername } },
+    })
       .then(() => {
         setResponse({
           type: TagColor.Success,
@@ -63,7 +56,6 @@ const RequestPasswordResetForm = () => {
           setResponse({ type: TagColor.Error, message: gqlError.message })
         }
       })
-      .finally(() => buttonRef.current?.setLoading(false))
   }
 
   return (
@@ -96,7 +88,7 @@ const RequestPasswordResetForm = () => {
       </FormItem>
 
       <FormItem top="xs">
-        <Button block ref={buttonRef} type="submit" buttonType="primary" icon={SCIRightArrowAlt} />
+        <Button block type="submit" buttonType="primary" loading={loading} icon={SCIRightArrowAlt} />
       </FormItem>
     </Form>
   )

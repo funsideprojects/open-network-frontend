@@ -13,6 +13,7 @@ import {
 
 interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, Omit<ButtonBaseProps, 'isLoading'> {
   icon?: GenericSC
+  loading?: boolean
 }
 
 const AvailButtons = {
@@ -26,19 +27,22 @@ export interface ButtonRefAttributes extends HTMLButtonElement {
 }
 
 export const Button = React.forwardRef<ButtonRefAttributes, Props>(
-  ({ buttonType = 'default', icon: Icon, block, danger, children, disabled, ...buttonProps }, forwardedRef) => {
-    const [isLoading, setIsLoading] = React.useState(false)
+  (
+    { buttonType = 'default', icon: Icon, loading: isLoading, block, danger, children, disabled, ...buttonProps },
+    forwardedRef
+  ) => {
+    // const [isLoading, setIsLoading] = React.useState(false)
 
-    React.useImperativeHandle(forwardedRef, () => {
-      return {
-        ...(forwardedRef as any).current,
-        setLoading(state: boolean) {
-          setIsLoading(state)
-        },
-      }
-    })
+    // React.useImperativeHandle(forwardedRef, () => {
+    //   return {
+    //     ...(forwardedRef as any).current,
+    //     setLoading(state: boolean) {
+    //       setIsLoading(state)
+    //     },
+    //   }
+    // })
 
-    const ButtonToRender = AvailButtons[buttonType]
+    const ButtonToRender = AvailButtons[buttonType] ?? AvailButtons.default
 
     const renderChildren = Icon ? (
       isLoading ? (

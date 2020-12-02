@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -36,7 +36,7 @@ const Background = styled.div`
   }
 `
 
-const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
+const AuthLayout = () => {
   usePrefetch(routeMap, 500)
 
   return (
@@ -44,13 +44,7 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
       <React.Suspense fallback={<Loading overlay />}>
         <Switch>
           {routeMap.map(({ relatedRoutes, Component, ...restRouteProps }, index) => (
-            <Route
-              key={index}
-              exact
-              strict
-              {...restRouteProps}
-              render={() => <Component refetchAuthUser={refetchAuthUser} />}
-            />
+            <Route key={index} exact strict {...restRouteProps} component={Component} />
           ))}
 
           <Redirect to={Routes.NOTFOUND} />
@@ -60,13 +54,10 @@ const AuthLayout = ({ refetchAuthUser }: AuthLayoutProps) => {
   )
 }
 
-const authLayoutPropTypes = {
-  refetchAuthUser: PropTypes.func.isRequired,
-}
-
+// const componenPropTypes = {}
 // ? For run-time
-AuthLayout.propTypes = authLayoutPropTypes
+// AuthLayout.propTypes = componenPropTypes
 // ? For compile-time (static)
-type AuthLayoutProps = PropTypes.InferProps<typeof authLayoutPropTypes>
+// type Props = PropTypes.InferProps<typeof componenPropTypes>
 
 export default AuthLayout

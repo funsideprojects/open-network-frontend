@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -57,9 +56,7 @@ const Main = styled.div`
   padding: ${(props) => props.theme.spacing.sm} 0 0 ${(props) => props.theme.spacing.sm};
 `
 
-const AppLayout = ({ refetchAuthUser }: AppLayoutPropTypes) => {
-  // const client = useApolloClient()
-
+const AppLayout = () => {
   // React.useEffect(() => {
   //   client
   //     .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
@@ -113,12 +110,5 @@ const AppLayout = ({ refetchAuthUser }: AppLayoutPropTypes) => {
     </>
   )
 }
-
-const appLayoutPropTypes = {
-  refetchAuthUser: PropTypes.func.isRequired,
-}
-
-AppLayout.propTypes = appLayoutPropTypes
-type AppLayoutPropTypes = PropTypes.InferProps<typeof appLayoutPropTypes>
 
 export default AppLayout

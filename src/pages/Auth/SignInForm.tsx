@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useApolloClient } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
-import { SIGN_IN } from 'graphql/user'
-import { Form, FormItem, Input, Button, ButtonRefAttributes } from 'components/Form'
+import { SIGN_IN, GET_AUTH_USER } from 'graphql/user'
+import { Form, FormItem, Input, Button } from 'components/Form'
 import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
@@ -17,8 +17,8 @@ interface FormFields {
   password: string
 }
 
-const SignInForm = ({ refetchAuthUser, navigate }: SignInFormProps) => {
-  const client = useApolloClient()
+const SignInForm = ({ navigate }: Props) => {
+  const [signIn, { loading }] = useMutation(SIGN_IN, { refetchQueries: [{ query: GET_AUTH_USER }] })
   const { register, handleSubmit, getValues, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     shouldFocusError: true,
@@ -27,25 +27,11 @@ const SignInForm = ({ refetchAuthUser, navigate }: SignInFormProps) => {
     type: undefined,
     message: undefined,
   })
-  const buttonRef = React.useRef<ButtonRefAttributes>(null)
 
   const handleSignIn = async (values: FormFields) => {
-    buttonRef.current?.setLoading(true)
-
-    return await client
-      .mutate({
-        mutation: SIGN_IN,
-        variables: {
-          input: { ...values },
-        },
-      })
-      .then(async () => {
-        await refetchAuthUser()
-      })
-      .catch((gqlError) => {
-        buttonRef.current?.setLoading(false)
-        setResponse({ type: TagColor.Error, message: gqlError.message })
-      })
+    return await signIn({ variables: { input: { ...values } } }).catch((gqlError) => {
+      setResponse({ type: TagColor.Error, message: gqlError.message })
+    })
   }
 
   return (
@@ -104,18 +90,17 @@ const SignInForm = ({ refetchAuthUser, navigate }: SignInFormProps) => {
       </FormItem>
 
       <FormItem top="none">
-        <Button block ref={buttonRef} buttonType="primary" type="submit" icon={SCIRightArrowAlt} />
+        <Button block buttonType="primary" type="submit" loading={loading} icon={SCIRightArrowAlt} />
       </FormItem>
     </Form>
   )
 }
 
-const signInFormPropTypes = {
-  refetchAuthUser: PropTypes.func.isRequired,
+const componentPropTypes = {
   navigate: PropTypes.func.isRequired,
 }
 
-SignInForm.propTypes = signInFormPropTypes
-type SignInFormProps = PropTypes.InferProps<typeof signInFormPropTypes>
+SignInForm.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default SignInForm
