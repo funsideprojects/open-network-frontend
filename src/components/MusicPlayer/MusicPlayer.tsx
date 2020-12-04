@@ -2,7 +2,7 @@ import React from 'react'
 import { PlayCircle, PauseCircle, Infinite, Shuffle, ChevronDown, ChevronUp } from '@styled-icons/ionicons-outline'
 import { PlaySkipBack, PlaySkipForward } from '@styled-icons/ionicons-solid'
 
-import { PlayerBar, Button, SongNameContainer, SongName } from './MusicPlayer.styled'
+import { PlayerBar, Controllers, Button, SongNameContainer, SongName } from './MusicPlayer.styled'
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = React.useState(false)
@@ -12,25 +12,27 @@ const MusicPlayer = () => {
 
   return (
     <PlayerBar>
-      <Button small>
-        <PlaySkipBack />
-      </Button>
+      <Controllers>
+        <Button small>
+          <PlaySkipBack />
+        </Button>
 
-      <Button active={isLoop} onClick={() => setIsLoop((prev) => !prev)}>
-        <Infinite />
-      </Button>
+        <Button active={isLoop} onClick={() => setIsLoop((prev) => !prev)}>
+          <Infinite />
+        </Button>
 
-      <Button active={!isPlaying} onClick={() => setIsPlaying((prev) => !prev)}>
-        {isPlaying ? <PauseCircle /> : <PlayCircle />}
-      </Button>
+        <Button active={!isPlaying} onClick={() => setIsPlaying((prev) => !prev)}>
+          {isPlaying ? <PauseCircle /> : <PlayCircle />}
+        </Button>
 
-      <Button active={isShuffle} onClick={() => setIsShuffle((prev) => !prev)}>
-        <Shuffle />
-      </Button>
+        <Button active={isShuffle} onClick={() => setIsShuffle((prev) => !prev)}>
+          <Shuffle />
+        </Button>
 
-      <Button small>
-        <PlaySkipForward />
-      </Button>
+        <Button small>
+          <PlaySkipForward />
+        </Button>
+      </Controllers>
 
       <SongNameContainer>
         <SongName isPlaying={isPlaying}>Dusk Till Dawn - ZAYN ft. Sia</SongName>

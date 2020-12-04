@@ -19,7 +19,6 @@ import NotFound from 'pages/NotFound'
 // import Profile from 'pages/Profile'
 // import Messages from 'pages/Messages'
 
-import Notification from './Notification'
 // import FollowedUsersDrawer from './FollowedUsersDrawer'
 
 // import { useWindowSize } from 'hooks/useWindowSize'
@@ -57,25 +56,8 @@ const Main = styled.div`
 `
 
 const AppLayout = () => {
-  // React.useEffect(() => {
-  //   client
-  //     .query({ query: GET_FOLLOWED_USERS, fetchPolicy: 'no-cache' })
-  //     .then(({ data }) => {
-  //       dispatch({ type: SET_FOLLOW, payload: data.getFollowedUsers })
-  //     })
-  //     .catch(() => {})
-  // }, [client, dispatch])
-
-  // useClickOutside(sideBarRef, () => {
-  //   if (!isDesktop && isSideBarOpen) {
-  //     setIsSidebarOpen(false)
-  //   }
-  // })
-
   return (
     <>
-      <Notification />
-
       <Background>
         <Container>
           <SideBar />

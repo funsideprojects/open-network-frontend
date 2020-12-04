@@ -2,9 +2,20 @@ import styled, { keyframes } from 'styled-components'
 
 export const PlayerBar = styled.div`
   display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
   align-items: center;
-  padding: 0 ${(props) => props.theme.spacing.sm};
+  padding: 0 ${(props) => props.theme.spacing.xxs};
+
+  @media (min-width: ${(props) => props.theme.screen.lg}) {
+    flex-flow: row nowrap;
+  }
 `
+
+export const Controllers = styled.div`
+  display: flex;
+`
+
 export const Button = styled.button<{ small?: boolean; active?: boolean }>`
   cursor: pointer;
   width: 20px;
@@ -38,13 +49,27 @@ const floatText = keyframes`
 `
 
 export const SongNameContainer = styled.div`
+  cursor: pointer;
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   display: flex;
+  order: -1;
   box-shadow: 8px 0 8px -8px ${(props) => props.theme.colors.primary.light} inset,
     -8px 0 8px -8px ${(props) => props.theme.colors.primary.light} inset;
-  margin-left: ${(props) => props.theme.spacing.xs};
+  margin: 0 0 ${(props) => props.theme.spacing.xxs} 0;
+
+  &:hover {
+    > span {
+      color: ${(props) => props.theme.colors.primary.main};
+      animation-play-state: paused;
+    }
+  }
+
+  @media (min-width: ${(props) => props.theme.screen.lg}) {
+    order: 0;
+    margin: 0 0 0 ${(props) => props.theme.spacing.xs};
+  }
 `
 
 export const SongName = styled.span<{ isPlaying?: boolean }>`
@@ -57,9 +82,4 @@ export const SongName = styled.span<{ isPlaying?: boolean }>`
   animation: ${floatText} 15s infinite linear;
   animation-play-state: ${(props) => (props.isPlaying ? 'running' : 'paused')};
   transition: 0.3s;
-
-  &:hover {
-    color: ${(props) => props.theme.colors.primary.main};
-    animation-play-state: paused;
-  }
 `

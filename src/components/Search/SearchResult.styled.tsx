@@ -37,13 +37,19 @@ export const Link = styled(A)`
   }
 `
 
-export const Username = styled.span`
-  margin-left: ${(props) => props.theme.spacing.xs};
+export const Username = styled.div`
+  max-width: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+  padding-left: ${(props) => props.theme.spacing.xs};
 `
 
-export const Text = styled.div<{ bold?: boolean; smaller?: boolean; fade?: boolean }>`
+export const Text = styled.span<{ bold?: boolean; smaller?: boolean; fade?: boolean }>`
+  max-width: 100%;
+  overflow: hidden !important;
   font-weight: ${(props) => (props.bold ? '600' : '400')};
   font-size: ${(props) => (props.smaller ? '0.8' : '0.9')}rem;
+  text-overflow: ellipsis;
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
 `
 

@@ -7,7 +7,7 @@ import { getImageLink } from 'utils/image-link'
 
 import { DefaultAvatar } from './icons'
 
-const Container = styled.div<{ size: number | string; border?: 'success' | 'secondary' }>`
+const Container = styled.div<{ size: string; border?: 'success' | 'secondary' }>`
   user-select: none;
   width: ${(props) => props.size};
   height: ${(props) => props.size};
@@ -30,14 +30,17 @@ const Img = styled(Image)`
 
 const Avatar = ({ size, image, username, hasStory, online }: Props) => {
   return (
-    <Container size={size ?? '30px'} border={hasStory ? 'secondary' : online ? 'success' : undefined}>
+    <Container
+      size={typeof size === 'string' ? size : '30px'}
+      border={hasStory ? 'secondary' : online ? 'success' : undefined}
+    >
       {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar />}
     </Container>
   )
 }
 
 const componentPropTypes = {
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  size: PropTypes.string,
   image: PropTypes.string,
   username: PropTypes.string.isRequired,
   online: PropTypes.bool,

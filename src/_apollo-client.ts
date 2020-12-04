@@ -64,6 +64,16 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   lazy: true,
   timeout: 60000,
   reconnect: true,
+  connectionParams: () => {
+    const accessToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('x-access-token'))
+      ?.split('=')[1]
+
+    if (accessToken) {
+      return { 'x-access-token': accessToken }
+    }
+  },
 })
 // todo - Handle detect user connectivity
 // subscriptionClient.onConnecting(() => {})

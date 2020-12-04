@@ -10,7 +10,7 @@ export const Container = styled.div<{ rising: boolean }>`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 20px 15px -20px ${(props) => (props.rising ? props.theme.colors.grey[400] : 'transparent')};
-  padding: ${(props) => props.theme.spacing.sm};
+  padding: 0 ${(props) => props.theme.spacing.sm};
   z-index: ${(props) => props.theme.zIndex.md};
   background-color: ${(props) => props.theme.colors.grey[props.rising ? 200 : 200]};
   transition: 0.3s;
@@ -20,6 +20,7 @@ export const HeaderItems = styled.div<{ side: 'start' | 'center' | 'end' }>`
   height: 100%;
   position: relative;
   display: flex;
+  flex: auto;
   justify-content: ${(props) => (props.side === 'center' ? 'center' : `flex-${props.side}`)};
   align-items: center;
 `
@@ -27,10 +28,14 @@ export const HeaderItems = styled.div<{ side: 'start' | 'center' | 'end' }>`
 export const Link = styled(NavLink)<{ count?: number }>`
   position: relative;
   display: block;
-  margin: 0 ${(props) => props.theme.spacing.xs};
+  padding: 0 ${(props) => props.theme.spacing.xs};
   text-decoration: none;
   color: ${(props) => props.theme.colors.grey[500]};
   transition: 0.3s;
+
+  &:first-child {
+    padding-left: 0;
+  }
 
   &:hover {
     color: ${(props) => props.theme.colors.primary.main};
@@ -42,12 +47,15 @@ export const Link = styled(NavLink)<{ count?: number }>`
     min-height: ${(props) => (props.count ? '18px' : 0)};
     position: absolute;
     top: -6px;
-    right: -6px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid ${(props) => props.theme.colors.grey[200]};
     border-radius: ${(props) => props.theme.radius.lg};
-    padding: ${(props) => (props.count ? '2px' : 0)};
+    padding: ${(props) => (props.count ? '0 3px' : 0)};
     font-family: ${(props) => props.theme.font.secondary};
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.error.dark};
