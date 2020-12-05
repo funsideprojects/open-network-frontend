@@ -3,14 +3,14 @@ import { Chatbubbles } from '@styled-icons/ionicons-outline/Chatbubbles'
 
 import * as Routes from 'routes'
 
-import { Link } from './Header.styled'
+import { Link } from './Generic.styled'
 
-const Messaging = () => {
+const Messenger = () => {
   return (
-    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={17}>
+    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" badge={1}>
       <Chatbubbles />
     </Link>
   )
 }
 
-export default Messaging
+export default Messenger

@@ -25,7 +25,7 @@ export const HeaderItems = styled.div<{ side: 'start' | 'center' | 'end' }>`
   align-items: center;
 `
 
-export const Link = styled(NavLink)<{ count?: number }>`
+export const Link = styled(NavLink)<{ badge?: number }>`
   position: relative;
   display: block;
   padding: 0 ${(props) => props.theme.spacing.xs};
@@ -42,24 +42,21 @@ export const Link = styled(NavLink)<{ count?: number }>`
   }
 
   &::before {
-    content: '${(props) => (props.count ? (props.count > 99 ? '99+' : props.count) : '')}';
-    min-width: ${(props) => (props.count ? '22px' : 0)};
-    min-height: ${(props) => (props.count ? '18px' : 0)};
+    content: '${(props) => (props.badge ? (props.badge > 99 ? '99+' : props.badge) : '')}';
+    min-width: ${(props) => (props.badge ? '22px' : 0)};
     position: absolute;
-    top: -6px;
+    top: -4px;
     right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 2px solid ${(props) => props.theme.colors.grey[200]};
     border-radius: ${(props) => props.theme.radius.lg};
-    padding: ${(props) => (props.count ? '0 3px' : 0)};
+    padding: ${(props) => (props.badge ? '2px 3px' : 0)};
     font-family: ${(props) => props.theme.font.secondary};
-    font-size: 0.65rem;
+    font-size: 0.6rem;
+    line-height: normal;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.error.dark};
-    transform: scale(${(props) => (props.count ? 1 : 0)});
+    transform: scale(${(props) => (props.badge ? 1 : 0)});
     transition: 0.3s;
   }
 

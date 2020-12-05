@@ -20,7 +20,7 @@ const AuthLayout = React.lazy(() => import(/* webpackChunkName: "AuthLayout" */ 
 const App = () => {
   // ? Responsive
   const windowSize = useWindowSize()
-  const mode = windowSize.width! >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
+  const mode = windowSize.width >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
   const { loading, data: authUserData } = useQuery(GET_AUTH_USER, {
     fetchPolicy: 'cache-and-network',

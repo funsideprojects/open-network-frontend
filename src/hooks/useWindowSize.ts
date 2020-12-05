@@ -9,8 +9,8 @@ export const useWindowSize = () => {
 
   const getSize = useCallback(() => {
     return {
-      width: isClient ? window.innerWidth : undefined,
-      height: isClient ? window.innerHeight : undefined,
+      width: isClient ? window.innerWidth : 0,
+      height: isClient ? window.innerHeight : 0,
     }
   }, [isClient])
 
@@ -24,7 +24,7 @@ export const useWindowSize = () => {
     const onResize = () => {
       setWindowSize(getSize())
     }
-    const debouncedOnResize = debounce(onResize, 500)
+    const debouncedOnResize = debounce(onResize, 1000)
 
     window.addEventListener('resize', debouncedOnResize)
 

@@ -1,6 +1,7 @@
 export { CloseIcon } from './CloseIcon'
 export * from './DefaultAvatar'
 export { DeleteIcon } from './DeleteIcon'
+export * from './DotFlashing'
 export { DotsIcon } from './DotsIcon'
 export { EmptyIcon } from './EmptyIcon'
 export { EnvelopeIcon } from './EnvelopeIcon'

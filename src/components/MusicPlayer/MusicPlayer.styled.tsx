@@ -5,10 +5,11 @@ export const PlayerBar = styled.div`
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  padding: 0 ${(props) => props.theme.spacing.xxs};
+  padding: ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.xxs} 0;
 
   @media (min-width: ${(props) => props.theme.screen.lg}) {
     flex-flow: row nowrap;
+    padding: 0;
   }
 `
 
@@ -51,7 +52,6 @@ const floatText = keyframes`
 export const SongNameContainer = styled.div`
   cursor: pointer;
   width: 100%;
-  max-width: 100%;
   overflow-x: hidden;
   display: flex;
   order: -1;
@@ -76,7 +76,7 @@ export const SongName = styled.span<{ isPlaying?: boolean }>`
   user-select: none;
   display: inline-block;
   padding-left: 100%;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   white-space: nowrap;
   color: ${(props) => props.theme.colors.grey[600]};
   animation: ${floatText} 15s infinite linear;

@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import SideBar from './SideBar'
 import Header from './Header'
+import Chats from './Chats'
 // import ListUser from './ListChat'
 // import UserSuggestions from './UserSuggestions'
 // import MessageBox from 'components/MessageBox'
@@ -52,6 +53,7 @@ const Body = styled.div`
 const Main = styled.div`
   width: 100%;
   position: relative;
+  display: flex;
   padding: ${(props) => props.theme.spacing.sm} 0 0 ${(props) => props.theme.spacing.sm};
 `
 
@@ -66,6 +68,8 @@ const AppLayout = () => {
             <Header />
 
             <Main>
+              <Chats />
+
               <Switch>
                 <Route exact path={Routes.HOME} component={NotFound} />
 

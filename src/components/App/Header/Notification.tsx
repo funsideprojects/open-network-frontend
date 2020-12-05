@@ -7,7 +7,7 @@ import { NOTIFICATION_UPDATED } from 'graphql/notification'
 
 import * as Routes from 'routes'
 
-import { Link } from './Header.styled'
+import { Link } from './Generic.styled'
 
 const Notification = () => {
   // todo - replace loading by query
@@ -18,7 +18,7 @@ const Notification = () => {
   })
 
   return (
-    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" count={!loading ? 0 : 1501}>
+    <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" badge={!loading ? 0 : 1501}>
       {!loading ? <SCISpinner /> : <Notifications />}
     </Link>
   )

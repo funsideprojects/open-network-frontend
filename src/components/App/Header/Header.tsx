@@ -5,10 +5,10 @@ import MusicPlayer from 'components/MusicPlayer'
 
 import { useScrollPosition } from 'hooks/useScrollPosition'
 
-import { Container, HeaderItems } from './Header.styled'
+import { Container, HeaderItems } from './Generic.styled'
 import Following from './Following'
 import Notification from './Notification'
-import Messaging from './Messaging'
+import Messenger from './Messenger'
 import Username from './Username'
 import SignOut from './SignOut'
 
@@ -40,7 +40,7 @@ const Header = () => {
       <HeaderItems side="end">
         <Following />
         <Notification />
-        <Messaging />
+        <Messenger />
         <Username />
         <SignOut />
       </HeaderItems>

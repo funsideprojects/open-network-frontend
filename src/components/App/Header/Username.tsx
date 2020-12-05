@@ -5,7 +5,7 @@ import { generatePath } from 'react-router-dom'
 import { authAtoms } from 'store'
 import * as Routes from 'routes'
 
-import { Link, Text } from './Header.styled'
+import { Link, Text } from './Generic.styled'
 
 const Username = () => {
   const { user } = useRecoilValue(authAtoms.userState)
@@ -18,7 +18,7 @@ const Username = () => {
     <Link
       to={generatePath(Routes.USER_PROFILE_PATH, { username: user.username })}
       activeClassName="is-active"
-      count={0}
+      badge={0}
     >
       <Text>{user.fullName}</Text>
     </Link>

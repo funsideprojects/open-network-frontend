@@ -17,7 +17,7 @@ import {
   Item,
   NoSearchResult,
   Link,
-  Username,
+  Names,
   Text,
   Pagination,
   SCILeftArrowAlt,
@@ -98,12 +98,12 @@ const SearchResult = ({ expand, toMessaging }) => {
             <Item>
               <Avatar image={user.image} username={user.username} />
 
-              <Username>
+              <Names>
                 <Text bold>{user.fullName}</Text>
                 <Text smaller fade>
                   @{user.username}
                 </Text>
-              </Username>
+              </Names>
             </Item>
           </Link>
         ))

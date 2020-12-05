@@ -37,7 +37,7 @@ export const Link = styled(A)`
   }
 `
 
-export const Username = styled.div`
+export const Names = styled.div`
   max-width: calc(100% - 70px);
   display: flex;
   flex-direction: column;

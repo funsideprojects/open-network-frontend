@@ -10,6 +10,7 @@ import * as Routes from 'routes'
 const Container = styled.div`
   width: 100%;
   height: 200vh;
+  transition: 0.3s;
 `
 
 const NotFound = () => {
