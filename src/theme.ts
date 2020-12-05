@@ -132,10 +132,15 @@ export default {
   },
 
   screen: {
+    sml: '639.98px',
     sm: '640px',
+    mdl: '767.98px',
     md: '768px',
+    lgl: '1023.98px',
     lg: '1024px',
+    xll: '1279.98px',
     xl: '1280px',
+    xxll: '1499.98px',
     xxl: '1500px',
   },
 

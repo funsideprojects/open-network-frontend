@@ -24,7 +24,7 @@ export const useWindowSize = () => {
     const onResize = () => {
       setWindowSize(getSize())
     }
-    const debouncedOnResize = debounce(onResize, 1000)
+    const debouncedOnResize = debounce(onResize, 500)
 
     window.addEventListener('resize', debouncedOnResize)
 

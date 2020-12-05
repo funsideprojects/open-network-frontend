@@ -2,26 +2,22 @@ import styled from 'styled-components'
 
 import { H4 } from 'components/Text'
 
-export const Container = styled.div<{ expand?: boolean }>`
+export const Container = styled.div`
   width: 0;
   height: calc(100vh - 80px);
   position: relative;
-  right: 0;
   display: flex;
-  order: 2;
+  order: 1;
   transition: 0.3s;
 
-  @media screen and (min-width: ${(props) => props.theme.screen.lg}) {
-    width: 80px;
-  }
-
   @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
-    width: ${(props) => (props.expand ? '280px' : '80px')};
+    width: 240px;
   }
 `
 
-export const ListContainer = styled.div`
+export const SubContainer = styled.div`
   width: inherit;
+  height: 100%;
 `
 
 export const List = styled.ul`
@@ -33,6 +29,11 @@ export const List = styled.ul`
   margin: 0;
   padding: 0 ${(props) => props.theme.spacing.sm};
   list-style: none;
+
+  @media screen and (max-width: ${(props) => props.theme.screen.lgl}) {
+    display: none;
+    padding: 0;
+  }
 `
 
 export const Title = styled(H4)`
@@ -53,18 +54,13 @@ export const Title = styled(H4)`
     color: ${(props) => props.theme.colors.primary.main};
   }
 
+  @media screen and (max-width: ${(props) => props.theme.screen.lgl}) {
+    display: none;
+  }
+
   @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
     pointer-events: auto;
   }
-`
-
-export const Item = styled.li`
-  cursor: pointer;
-  width: 100%;
-  height: 40px;
-  display: flex;
-  margin: 0 0 ${(props) => props.theme.spacing.sm} 0;
-  transition: 0.3s;
 `
 
 export const TextContainer = styled.div<{ expand?: boolean }>`
@@ -90,31 +86,4 @@ export const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolea
   text-overflow: ellipsis;
   white-space: nowrap;
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
-`
-
-export const Badge = styled.div<{ expand?: boolean; count?: number }>`
-  position: relative;
-  display: flex;
-  align-items: center;
-  transform: scale(0);
-  transform-origin: top left;
-  transition: 0.3s, transform 0.2s ${(props) => (props.expand ? '0.1s' : '0s')};
-
-  &::before {
-    content: '${(props) => props.count ?? ''}';
-    border: 2px solid ${(props) => props.theme.colors.grey[200]};
-    border-radius: ${(props) => props.theme.radius.lg};
-    padding: 1.5px 5px;
-    font-family: ${(props) => props.theme.font.secondary};
-    font-size: 0.6rem;
-    line-height: normal;
-    text-align: center;
-    color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors.error.dark};
-  }
-
-  @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
-    padding-left: ${(props) => props.theme.spacing[props.expand ? 'xs' : 'none']};
-    transform: scale(${(props) => (props.count && props.expand ? 1 : 0)});
-  }
 `

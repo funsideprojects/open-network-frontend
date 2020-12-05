@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import SideBar from './SideBar'
 import Header from './Header'
+import Suggestions from './Suggestions'
 import Chats from './Chats'
 // import ListUser from './ListChat'
 // import UserSuggestions from './UserSuggestions'
@@ -69,6 +70,7 @@ const AppLayout = () => {
 
             <Main>
               <Chats />
+              {/* <Suggestions /> */}
 
               <Switch>
                 <Route exact path={Routes.HOME} component={NotFound} />
