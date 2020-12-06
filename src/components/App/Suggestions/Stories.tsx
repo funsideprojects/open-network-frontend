@@ -9,8 +9,6 @@ const createItemDate = memoize((data) => data)
 
 const Stories = () => {
   const [expand, setExpand] = React.useState(false)
-  // const listRef = React.useRef<any>(null)
-  // const listOuterRef = React.useRef<any>(null)
 
   const itemData = createItemDate({ expand })
 
@@ -27,8 +25,6 @@ const Stories = () => {
       </TitleContainer>
       <SectionBody>
         <HorizontalList
-          // ref={listRef}
-          // outerRef={listOuterRef}
           layout="horizontal"
           width={190}
           height={40}
@@ -39,18 +35,6 @@ const Stories = () => {
         >
           {Story}
         </HorizontalList>
-        {/* <ScrollButton
-          onClick={() => {
-            console.log(listOuterRef.current)
-            listOuterRef.current?.scrollTo({
-              left: listRef.current.state.scrollOffset + 170,
-              top: 0,
-              behavior: 'smooth',
-            })
-          }}
-        >
-          <ChevronForward />
-        </ScrollButton> */}
       </SectionBody>
     </Section>
   )
