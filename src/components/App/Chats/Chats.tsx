@@ -23,7 +23,7 @@ const Chats = () => {
           <AutoSizer disableWidth>
             {({ height, width }) => {
               return (
-                <List width={width} height={height} itemCount={100} itemSize={60} overscanCount={3} itemData={itemData}>
+                <List width={width} height={height} itemCount={5} itemSize={60} overscanCount={3} itemData={itemData}>
                   {ListItem}
                 </List>
               )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Container, SubContainer } from './Generic.styled'
+import { Container, SubContainer, FixedContainer } from './Generic.styled'
 import Stories from './Stories'
 
 import theme from 'theme'
@@ -14,7 +14,9 @@ const Suggestions = () => {
   return (
     <Container>
       <SubContainer>
-        <Stories />
+        <FixedContainer>
+          <Stories />
+        </FixedContainer>
       </SubContainer>
     </Container>
   )

@@ -70,7 +70,7 @@ const AppLayout = () => {
 
             <Main>
               <Chats />
-              {/* <Suggestions /> */}
+              <Suggestions />
 
               <Switch>
                 <Route exact path={Routes.HOME} component={NotFound} />

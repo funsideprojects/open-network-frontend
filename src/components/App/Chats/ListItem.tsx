@@ -11,11 +11,11 @@ const ListItem = ({ index, style, data }: ListChildComponentProps) => {
       <Item>
         <Avatar
           size="40px"
-          image="https://picsum.photos/30/30"
+          // image="https://picsum.photos/30/30"
           username="xxxx"
           online
           typing
-          badge={9999}
+          badge={999}
           badgeVisible={!data.expand}
         />
         <TextContainer expand={data.expand}>

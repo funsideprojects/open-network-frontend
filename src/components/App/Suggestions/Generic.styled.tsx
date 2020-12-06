@@ -1,58 +1,54 @@
 import styled from 'styled-components'
+import { FixedSizeList } from 'react-window'
 
-import { H4 } from 'components/Text'
-
-export const Container = styled.div`
-  width: 0;
-  height: calc(100vh - 80px);
+export const Container = styled.section`
+  height: calc(100vh - 100px);
   position: relative;
-  display: flex;
+  display: none;
   order: 1;
-  transition: 0.3s;
 
   @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
-    width: 240px;
+    width: 230px;
+    display: flex;
   }
 `
 
 export const SubContainer = styled.div`
   width: inherit;
-  height: 100%;
 `
 
-export const List = styled.ul`
+export const FixedContainer = styled.div`
   width: inherit;
-  height: 100%;
+  height: calc(100vh - 100px);
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0 ${(props) => props.theme.spacing.sm};
-  list-style: none;
-
-  @media screen and (max-width: ${(props) => props.theme.screen.lgl}) {
-    display: none;
-    padding: 0;
-  }
 `
 
-export const Title = styled(H4)`
-  cursor: pointer;
+export const Section = styled.div<{ expand: boolean; expandWidth: string }>`
+  width: 100%;
+  height: ${(props) => (props.expand ? props.expandWidth : '20px')};
+  overflow-y: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: ${(props) => props.theme.spacing[props.expand ? 'xs' : 'sm']};
+  padding: 0 ${(props) => props.theme.spacing.sm};
+  transition: 0.3s;
+`
+
+export const TitleContainer = styled.div`
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const Title = styled.div<{ active: boolean }>`
   user-select: none;
-  pointer-events: none;
-  border: 1px solid transparent;
-  margin-bottom: ${(props) => props.theme.spacing.sm};
-  padding: ${(props) => props.theme.spacing.xxs} 0 2px;
+  height: 100%;
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: 600;
   text-align: center;
-  color: ${(props) => props.theme.colors.grey[500]};
+  color: ${(props) => (props.active ? props.theme.colors.primary.main : props.theme.colors.grey[500])};
   transition: 0.3s;
-
-  &:hover {
-    border-bottom-color: ${(props) => props.theme.colors.primary.main};
-    color: ${(props) => props.theme.colors.primary.main};
-  }
 
   @media screen and (max-width: ${(props) => props.theme.screen.lgl}) {
     display: none;
@@ -63,27 +59,64 @@ export const Title = styled(H4)`
   }
 `
 
-export const TextContainer = styled.div<{ expand?: boolean }>`
-  width: 0;
-  height: 100%;
+export const ButtonIcon = styled.div`
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
   display: flex;
-  flex-flow: column nowrap;
-  padding-left: ${(props) => props.theme.spacing[props.expand ? 'xs' : 'none']};
+  justify-content: center;
+  align-items: center;
+  border-radius: ${(props) => props.theme.radius.md};
+  transition: 0.3s;
+`
+
+export const ButtonHint = styled(ButtonIcon)`
+  display: inline-flex;
+  border-radius: 50%;
+  color: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.primary.main};
   transition: 0.3s;
 
-  @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
-    flex: 1;
+  > svg {
+    width: 12px;
+    height: 12px;
   }
 `
 
-export const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolean }>`
-  max-width: 100%;
-  overflow: hidden !important;
+export const TitleButton = styled(ButtonIcon)`
+  &:hover {
+    color: ${(props) => props.theme.colors.white};
+    background: ${(props) => props.theme.colors.primary.light};
+  }
+
+  > svg {
+    width: 16px;
+    height: 16px;
+  }
+`
+
+export const SectionBody = styled.div`
+  width: 100%;
+  display: flex;
   flex: 1;
-  font-weight: ${(props) => (props.bold ? '600' : '400')};
-  font-size: ${(props) => (props.small ? '0.7rem' : '0.95rem')};
-  line-height: 20px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
+`
+
+export const HorizontalList = styled(FixedSizeList)`
+  width: 100%;
+  margin: ${(props) => props.theme.spacing.sm} 0 ${(props) => props.theme.spacing.xs};
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > div {
+    position: relative;
+  }
+`
+
+export const HorizontalListItem = styled.div`
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-right: ${(props) => props.theme.spacing.xs};
 `

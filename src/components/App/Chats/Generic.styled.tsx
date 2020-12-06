@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { FixedSizeList } from 'react-window'
 
-export const Container = styled.div<{ expand?: boolean }>`
+export const Container = styled.section<{ expand?: boolean }>`
   width: 0;
   height: calc(100vh - 100px);
   position: relative;
@@ -27,15 +27,16 @@ export const FixedContainer = styled.div`
   position: fixed;
 `
 
-export const Title = styled.span<{ expand: boolean }>`
+export const Title = styled.div<{ expand: boolean }>`
   cursor: pointer;
   user-select: none;
   pointer-events: none;
   max-width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: ${(props) => props.theme.radius.md};
-  margin: 0 ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.xs};
+  margin: 0 ${(props) => props.theme.spacing.sm} ${(props) => props.theme.spacing.sm};
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: 600;
   font-size: 1rem;
@@ -56,7 +57,7 @@ export const Title = styled.span<{ expand: boolean }>`
 
 export const List = styled(FixedSizeList)`
   width: 100%;
-  padding: ${(props) => props.theme.spacing.xs} ${(props) => props.theme.spacing.sm} 0;
+  padding: 0 ${(props) => props.theme.spacing.sm};
 
   &::-webkit-scrollbar {
     display: none;
@@ -122,7 +123,7 @@ export const Badge = styled.div<{ expand?: boolean; count?: number }>`
   &::before {
     content: '${(props) => props.count ?? ''}';
     border-radius: ${(props) => props.theme.radius.lg};
-    padding: 1.5px 5px;
+    padding: 2px 4px;
     font-family: ${(props) => props.theme.font.secondary};
     font-size: 0.6rem;
     line-height: normal;
