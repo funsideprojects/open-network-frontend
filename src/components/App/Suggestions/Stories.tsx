@@ -8,7 +8,7 @@ import Story from './Story'
 const createItemDate = memoize((data) => data)
 
 const Stories = () => {
-  const [expand, setExpand] = React.useState(false)
+  const [expand, setExpand] = React.useState(true)
 
   const itemData = createItemDate({ expand })
 
@@ -16,7 +16,7 @@ const Stories = () => {
     <Section expand={expand} expandWidth="90px">
       <TitleContainer>
         <Title active={expand}>
-          Stories{' '}
+          Stories
           <ButtonHint>
             <Help />
           </ButtonHint>

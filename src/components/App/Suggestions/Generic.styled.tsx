@@ -39,13 +39,17 @@ export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: ${(props) => props.theme.radius.md};
 `
 
 export const Title = styled.div<{ active: boolean }>`
   user-select: none;
   height: 100%;
+  display: flex;
+  align-items: center;
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: 600;
+  font-size: 1rem;
   text-align: center;
   color: ${(props) => (props.active ? props.theme.colors.primary.main : props.theme.colors.grey[500])};
   transition: 0.3s;
@@ -71,8 +75,11 @@ export const ButtonIcon = styled.div`
 `
 
 export const ButtonHint = styled(ButtonIcon)`
+  width: 16px;
+  height: 16px;
   display: inline-flex;
   border-radius: 50%;
+  margin-left: ${(props) => props.theme.spacing.xxs};
   color: ${(props) => props.theme.colors.white};
   background: ${(props) => props.theme.colors.primary.main};
   transition: 0.3s;

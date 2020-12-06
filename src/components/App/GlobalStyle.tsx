@@ -4,9 +4,9 @@ import { StyledIconBase } from '@styled-icons/styled-icon'
 const Scroll = css`
   /* ? Width */
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
     height: 8px;
-    background: transparent !important;
+    background: ${(props) => props.theme.colors.grey[200]} !important;
   }
 
   /* Track */
@@ -18,12 +18,12 @@ const Scroll = css`
   ::-webkit-scrollbar-thumb {
     height: 3px;
     border-radius: 10px;
-    background: ${(props) => props.theme.colors.grey[300]};
+    background: ${(props) => props.theme.colors.grey[500]};
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: ${(props) => props.theme.colors.grey[300]};
+    background: ${(props) => props.theme.colors.grey[400]};
   }
 `
 

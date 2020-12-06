@@ -40,7 +40,7 @@ const Background = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  max-width: ${(props) => props.theme.screen.xxl};
+  max-width: ${(props) => props.theme.screen.xl};
   position: relative;
   display: flex;
   margin: 0 auto;
