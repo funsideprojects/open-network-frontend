@@ -14,12 +14,12 @@ const Container = styled.div<{ size: string; border?: 'success' | 'secondary'; b
   height: ${(props) => props.size};
   position: relative;
   display: flex;
-  box-shadow: 0 0 1px 2px ${(props) => (props.border ? props.theme.colors[props.border].dark : 'transparent')};
-  border: 2px solid ${(props) => props.theme.colors.grey[200]};
-  border-radius: 50%;
+  box-shadow: 0 0 0 3px ${(props) => props.theme.colors.grey[200]} inset;
+  border: 2px solid ${(props) => (props.border ? props.theme.colors[props.border].dark : 'transparent')};
+  border-radius: 100%;
   flex-shrink: 0;
 
-  &::before {
+  &::after {
     content: '${(props) => (props.badge ? (props.badge > 99 ? '99+' : props.badge) : '')}';
     max-width: 23px;
     position: absolute;
@@ -41,15 +41,16 @@ const Container = styled.div<{ size: string; border?: 'success' | 'secondary'; b
     transition: 0.3s;
   }
 
-  > svg {
+  > svg,
+  img {
     width: 100%;
+    border: 2px solid transparent;
   }
 `
 
 const Img = styled(Image)`
-  position: absolute;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 100%;
 `
 
 const TypingDots = styled.div<{ visible: boolean }>`
@@ -76,7 +77,7 @@ const Avatar = ({ size, image, username, hasStory, online, badge, badgeVisible =
       badge={badge ?? 0}
       badgeVisible={!!badgeVisible}
     >
-      {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar />}
+      {image ? <Img src={image} alt={username} /> : <DefaultAvatar />}
       <TypingDots visible={!!typing}>
         <DotFlashing />
       </TypingDots>

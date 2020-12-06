@@ -1,22 +1,16 @@
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
+import memoize from 'memoize-one'
 
-import Avatar from 'components/Avatar'
+import { Container, SubContainer, FixedContainer, List, Title } from './Generic.styled'
+import ListItem from './ListItem'
 
-import {
-  Container,
-  SubContainer,
-  FixedContainer,
-  List,
-  Title,
-  Item,
-  TextContainer,
-  Text,
-  Badge,
-} from './Generic.styled'
+const createItemDate = memoize((data) => data)
 
 const Chats = () => {
   const [expand, setExpand] = React.useState(false)
+
+  const itemData = createItemDate({ expand })
 
   return (
     <Container expand={expand}>
@@ -27,32 +21,14 @@ const Chats = () => {
           </Title>
 
           <AutoSizer disableWidth>
-            {({ height, width }) => (
-              <List width={width} height={height} itemCount={20} itemSize={60}>
-                {({ index, style }) => (
-                  <div key={index} style={style}>
-                    <Item>
-                      <Avatar size="40px" username="xxxx" online typing badge={9999} badgeVisible={!expand} />
-                      <TextContainer expand={expand}>
-                        <Text bold>Ovrx {index + 1}</Text>
-                        <Text small>Lorem ipsum dolor sit amet</Text>
-                      </TextContainer>
-                      <Badge expand={expand} count={9999} />
-                    </Item>
-                  </div>
-                )}
-              </List>
-            )}
+            {({ height, width }) => {
+              return (
+                <List width={width} height={height} itemCount={100} itemSize={60} overscanCount={3} itemData={itemData}>
+                  {ListItem}
+                </List>
+              )
+            }}
           </AutoSizer>
-
-          {/* <Item>
-              <Avatar size="40px" username="xxxx" online typing badge={9999} badgeVisible={!expand} />
-              <TextContainer expand={expand}>
-                <Text bold>Ovrx</Text>
-                <Text small>Lorem ipsum dolor sit amet</Text>
-              </TextContainer>
-              <Badge expand={expand} count={9999} />
-            </Item> */}
         </FixedContainer>
       </SubContainer>
     </Container>

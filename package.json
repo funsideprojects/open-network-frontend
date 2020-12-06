@@ -24,6 +24,7 @@
     "extract-files": "^9.0.0",
     "graphql": "^15.4.0",
     "lodash": "^4.17.20",
+    "memoize-one": "^5.1.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.7",

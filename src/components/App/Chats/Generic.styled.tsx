@@ -55,6 +55,7 @@ export const Title = styled.span<{ expand: boolean }>`
 `
 
 export const List = styled(FixedSizeList)`
+  width: 100%;
   padding: ${(props) => props.theme.spacing.xs} ${(props) => props.theme.spacing.sm} 0;
 
   &::-webkit-scrollbar {
