@@ -26,7 +26,7 @@ const Chats = () => {
             Chats
           </Title>
 
-          <AutoSizer>
+          <AutoSizer disableWidth>
             {({ height, width }) => (
               <List width={width} height={height} itemCount={20} itemSize={60}>
                 {({ index, style }) => (

@@ -25,8 +25,6 @@ export const FixedContainer = styled.div`
   width: inherit;
   height: calc(100vh - 123px);
   position: fixed;
-  display: flex;
-  flex-flow: column nowrap;
 `
 
 export const Title = styled.span<{ expand: boolean }>`
