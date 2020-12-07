@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, NetworkStatus } from '@apollo/client'
 import { useSetRecoilState } from 'recoil'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -18,26 +18,28 @@ const AppLayout = React.lazy(() => import(/* webpackChunkName: "AppLayout" */ '.
 const AuthLayout = React.lazy(() => import(/* webpackChunkName: "AuthLayout" */ 'pages/Auth/AuthLayout'))
 
 const App = () => {
-  // ? Responsive
+  const setAuthUser = useSetRecoilState(authAtoms.userState)
   const windowSize = useWindowSize()
-  const mode = windowSize.width >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
-  const { loading, data: authUserData } = useQuery(GET_AUTH_USER, {
-    fetchPolicy: 'cache-and-network',
+  const { data: authUserData, networkStatus } = useQuery(GET_AUTH_USER.gql, {
+    fetchPolicy: 'network-only',
     errorPolicy: 'ignore',
+    notifyOnNetworkStatusChange: true,
   })
 
-  const setAuthUser = useSetRecoilState(authAtoms.userState)
-
   React.useEffect(() => {
-    setAuthUser({ user: authUserData?.getAuthUser })
-  }, [setAuthUser, authUserData])
+    if (networkStatus === NetworkStatus.ready) {
+      setAuthUser({ user: authUserData.getAuthUser })
+    }
+  }, [setAuthUser, networkStatus, authUserData])
+
+  const mode = windowSize.width >= parseInt(theme.screen.md, 10) ? 'desktop' : 'mobile'
 
   return mode === 'desktop' ? (
     <Router>
       <GlobalStyle />
 
-      {loading ? (
+      {networkStatus === NetworkStatus.loading ? (
         <Loading overlay />
       ) : (
         <>
@@ -48,6 +50,8 @@ const App = () => {
               </Switch>
             </ScrollToTop>
           </Suspense>
+
+          {networkStatus === NetworkStatus.refetch && <Loading overlay />}
 
           <GlobalLoading />
         </>

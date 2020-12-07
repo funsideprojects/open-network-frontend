@@ -162,6 +162,7 @@ export default {
     lg: '12px',
     xl: '15px',
     xxl: '20px',
+    round: '100%',
   },
 
   zIndex: {

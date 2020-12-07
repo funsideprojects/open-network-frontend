@@ -20,13 +20,18 @@ export const GET_CONVERSATIONS = gql`
   }
 `
 
-export const GET_AUTH_USER = gql`
-  query getAuthUser {
-    getAuthUser {
-      ${authUserPayload}
-    }
-  }
-`
+export const GET_AUTH_USER = {
+  name: 'getAuthUser',
+  get gql() {
+    return gql`
+      query ${this.name} {
+        getAuthUser {
+          ${authUserPayload}
+        }
+      }
+    `
+  },
+}
 
 export const GET_USER = gql`
   query getUser($username: String, $id: ID) {

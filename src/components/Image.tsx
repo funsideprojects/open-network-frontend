@@ -1,16 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Close } from '@styled-icons/ionicons-solid/Close'
 
-import Loading from 'components/Loading'
+import { LoadingIndicator } from 'components/Loading'
 
-const LoadingWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const SCIClose = styled(Close)`
+  color: ${(props) => props.theme.colors.error.main};
 `
 
 const Img = styled.img<{ visible: boolean }>`
@@ -20,35 +25,36 @@ const Img = styled.img<{ visible: boolean }>`
   transition: 0.3s;
 `
 
-const ImageComponent = React.forwardRef<HTMLImageElement, Props>(({ src, alt, ...restProps }, forwardedRef) => {
-  const [imgLoaded, setImgLoaded] = React.useState(false)
+enum ImgStatus {
+  Loading = 'loading',
+  Loaded = 'loaded',
+  Error = 'error',
+}
+
+const ImageComponent = React.forwardRef<HTMLImageElement, Props>(({ src, ...restProps }, forwardedRef) => {
+  const [imgStatus, setImgStatus] = React.useState<ImgStatus>(ImgStatus.Loading)
 
   React.useEffect(() => {
     const imgLoader = new Image()
     imgLoader.src = src
     imgLoader.onload = () => {
-      setImgLoaded(true)
+      setImgStatus(ImgStatus.Loaded)
+    }
+    imgLoader.onerror = () => {
+      setImgStatus(ImgStatus.Error)
     }
   }, [src])
 
-  return (
-    <>
-      {!imgLoaded ? (
-        <LoadingWrapper>
-          <Loading />
-        </LoadingWrapper>
-      ) : (
-        <></>
-      )}
-      <Img {...restProps} src={src} alt={alt} ref={forwardedRef} visible={imgLoaded} />
-    </>
+  return [ImgStatus.Loading, ImgStatus.Error].indexOf(imgStatus) > -1 ? (
+    <Container>{imgStatus === ImgStatus.Loading ? <LoadingIndicator /> : <SCIClose />}</Container>
+  ) : (
+    <Img {...restProps} ref={forwardedRef} src={src} visible={imgStatus === ImgStatus.Loaded} />
   )
 })
 
 ImageComponent.displayName = 'Image'
 
 const componentPropTypes = {
-  alt: PropTypes.string.isRequired,
   src: PropTypes.any.isRequired,
 }
 

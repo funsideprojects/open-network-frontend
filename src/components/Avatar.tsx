@@ -8,7 +8,13 @@ import { getImageLink } from 'utils/image-link'
 
 import { DefaultAvatar } from './icons'
 
-const Container = styled.div<{ size: string; border?: 'success' | 'secondary'; badge: number; badgeVisible: boolean }>`
+enum BorderType {
+  Online = 'success',
+  Story = 'secondary',
+  None = '',
+}
+
+const Container = styled.div<{ size: string; border: BorderType; badge: number; badgeVisible: boolean }>`
   user-select: none;
   width: ${(props) => props.size};
   height: ${(props) => props.size};
@@ -32,12 +38,12 @@ const Container = styled.div<{ size: string; border?: 'success' | 'secondary'; b
     padding: 2px;
     font-family: ${(props) => props.theme.font.secondary};
     font-size: 0.6rem;
-    line-height: 8px;
+    line-height: 0.9;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.error.dark};
     transform: scale(${(props) => (props.badgeVisible && props.badge ? 1 : 0)});
-    transform-origin: top;
+    transform-origin: center;
     transition: 0.3s;
   }
 
@@ -69,16 +75,16 @@ const TypingDots = styled.div<{ visible: boolean }>`
   transition: 0.3s;
 `
 
-const Avatar = ({ size, image, username, hasStory, online, badge, badgeVisible = true, typing }: Props) => {
+const Avatar = ({ size, image, username, story, online, badge, badgeVisible = true, typing }: Props) => {
   return (
     <Container
-      size={typeof size === 'string' ? size : '30px'}
-      border={hasStory ? 'secondary' : online ? 'success' : undefined}
+      size={size ?? '30px'}
+      border={story ? BorderType.Story : online ? BorderType.Online : BorderType.None}
       badge={badge ?? 0}
-      badgeVisible={!!badgeVisible}
+      badgeVisible={badgeVisible}
     >
       {image ? <Img src={getImageLink(image)} alt={username} /> : <DefaultAvatar />}
-      <TypingDots visible={!!typing}>
+      <TypingDots visible={typing}>
         <DotFlashing />
       </TypingDots>
     </Container>
@@ -89,7 +95,7 @@ const componentPropTypes = {
   size: PropTypes.string,
   image: PropTypes.string,
   username: PropTypes.string.isRequired,
-  hasStory: PropTypes.bool,
+  story: PropTypes.bool,
   online: PropTypes.bool,
   badge: PropTypes.number,
   badgeVisible: PropTypes.bool,

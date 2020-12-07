@@ -4,7 +4,7 @@ import { useLazyQuery } from '@apollo/client'
 import { useRecoilState } from 'recoil'
 import { generatePath } from 'react-router-dom'
 
-import { SCISpinner } from 'components/Loading'
+import { LoadingIndicator } from 'components/Loading'
 import Avatar from 'components/Avatar'
 import { Button } from 'components/Form'
 import { SEARCH_USERS } from 'graphql/user'
@@ -83,7 +83,7 @@ const SearchResult = ({ expand, toMessaging }) => {
 
       {loading ? (
         <Item center>
-          <SCISpinner />
+          <LoadingIndicator />
         </Item>
       ) : (
         users.map((user) => (

@@ -2,8 +2,8 @@ import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import memoize from 'memoize-one'
 
-import { Container, SubContainer, FixedContainer, List, Title } from './Generic.styled'
-import ListItem from './ListItem'
+import { Container, SubContainer, FixedContainer, List, Title } from './Chats.styled'
+import Chat from './Chat'
 
 const createItemDate = memoize((data) => data)
 
@@ -24,7 +24,7 @@ const Chats = () => {
             {({ height, width }) => {
               return (
                 <List width={width} height={height} itemCount={5} itemSize={60} overscanCount={3} itemData={itemData}>
-                  {ListItem}
+                  {Chat}
                 </List>
               )
             }}

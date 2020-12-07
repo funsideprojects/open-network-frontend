@@ -18,7 +18,9 @@ interface FormFields {
 }
 
 const SignInForm = ({ navigate }: Props) => {
-  const [signIn, { loading }] = useMutation(SIGN_IN, { refetchQueries: [{ query: GET_AUTH_USER }] })
+  const [signIn, { loading }] = useMutation(SIGN_IN, {
+    refetchQueries: [GET_AUTH_USER.name],
+  })
   const { register, handleSubmit, getValues, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     shouldFocusError: true,

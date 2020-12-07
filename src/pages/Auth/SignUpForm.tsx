@@ -47,7 +47,7 @@ const SignUpForm = ({ navigate }: Props) => {
       variables: {
         input: { ...values, fullName: values.fullName.trim().replace(/\s\s+/g, ' '), autoSignIn },
       },
-      ...(autoSignIn ? { refetchQueries: [{ query: GET_AUTH_USER }] } : {}),
+      ...(autoSignIn ? { refetchQueries: [GET_AUTH_USER.name] } : {}),
     })
       .then(async () => {
         if (!autoSignIn) {

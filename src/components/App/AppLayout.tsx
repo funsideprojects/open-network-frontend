@@ -2,10 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
+import { usePrefetch } from 'hooks/usePrefetch'
+
 import SideBar from './SideBar'
 import Header from './Header'
-import Suggestions from './Suggestions'
 import Chats from './Chats'
+import Suggestions from './Suggestions'
+import { routeMap } from './routeMap'
 // import ListUser from './ListChat'
 // import UserSuggestions from './UserSuggestions'
 // import MessageBox from 'components/MessageBox'
@@ -13,7 +16,6 @@ import Chats from './Chats'
 // import { GET_FOLLOWED_USERS } from 'graphql/follow'
 
 // import Home from 'pages/Home'
-import NotFound from 'pages/NotFound'
 // import Explore from 'pages/Explore'
 // import Notifications from 'pages/Notifications'
 // import People from 'pages/People'
@@ -40,7 +42,7 @@ const Background = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  max-width: ${(props) => props.theme.screen.xl};
+  max-width: ${(props) => props.theme.screen.xxl};
   position: relative;
   display: flex;
   margin: 0 auto;
@@ -59,6 +61,8 @@ const Main = styled.div`
 `
 
 const AppLayout = () => {
+  usePrefetch(routeMap, 500)
+
   return (
     <>
       <Background>
@@ -73,21 +77,9 @@ const AppLayout = () => {
               <Suggestions />
 
               <Switch>
-                <Route exact path={Routes.HOME} component={NotFound} />
-
-                {/* <Route exact path={Routes.EXPLORE} component={Explore} /> */}
-
-                {/* <Route exact path={Routes.NOTIFICATIONS} component={Notifications} /> */}
-
-                {/* <Route exact path={Routes.MESSAGES} component={Messages} /> */}
-
-                {/* <Route exact path={Routes.PEOPLE} component={People} /> */}
-
-                {/* <Route exact path={Routes.POST} component={Post} /> */}
-
-                {/* <Route exact path={Routes.USER_PROFILE} component={Profile} /> */}
-
-                <Route path={Routes.NOTFOUND} component={NotFound} />
+                {routeMap.map(({ relatedRoutes, Component, ...restRouteProps }, index) => (
+                  <Route key={index} exact strict {...restRouteProps} component={Component} />
+                ))}
 
                 <Redirect to={Routes.NOTFOUND} />
               </Switch>

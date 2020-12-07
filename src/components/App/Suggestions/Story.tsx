@@ -13,7 +13,7 @@ const Story = ({ index, style, data }: ListChildComponentProps) => {
           size="40px"
           // image="https://picsum.photos/30/30"
           username="xxxx"
-          hasStory
+          story
         />
       </HorizontalListItem>
     </div>

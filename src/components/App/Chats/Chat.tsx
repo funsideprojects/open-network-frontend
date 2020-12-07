@@ -3,12 +3,12 @@ import { areEqual, ListChildComponentProps } from 'react-window'
 
 import Avatar from 'components/Avatar'
 
-import { Item, TextContainer, Text, Badge } from './Generic.styled'
+import { Container, TextContainer, Text, Badge } from './Chat.styled'
 
-const ListItem = ({ index, style, data }: ListChildComponentProps) => {
+const Chat = ({ index, style, data }: ListChildComponentProps) => {
   return (
     <div key={index} style={style}>
-      <Item>
+      <Container>
         <Avatar
           size="40px"
           // image="https://picsum.photos/30/30"
@@ -18,14 +18,16 @@ const ListItem = ({ index, style, data }: ListChildComponentProps) => {
           badge={999}
           badgeVisible={!data.expand}
         />
-        <TextContainer expand={data.expand}>
+
+        <TextContainer visible={data.expand}>
           <Text bold>Ovrx {index}</Text>
           <Text small>Lorem ipsum dolor sit amet</Text>
         </TextContainer>
-        <Badge expand={data.expand} count={9999} />
-      </Item>
+
+        <Badge visible={data.expand} count={9999} />
+      </Container>
     </div>
   )
 }
 
-export default React.memo(ListItem, areEqual)
+export default React.memo(Chat, areEqual)

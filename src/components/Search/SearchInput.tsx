@@ -7,7 +7,7 @@ import { useLazyQuery } from '@apollo/client'
 import { SearchAlt } from '@styled-icons/boxicons-regular'
 
 import { Input } from 'components/Form'
-import { SCISpinner } from 'components/Loading'
+import { LoadingIndicator } from 'components/Loading'
 import { SEARCH_USERS } from 'graphql/user'
 import { useClickOutside } from 'hooks/useClickOutside'
 import { appAtoms } from 'store'
@@ -60,7 +60,7 @@ const SearchInput = ({ containerRef, expand, setExpand }: Props) => {
       name="search"
       placeholder={expand ? 'Looking for someone?' : 'Search'}
       ref={inputRef}
-      hasPrefix={loading ? SCISpinner : SCISearchAlt}
+      hasPrefix={loading ? LoadingIndicator : SCISearchAlt}
       onFocus={() => setExpand(true)}
       disabled={loading}
       onChange={debounce(handleInputChange, 500)}

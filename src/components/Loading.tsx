@@ -35,14 +35,13 @@ const spinAnimation = keyframes`
   }
 `
 
-export const SCISpinner = styled(Spinner3)<{ large?: boolean }>`
+export const LoadingIndicator = styled(Spinner3)<{ large?: boolean; size?: number }>`
   ${(props) =>
-    props.large
-      ? `
-width: 30px !important;
-height: 30px !important;
-  `
-      : ''}
+    (props.size || props.large) &&
+    `
+  width: ${props.size ?? 30}px !important;
+  height: ${props.size ?? 30}px !important;
+`}
   color: ${(props) => props.theme.colors.primary.light};
   animation: 1.5s linear ${spinAnimation} infinite;
 `
@@ -63,13 +62,13 @@ const Loading = ({ overlay, block, radiusBorder }: Props) => {
     return (
       <Overlay block={block} radiusBorder={radiusBorder}>
         <Container block={block}>
-          <SCISpinner large />
+          <LoadingIndicator large />
         </Container>
       </Overlay>
     )
   }
 
-  return <SCISpinner />
+  return <LoadingIndicator />
 }
 
 const componentPropTypes = {

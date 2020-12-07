@@ -2,7 +2,7 @@ import React from 'react'
 import { useSubscription } from '@apollo/client'
 import { Notifications } from '@styled-icons/ionicons-outline/Notifications'
 
-import { SCISpinner } from 'components/Loading'
+import { LoadingIndicator } from 'components/Loading'
 import { NOTIFICATION_UPDATED } from 'graphql/notification'
 
 import * as Routes from 'routes'
@@ -19,7 +19,7 @@ const Notification = () => {
 
   return (
     <Link to={Routes.NOTIFICATIONS} activeClassName="is-active" badge={!loading ? 0 : 1501}>
-      {!loading ? <SCISpinner /> : <Notifications />}
+      {!loading ? <LoadingIndicator /> : <Notifications />}
     </Link>
   )
 }
