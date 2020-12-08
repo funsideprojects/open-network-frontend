@@ -2,7 +2,7 @@ import { createGlobalStyle, css } from 'styled-components'
 import { StyledIconBase } from '@styled-icons/styled-icon'
 
 const Scroll = css`
-  /* ? Width */
+  /* Width */
   ::-webkit-scrollbar {
     width: 5px;
     height: 8px;
@@ -58,7 +58,7 @@ export default createGlobalStyle`
     color: ${(props) => props.theme.colors.text.primary};
     background-color: ${(props) => props.theme.colors.white};
 
-    &[class^='no-scroll'] {
+    &[class^="no-scroll"] {
       overflow: hidden;
     }
 
@@ -67,6 +67,12 @@ export default createGlobalStyle`
       width: 20px;
       height: 20px;
     }
+  }
+
+  a {
+    font-family: ${(props) => props.theme.font.primary};
+    text-decoration: none;
+    color: inherit;
   }
 
   #app-mountpoint {

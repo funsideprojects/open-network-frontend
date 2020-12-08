@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { useQuery, NetworkStatus } from '@apollo/client'
 import { useSetRecoilState } from 'recoil'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -14,8 +14,8 @@ import GlobalStyle from './GlobalStyle'
 import ScrollToTop from './ScrollToTop'
 import GlobalLoading from './GlobalLoading'
 
-const AppLayout = React.lazy(() => import(/* webpackChunkName: "AppLayout" */ './AppLayout'))
-const AuthLayout = React.lazy(() => import(/* webpackChunkName: "AuthLayout" */ 'pages/Auth/AuthLayout'))
+const AppLayout = React.lazy(() => import('./AppLayout'))
+const AuthLayout = React.lazy(() => import('pages/Auth/AuthLayout'))
 
 const App = () => {
   const setAuthUser = useSetRecoilState(authAtoms.userState)
@@ -43,13 +43,13 @@ const App = () => {
         <Loading overlay />
       ) : (
         <>
-          <Suspense fallback={<></>}>
+          <React.Suspense fallback={<React.Fragment />}>
             <ScrollToTop>
               <Switch>
                 <Route render={() => (authUserData?.getAuthUser ? <AppLayout /> : <AuthLayout />)} />
               </Switch>
             </ScrollToTop>
-          </Suspense>
+          </React.Suspense>
 
           {networkStatus === NetworkStatus.refetch && <Loading overlay />}
 
