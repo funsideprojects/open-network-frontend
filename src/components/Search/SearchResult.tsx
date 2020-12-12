@@ -17,7 +17,7 @@ import {
   Item,
   NoSearchResult,
   Link,
-  Names,
+  TextContainer,
   Text,
   Pagination,
   SCILeftArrowAlt,
@@ -72,7 +72,7 @@ const SearchResult = ({ expand, toMessaging }) => {
       {count > limit ? (
         <Pagination>
           <Button icon={SCILeftArrowAlt} disabled={currentPage === 1} onClick={() => onPageChange(-limit)} />
-          <Text smaller>
+          <Text small>
             Displaying {offset + 1} - {currentPage === totalPages ? count : offset + limit} of {count}
           </Text>
           <Button icon={SCIRightArrowAlt} disabled={currentPage === totalPages} onClick={() => onPageChange(limit)} />
@@ -96,14 +96,14 @@ const SearchResult = ({ expand, toMessaging }) => {
             }
           >
             <Item>
-              <Avatar image={user.image} username={user.username} />
+              <Avatar size="40px" image={user.image} username={user.username} />
 
-              <Names>
+              <TextContainer>
                 <Text bold>{user.fullName}</Text>
-                <Text smaller fade>
+                <Text small fade>
                   @{user.username}
                 </Text>
-              </Names>
+              </TextContainer>
             </Item>
           </Link>
         ))

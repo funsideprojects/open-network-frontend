@@ -8,7 +8,7 @@ export const Container = styled.div`
   overflow: hidden;
   position: absolute;
   border-radius: ${(props) => props.theme.radius.lg};
-  margin-top: 4px;
+  margin-top: ${(props) => props.theme.spacing.xxs};
   font-size: 0.9rem;
   background-color: ${(props) => props.theme.colors.white};
 `
@@ -28,27 +28,35 @@ export const NoSearchResult = styled.div`
 `
 
 export const Link = styled(A)`
+  width: 100%;
   display: block;
   transition: 0.3s;
 
   &:hover {
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.primary.light};
+
+    span {
+      color: inherit;
+    }
   }
 `
 
-export const Names = styled.div`
-  max-width: calc(100% - 70px);
+export const TextContainer = styled.div`
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex: 1;
+  flex-flow: column nowrap;
   padding-left: ${(props) => props.theme.spacing.xs};
 `
 
-export const Text = styled.span<{ bold?: boolean; smaller?: boolean; fade?: boolean }>`
+export const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolean }>`
   max-width: 100%;
   overflow: hidden !important;
+  margin-bottom: 3px;
   font-weight: ${(props) => (props.bold ? '600' : '400')};
-  font-size: ${(props) => (props.smaller ? '0.8' : '0.9')}rem;
+  font-size: ${(props) => (props.small ? '0.8rem' : '0.9rem')};
+  line-height: 1;
   text-overflow: ellipsis;
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
 `

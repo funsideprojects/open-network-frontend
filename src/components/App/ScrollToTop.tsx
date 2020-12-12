@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
 
 /**
- * Scroll to top on route change
+ * ? Scroll to top on route change
  */
 const ScrollToTop = ({ children }: Props) => {
   const { pathname } = useLocation()

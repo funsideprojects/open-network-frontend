@@ -5,10 +5,20 @@ import memoize from 'memoize-one'
 import { Container, SubContainer, FixedContainer, List, Title } from './Chats.styled'
 import Chat from './Chat'
 
+const chatsExpandKey = 'chatsExpand'
+
 const createItemDate = memoize((data) => data)
 
 const Chats = () => {
-  const [expand, setExpand] = React.useState(false)
+  const [expand, setExpand] = React.useState(localStorage.getItem(chatsExpandKey) === 'true')
+
+  const handleExpand = () => {
+    setExpand((visible) => {
+      localStorage.setItem(chatsExpandKey, visible ? 'false' : 'true')
+
+      return !visible
+    })
+  }
 
   const itemData = createItemDate({ expand })
 
@@ -16,7 +26,7 @@ const Chats = () => {
     <Container expand={expand}>
       <SubContainer>
         <FixedContainer>
-          <Title expand={expand} onClick={() => setExpand((visible) => !visible)}>
+          <Title expand={expand} onClick={handleExpand}>
             Chats
           </Title>
 

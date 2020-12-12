@@ -39,6 +39,8 @@ export default createGlobalStyle`
     width: 100%;
     height: 100%;
     scroll-behavior: smooth;
+    /* Disable web page navigation on swipe(back and forward) */
+    overscroll-behavior-x: none;
   }
 
   *,

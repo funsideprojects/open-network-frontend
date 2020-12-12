@@ -1,19 +1,51 @@
 import React from 'react'
-import { ChevronDown, ChevronUp } from '@styled-icons/ionicons-outline'
+import { useQuery } from '@apollo/client'
+import { Reload } from '@styled-icons/ionicons-outline'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import { SUGGEST_USERS } from 'graphql/user'
 
 import { Section, TitleContainer, Title, TitleButton, SectionBody } from './Generic.styled'
+import ListItem from './User'
 
 const Users = () => {
-  const [expand, setExpand] = React.useState(true)
-  const bodyRef = React.useRef<HTMLDivElement>(null)
+  const { loading, data, refetch } = useQuery(SUGGEST_USERS.gql, {
+    fetchPolicy: 'no-cache',
+    notifyOnNetworkStatusChange: true,
+    variables: { except: [] },
+  })
+
+  const handleRenew = async () => {
+    await refetch({ except: data.suggestUsers.map((user) => user.id) })
+  }
 
   return (
-    <Section expand={expand} expandWidth="100px">
+    <Section>
       <TitleContainer>
-        <Title active={expand}>Users</Title>
-        <TitleButton onClick={() => setExpand((ex) => !ex)}>{expand ? <ChevronUp /> : <ChevronDown />}</TitleButton>
+        <Title>Users</Title>
+        <TitleButton disabled={loading} onClick={handleRenew}>
+          <Reload />
+        </TitleButton>
       </TitleContainer>
-      <SectionBody ref={bodyRef}>asad</SectionBody>
+      <SectionBody>
+        <TransitionGroup component={null}>
+          {data?.suggestUsers?.map((user, index) => (
+            <CSSTransition
+              appear
+              unmountOnExit
+              in={!loading}
+              key={user.id}
+              timeout={{
+                enter: 500 + index * 100,
+                exit: 200,
+              }}
+              classNames="suggested-user"
+            >
+              <ListItem itemIndex={index} user={user} />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </SectionBody>
     </Section>
   )
 }

@@ -52,16 +52,22 @@ export const GET_USERS = gql`
   }
 `
 
-export const USER_SUGGESTIONS = gql`
-  query suggestPeople {
-    suggestPeople {
-      id
-      fullName
-      username
-      image
-    }
-  }
-`
+export const SUGGEST_USERS = {
+  name: 'suggestUsers',
+  get gql() {
+    return gql`
+      query ${this.name}($except: [ID]) {
+        suggestUsers(except: $except) {
+          id
+          fullName
+          username
+          image
+        }
+      }
+    `
+  },
+}
+
 export const SEARCH_USERS = gql`
   query($searchQuery: String!, $skip: Int!, $limit: Int!) {
     searchUsers(searchQuery: $searchQuery, skip: $skip, limit: $limit) {

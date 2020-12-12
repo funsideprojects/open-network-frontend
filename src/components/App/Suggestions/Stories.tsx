@@ -1,40 +1,28 @@
 import React from 'react'
-import memoize from 'memoize-one'
-import { Help, ChevronDown, ChevronUp } from '@styled-icons/ionicons-outline'
+import styled from 'styled-components'
+import { FixedSizeList } from 'react-window'
 
-import { Section, TitleContainer, Title, ButtonHint, TitleButton, SectionBody, HorizontalList } from './Generic.styled'
+import { Section, TitleContainer, Title, SectionBody } from './Generic.styled'
 import Story from './Story'
 
-const createItemDate = memoize((data) => data)
+export const List = styled(FixedSizeList)`
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
 
 const Stories = () => {
-  const [expand, setExpand] = React.useState(true)
-
-  const itemData = createItemDate({ expand })
-
   return (
-    <Section expand={expand} expandWidth="90px">
+    <Section>
       <TitleContainer>
-        <Title active={expand}>
-          Stories
-          <ButtonHint>
-            <Help />
-          </ButtonHint>
-        </Title>
-        <TitleButton onClick={() => setExpand((ex) => !ex)}>{expand ? <ChevronUp /> : <ChevronDown />}</TitleButton>
+        <Title>Stories</Title>
       </TitleContainer>
       <SectionBody>
-        <HorizontalList
-          layout="horizontal"
-          width={190}
-          height={40}
-          itemCount={50}
-          itemSize={50}
-          overscanCount={3}
-          itemData={itemData}
-        >
+        <List layout="horizontal" width={200} height={40} itemCount={10} itemSize={50} overscanCount={3}>
           {Story}
-        </HorizontalList>
+        </List>
       </SectionBody>
     </Section>
   )

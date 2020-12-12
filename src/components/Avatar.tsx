@@ -38,7 +38,7 @@ const Container = styled.div<{ size: string; border: BorderType; badge: number; 
     padding: 2px;
     font-family: ${(props) => props.theme.font.secondary};
     font-size: 0.6rem;
-    line-height: 0.9;
+    line-height: 1;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.error.dark};

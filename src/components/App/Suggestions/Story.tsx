@@ -1,21 +1,28 @@
 import React from 'react'
+import styled from 'styled-components'
 import { areEqual, ListChildComponentProps } from 'react-window'
 
 import Avatar from 'components/Avatar'
 
-import { HorizontalListItem } from './Generic.styled'
+export const ListItem = styled.div`
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-right: ${(props) => props.theme.spacing.xs};
+`
 
-const Story = ({ index, style, data }: ListChildComponentProps) => {
+const Story = ({ index, style }: ListChildComponentProps) => {
   return (
     <div key={index} style={style}>
-      <HorizontalListItem>
+      <ListItem>
         <Avatar
           size="40px"
           // image="https://picsum.photos/30/30"
           username="xxxx"
           story
+          badge={2}
         />
-      </HorizontalListItem>
+      </ListItem>
     </div>
   )
 }

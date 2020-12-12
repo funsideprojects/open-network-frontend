@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { FixedSizeList } from 'react-window'
 
 export const Container = styled.section`
   height: calc(100vh - 100px);
@@ -23,13 +22,12 @@ export const FixedContainer = styled.div`
   position: fixed;
 `
 
-export const Section = styled.div<{ expand: boolean; expandWidth: string }>`
+export const Section = styled.div`
   width: 100%;
-  height: ${(props) => (props.expand ? props.expandWidth : '20px')};
   overflow-y: hidden;
   display: flex;
   flex-flow: column nowrap;
-  margin-bottom: ${(props) => props.theme.spacing[props.expand ? 'xs' : 'sm']};
+  margin: 0 ${(props) => props.theme.spacing.xs};
   padding: 0 ${(props) => props.theme.spacing.sm};
   transition: 0.3s;
 `
@@ -42,7 +40,7 @@ export const TitleContainer = styled.div`
   border-radius: ${(props) => props.theme.radius.md};
 `
 
-export const Title = styled.div<{ active: boolean }>`
+export const Title = styled.div`
   user-select: none;
   height: 100%;
   display: flex;
@@ -51,49 +49,36 @@ export const Title = styled.div<{ active: boolean }>`
   font-weight: 600;
   font-size: 1rem;
   text-align: center;
-  color: ${(props) => (props.active ? props.theme.colors.primary.main : props.theme.colors.grey[500])};
+  color: ${(props) => props.theme.colors.grey[500]};
   transition: 0.3s;
-
-  @media screen and (max-width: ${(props) => props.theme.screen.lgl}) {
-    display: none;
-  }
 
   @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
     pointer-events: auto;
   }
 `
 
-export const ButtonIcon = styled.div`
+export const TitleButton = styled.button`
   cursor: pointer;
   width: 20px;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0;
   border-radius: ${(props) => props.theme.radius.md};
-  transition: 0.3s;
-`
-
-export const ButtonHint = styled(ButtonIcon)`
-  width: 16px;
-  height: 16px;
-  display: inline-flex;
-  border-radius: 50%;
-  margin-left: ${(props) => props.theme.spacing.xxs};
-  color: ${(props) => props.theme.colors.white};
-  background: ${(props) => props.theme.colors.primary.main};
+  padding: 0;
+  color: ${(props) => props.theme.colors.grey[500]};
+  background: transparent;
   transition: 0.3s;
 
-  > svg {
-    width: 12px;
-    height: 12px;
-  }
-`
-
-export const TitleButton = styled(ButtonIcon)`
   &:hover {
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.primary.light};
+  }
+
+  &:disabled {
+    color: ${(props) => props.theme.colors.white};
+    background: ${(props) => props.theme.colors.grey[400]};
   }
 
   > svg {
@@ -105,25 +90,24 @@ export const TitleButton = styled(ButtonIcon)`
 export const SectionBody = styled.div`
   width: 100%;
   display: flex;
-  flex: 1;
-`
+  flex-flow: column nowrap;
+  padding: ${(props) => props.theme.spacing.sm} 0;
 
-export const HorizontalList = styled(FixedSizeList)`
-  width: 100%;
-  margin: ${(props) => props.theme.spacing.sm} 0 ${(props) => props.theme.spacing.xs};
-
-  &::-webkit-scrollbar {
+  .suggested-user-enter {
+    display: flex;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0s;
+  }
+  .suggested-user-enter-done {
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.5s;
+  }
+  .suggested-user-exit {
     display: none;
   }
-
-  > div {
-    position: relative;
+  .suggested-user-exit-active {
+    display: none;
   }
-`
-
-export const HorizontalListItem = styled.div`
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  margin-right: ${(props) => props.theme.spacing.xs};
 `
