@@ -3,6 +3,11 @@ import { gql } from '@apollo/client'
 import { authUserPayload, userPayload } from './types'
 
 // * Queries
+export const VERIFY_TOKEN = gql`
+  query($token: String!) {
+    verifyToken(token: $token)
+  }
+`
 
 export const GET_CONVERSATIONS = gql`
   query($authUserId: ID!) {
@@ -105,12 +110,6 @@ export const SIGN_OUT = gql`
 export const REQUEST_PASSWORD_RESET = gql`
   mutation($input: RequestPasswordResetInput!) {
     requestPasswordReset(input: $input)
-  }
-`
-
-export const VERIFY_TOKEN = gql`
-  query($token: String!) {
-    verifyToken(token: $token)
   }
 `
 

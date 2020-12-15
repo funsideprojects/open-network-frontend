@@ -10,9 +10,9 @@ import ListItem from './User'
 
 const Users = () => {
   const { loading, data, refetch } = useQuery(SUGGEST_USERS.gql, {
+    variables: { except: [] },
     fetchPolicy: 'no-cache',
     notifyOnNetworkStatusChange: true,
-    variables: { except: [] },
   })
 
   const handleRenew = async () => {
@@ -36,7 +36,7 @@ const Users = () => {
               in={!loading}
               key={user.id}
               timeout={{
-                enter: 500 + index * 100,
+                enter: 300 + index * 100,
                 exit: 200,
               }}
               classNames="suggested-user"

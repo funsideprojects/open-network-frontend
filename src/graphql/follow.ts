@@ -2,23 +2,37 @@ import { gql } from '@apollo/client'
 
 import { userPayload } from './types'
 
-// *_: Queries
-
-// DONE:
-/**
- * Get followed users of selected user
- * - If there's no username, then get followed users of authenticated user
- */
-export const GET_FOLLOWED_USERS = gql`
-  query getFollowedUsers($username: String, $skip: Int, $limit: Int) {
-    getFollowedUsers(username: $username, skip: $skip, limit: $limit) {
-      count
-      users {
-        ${userPayload}
+// * Queries
+export const GET_FOLLOWING_IDS = {
+  name: 'getFollowingIds',
+  get gql() {
+    return gql`
+      query ${this.name}($input: GetFollowingOrFollowerInput!) {
+        getFollowings(input: $input) {
+          users {
+            id
+          }
+        }
       }
-    }
-  }
-`
+    `
+  },
+}
+
+export const GET_FOLLOWINGS = {
+  name: 'getFollowings',
+  get gql() {
+    return gql`
+      query ${this.name}($input: GetFollowingOrFollowerInput!) {
+        getFollowings(input: $input) {
+          count
+          users {
+            ${userPayload}
+          }
+        }
+      }
+    `
+  },
+}
 
 // DONE:
 /** Get user's followers */
@@ -40,22 +54,18 @@ export const GET_FOLLOWED_USERS_COUNT = gql`
   }
 `
 
-// *_: Mutations
+// * Mutations
 
-// DONE:
-/** Follow selected user */
 export const CREATE_FOLLOW = gql`
   mutation($input: CreateOrDeleteFollowInput!) {
     createFollow(input: $input)
   }
 `
 
-// DONE:
-/** Unfollow selected user */
 export const DELETE_FOLLOW = gql`
   mutation($input: CreateOrDeleteFollowInput!) {
     deleteFollow(input: $input)
   }
 `
 
-// *_: Subscriptions
+// * Subscriptions

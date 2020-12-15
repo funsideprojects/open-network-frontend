@@ -5,6 +5,7 @@ import { generatePath } from 'react-router-dom'
 
 import { A } from 'components/Text'
 import Avatar from 'components/Avatar'
+import ButtonFollow from 'components/ButtonFollow'
 
 import * as Routes from 'routes'
 
@@ -66,7 +67,7 @@ export const User = ({ itemIndex, user }: Props) => {
         </Text>
       </TextContainer>
 
-      <div>Fl</div>
+      <ButtonFollow userId={user.id} />
     </Container>
   )
 }

@@ -13,8 +13,6 @@ import { routeMap } from './routeMap'
 // import UserSuggestions from './UserSuggestions'
 // import MessageBox from 'components/MessageBox'
 
-// import { GET_FOLLOWED_USERS } from 'graphql/follow'
-
 // import Home from 'pages/Home'
 // import Explore from 'pages/Explore'
 // import Notifications from 'pages/Notifications'

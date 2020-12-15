@@ -7,19 +7,22 @@ export const Nav = styled.nav`
   justify-content: space-evenly;
 
   button {
-    padding: 0 ${(props) => props.theme.spacing.xs};
+    padding-right: ${(props) => props.theme.spacing.xs};
+    padding-left: ${(props) => props.theme.spacing.xs};
     font-size: 0.7rem;
   }
 
   @media only screen and (min-width: ${(props) => props.theme.screen.lg}) {
     button {
-      padding: 0 ${(props) => props.theme.spacing.sm};
+      padding-right: ${(props) => props.theme.spacing.sm};
+      padding-left: ${(props) => props.theme.spacing.sm};
     }
   }
 
   @media only screen and (min-width: ${(props) => props.theme.screen.xl}) {
     button {
-      padding: 0 ${(props) => props.theme.spacing.lg};
+      padding-right: ${(props) => props.theme.spacing.lg};
+      padding-left: ${(props) => props.theme.spacing.lg};
       font-size: 1rem;
     }
   }

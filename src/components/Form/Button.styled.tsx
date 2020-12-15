@@ -12,7 +12,6 @@ export const ButtonContainer = styled.div<ButtonBaseProps>`
 export interface ButtonBaseProps {
   buttonType?: 'default' | 'primary' | 'text'
   block?: boolean
-  bordered?: boolean
   danger?: boolean
   isLoading?: boolean
 }
@@ -21,16 +20,13 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   cursor: pointer;
   user-select: none;
   width: 100%;
-  min-width: 40px;
-  min-height: 40px;
+  height: 100%;
   display: inline-block;
   outline: none;
-  border-width: 2px;
-  border-style: solid;
-  border-color: ${(props) => (props.bordered ? props.theme.colors.primary.main : props.theme.colors.white)};
+  border: 0;
   border-radius: ${(props) => props.theme.radius.md};
   margin: 0;
-  padding: calc(${(props) => props.theme.spacing.xs} - 2px);
+  padding: ${(props) => props.theme.spacing.xs};
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.bold};
   font-size: 1rem;
@@ -41,10 +37,6 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
     cursor: not-allowed;
     color: ${(props) => props.theme.colors.white} !important;
     background: ${(props) => props.theme.colors.grey[props.isLoading ? 200 : 400]} !important;
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.primary.light};
   }
 `
 

@@ -39,16 +39,12 @@ margin: 0 auto;
   background: ${(props) => props.theme.colors.white};
 
   @media only screen and (min-width: ${(props) => props.theme.screen.lg}) {
-    & {
-      width: ${(props) => (props.float === 'top' ? 'fit-content' : '40%')};
-      padding: ${(props) => props.theme.spacing.xl};
-    }
+    width: ${(props) => (props.float === 'top' ? 'fit-content' : '40%')};
+    padding: ${(props) => props.theme.spacing.xl};
   }
 
   @media only screen and (min-width: ${(props) => props.theme.screen.xl}) {
-    & {
-      padding: ${(props) => props.theme.spacing.xxl};
-    }
+    padding: ${(props) => props.theme.spacing.xxl};
   }
 `
 
