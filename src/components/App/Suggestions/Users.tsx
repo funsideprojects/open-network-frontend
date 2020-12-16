@@ -16,7 +16,8 @@ const Users = () => {
   })
 
   const handleRenew = async () => {
-    await refetch({ except: data.suggestUsers.map((user) => user.id) })
+    // ! Bug when there're < 5 users left - `data.suggestUsers.map((user) => user.id)`
+    await refetch({ except: [] })
   }
 
   return (
