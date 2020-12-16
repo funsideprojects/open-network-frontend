@@ -43,7 +43,7 @@ const Component = () => {
         }
       }}
     >
-      {networkStatus === NetworkStatus.ready ? <People /> : <LoadingIndicator />}
+      {[NetworkStatus.refetch, NetworkStatus.ready].indexOf(networkStatus) > -1 ? <People /> : <LoadingIndicator />}
     </Link>
   )
 }

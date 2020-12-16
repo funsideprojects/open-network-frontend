@@ -64,6 +64,7 @@ export const TitleButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: 0;
   border: 0;
   border-radius: ${(props) => props.theme.radius.md};
   padding: 0;
@@ -77,6 +78,7 @@ export const TitleButton = styled.button`
   }
 
   &:disabled {
+    cursor: not-allowed;
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.grey[400]};
   }

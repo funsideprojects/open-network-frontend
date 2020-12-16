@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useApolloClient } from '@apollo/client'
-import { LogOut } from '@styled-icons/ionicons-outline'
+import { LogOut } from '@styled-icons/ionicons-outline/LogOut'
 
 import { Button } from 'components/Form'
 import { SIGN_OUT, GET_AUTH_USER } from 'graphql/user'
