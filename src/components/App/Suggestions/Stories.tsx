@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FixedSizeList } from 'react-window'
 
-import { Section, TitleContainer, Title, SectionBody } from './Generic.styled'
+import { Section, SectionHeader, Title, SectionBody } from './Generic.styled'
 import Story from './Story'
 
 export const List = styled(FixedSizeList)`
@@ -13,12 +13,13 @@ export const List = styled(FixedSizeList)`
   }
 `
 
-const Stories = () => {
+const Component = () => {
   return (
     <Section>
-      <TitleContainer>
+      <SectionHeader>
         <Title>Stories</Title>
-      </TitleContainer>
+      </SectionHeader>
+
       <SectionBody>
         <List layout="horizontal" width={200} height={40} itemCount={10} itemSize={50} overscanCount={3}>
           {Story}
@@ -28,4 +29,4 @@ const Stories = () => {
   )
 }
 
-export default Stories
+export default Component

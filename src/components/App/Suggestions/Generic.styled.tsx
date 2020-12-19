@@ -32,7 +32,7 @@ export const Section = styled.div`
   transition: 0.3s;
 `
 
-export const TitleContainer = styled.div`
+export const SectionHeader = styled.div`
   height: 20px;
   display: flex;
   justify-content: space-between;
@@ -94,22 +94,4 @@ export const SectionBody = styled.div`
   display: flex;
   flex-flow: column nowrap;
   padding: ${(props) => props.theme.spacing.sm} 0;
-
-  .suggested-user-enter {
-    display: flex;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: 0s;
-  }
-  .suggested-user-enter-done {
-    opacity: 1;
-    transform: translateY(0);
-    transition: 0.5s;
-  }
-  .suggested-user-exit {
-    display: none;
-  }
-  .suggested-user-exit-active {
-    display: none;
-  }
 `

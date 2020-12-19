@@ -9,20 +9,6 @@ import ButtonFollow from 'components/ButtonFollow'
 
 import * as Routes from 'routes'
 
-const Container = styled.div<{ delay: number }>`
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${(props) => props.theme.spacing.xs};
-  transition-delay: ${(props) => props.delay}ms;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`
-
 const Link = styled(A)`
   width: fit-content;
   max-width: 100%;
@@ -41,48 +27,47 @@ const TextContainer = styled.div`
 const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolean }>`
   max-width: 100%;
   overflow: hidden !important;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   font-weight: ${(props) => (props.bold ? '600' : '400')};
   font-size: ${(props) => (props.small ? '0.8' : '0.9')}rem;
-  line-height: 1;
+  line-height: 1.5;
+  white-space: nowrap;
   text-overflow: ellipsis;
+
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
 `
 
-export const User = ({ itemIndex, user }: Props) => {
-  const userProfileLink = generatePath(Routes.USER_PROFILE_PATH, { username: user.username })
+export const Component = ({ id, fullName, username, image }: Props) => {
+  const userProfileLink = generatePath(Routes.USER_PROFILE_PATH, { username })
 
   return (
-    <Container delay={500 + itemIndex * 100}>
+    <React.Fragment>
       <Link to={userProfileLink}>
-        <Avatar size="40px" image={user.image} username={user.username} online />
+        <Avatar size="40px" image={image} username={username} online />
       </Link>
 
       <TextContainer>
         <Link to={userProfileLink}>
-          <Text bold>{user.fullName}</Text>
+          <Text bold>{fullName}</Text>
         </Link>
         <Text small fade>
-          @{user.username}
+          @{username}
         </Text>
       </TextContainer>
 
-      <ButtonFollow userId={user.id} />
-    </Container>
+      <ButtonFollow userId={id} />
+    </React.Fragment>
   )
 }
 
 const componentPropTypes = {
-  itemIndex: PropTypes.number,
-  user: PropTypes.exact({
-    id: PropTypes.string,
-    fullName: PropTypes.string,
-    username: PropTypes.string,
-    image: PropTypes.string,
-  }).isRequired,
+  id: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 }
 
-User.propTypes = componentPropTypes
+Component.propTypes = componentPropTypes
 type Props = PropTypes.InferProps<typeof componentPropTypes>
 
-export default User
+export default Component

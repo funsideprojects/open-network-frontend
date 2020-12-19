@@ -64,6 +64,7 @@
       "font-size",
       "font-swap",
       "line-height",
+      "white-space",
       "letter-spacing",
       "word-spacing",
       "word-break",

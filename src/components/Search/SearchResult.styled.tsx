@@ -56,7 +56,7 @@ export const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolea
   margin-bottom: 3px;
   font-weight: ${(props) => (props.bold ? '600' : '400')};
   font-size: ${(props) => (props.small ? '0.8rem' : '0.9rem')};
-  line-height: 1;
+  line-height: 1.5;
   text-overflow: ellipsis;
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
 `

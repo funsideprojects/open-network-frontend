@@ -11,7 +11,7 @@ export const ListItem = styled.div`
   margin-right: ${(props) => props.theme.spacing.xs};
 `
 
-const Story = ({ index, style }: ListChildComponentProps) => {
+const Component = ({ index, style }: ListChildComponentProps) => {
   return (
     <div key={index} style={style}>
       <ListItem>
@@ -27,4 +27,4 @@ const Story = ({ index, style }: ListChildComponentProps) => {
   )
 }
 
-export default React.memo(Story, areEqual)
+export default React.memo(Component, areEqual)
