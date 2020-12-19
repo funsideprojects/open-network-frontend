@@ -3,6 +3,9 @@ import { RouteProps, useLocation, matchPath } from 'react-router-dom'
 
 export type RouteConfig = RouteProps & { relatedRoutes?: Array<() => Promise<any>> }
 
+/**
+ * Prefetchs relative routes to improve UX
+ */
 export const usePrefetch = (routeMap: Array<RouteConfig>, delayMs?: number) => {
   const location = useLocation()
 

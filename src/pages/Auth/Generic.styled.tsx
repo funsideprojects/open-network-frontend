@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { LeftArrowAlt, RightArrowAlt, Check, X, HomeAlt } from '@styled-icons/boxicons-regular'
+import { Home } from '@styled-icons/ionicons-outline/Home'
+import { ArrowBack } from '@styled-icons/ionicons-outline/ArrowBack'
+import { ArrowForward } from '@styled-icons/ionicons-outline/ArrowForward'
+import { Checkmark } from '@styled-icons/ionicons-outline/Checkmark'
+import { Close } from '@styled-icons/ionicons-outline/Close'
 
 interface DrawerProps {
   fullHeight?: boolean
@@ -96,12 +100,12 @@ export const Hint = styled.p<HintProps>`
   text-align: ${(props) => props.align};
 `
 
-export const SCILeftArrowAlt = styled(LeftArrowAlt)`
+export const SCIArrowBack = styled(ArrowBack)`
   width: 30px !important;
   height: 30px !important;
 `
 
-export const SCIRightArrowAlt = styled(RightArrowAlt)``
-export const SCICheck = styled(Check)``
-export const SCIX = styled(X)``
-export const SCIHomeAlt = styled(HomeAlt)``
+export const SCIArrowForward = styled(ArrowForward)``
+export const SCICheckmark = styled(Checkmark)``
+export const SCIClose = styled(Close)``
+export const SCIHome = styled(Home)``

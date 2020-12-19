@@ -20,8 +20,8 @@ import {
   TextContainer,
   Text,
   Pagination,
-  SCILeftArrowAlt,
-  SCIRightArrowAlt,
+  SCIArrowBack,
+  SCIArrowForward,
 } from './SearchResult.styled'
 
 const SearchResult = ({ expand, toMessaging }) => {
@@ -71,11 +71,11 @@ const SearchResult = ({ expand, toMessaging }) => {
     <Container>
       {count > limit ? (
         <Pagination>
-          <Button icon={SCILeftArrowAlt} disabled={currentPage === 1} onClick={() => onPageChange(-limit)} />
+          <Button icon={SCIArrowBack} disabled={currentPage === 1} onClick={() => onPageChange(-limit)} />
           <Text small>
             Displaying {offset + 1} - {currentPage === totalPages ? count : offset + limit} of {count}
           </Text>
-          <Button icon={SCIRightArrowAlt} disabled={currentPage === totalPages} onClick={() => onPageChange(limit)} />
+          <Button icon={SCIArrowForward} disabled={currentPage === totalPages} onClick={() => onPageChange(limit)} />
         </Pagination>
       ) : (
         <React.Fragment />

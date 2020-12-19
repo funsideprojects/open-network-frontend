@@ -8,7 +8,7 @@ import { Button } from 'components/Form'
 import * as Routes from 'routes'
 
 import { Drawer } from './Generic.styled'
-import { Title, Paragraphs, SCILeftArrowAlt } from './Generic.styled'
+import { Title, Paragraphs, SCIArrowBack } from './Generic.styled'
 
 import RequestPasswordResetForm from './RequestPasswordResetForm'
 
@@ -55,10 +55,9 @@ const RequestPasswordResetDrawer = () => {
           >
             <Button
               buttonType="default"
+              icon={SCIArrowBack}
               onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.SIGN_IN)}
-            >
-              <SCILeftArrowAlt />
-            </Button>
+            />
 
             <Title>Forgot your password?</Title>
 

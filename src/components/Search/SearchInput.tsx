@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import debounce from 'lodash/debounce'
 import { useSetRecoilState, useResetRecoilState } from 'recoil'
 import { useLazyQuery } from '@apollo/client'
-import { SearchAlt } from '@styled-icons/boxicons-regular'
+import { Search } from '@styled-icons/ionicons-outline/Search'
 
 import { Input } from 'components/Form'
 import { LoadingIndicator } from 'components/Loading'
@@ -18,7 +18,7 @@ const SCInput = styled(Input)`
   background: ${(props) => props.theme.colors.grey[300]};
 `
 
-const SCISearchAlt = styled(SearchAlt)``
+const SCISearch = styled(Search)``
 
 const SearchInput = ({ containerRef, expand, setExpand }: Props) => {
   useClickOutside(containerRef, () => {
@@ -60,7 +60,7 @@ const SearchInput = ({ containerRef, expand, setExpand }: Props) => {
       name="search"
       placeholder={expand ? 'Looking for someone?' : 'Search'}
       ref={inputRef}
-      hasPrefix={loading ? LoadingIndicator : SCISearchAlt}
+      hasPrefix={loading ? LoadingIndicator : SCISearch}
       onFocus={() => setExpand(true)}
       disabled={loading}
       onChange={debounce(handleInputChange, 500)}

@@ -7,7 +7,7 @@ import Users from './Users'
 import theme from 'theme'
 
 const Component = () => {
-  // ! Do not render child to prevent queries on component mount
+  // ! Render nothing if screen size is smaller than threshold value
   if (window.innerWidth < parseInt(theme.screen.lg, 10)) {
     return null
   }

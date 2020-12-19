@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { Button } from 'components/Form'
 import Modal from 'components/Modal'
@@ -7,7 +8,32 @@ import { FlashMessage, FlashMessageType } from 'components/FlashMessage'
 
 import * as Routes from 'routes'
 
-import { Title, Paragraph, Footer } from './FlashMessageModal.styled'
+const Title = styled.h2`
+  margin: 0;
+  text-align: center;
+`
+
+const Paragraph = styled.p`
+  margin: ${(props) => props.theme.spacing.xxs} 0 0;
+  font-size: 0.9rem;
+  letter-spacing: ${(props) => props.theme.font.spacing.letter.sm};
+  text-align: center;
+`
+
+const Footer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: ${(props) => props.theme.spacing.md} 0 0 0;
+
+  button {
+    background: ${(props) => props.theme.colors.success.main};
+
+    &:hover {
+      background: ${(props) => props.theme.colors.success.light};
+    }
+  }
+`
 
 const ModalFlashMessage = ({ modalRef, navigate }: ModalFlashMessageProps) => {
   return (

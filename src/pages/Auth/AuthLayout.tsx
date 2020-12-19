@@ -1,5 +1,4 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -29,8 +28,8 @@ const Background = styled.div`
     left: 0;
     background: linear-gradient(
       -45deg,
-      ${(p) => p.theme.colors.primary.main},
-      ${(p) => p.theme.colors.primary.dark} 100%
+      ${(props) => props.theme.colors.primary.main},
+      ${(props) => props.theme.colors.primary.dark} 100%
     );
     opacity: 0.15;
   }
@@ -53,11 +52,5 @@ const AuthLayout = () => {
     </Background>
   )
 }
-
-// const componenPropTypes = {}
-// ? For run-time
-// AuthLayout.propTypes = componenPropTypes
-// ? For compile-time (static)
-// type Props = PropTypes.InferProps<typeof componenPropTypes>
 
 export default AuthLayout

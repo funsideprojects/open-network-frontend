@@ -12,7 +12,7 @@ import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
 
-import { Title, Paragraphs, SCICheck, SCIX, SCIRightArrowAlt } from './Generic.styled'
+import { Title, Paragraphs, SCICheckmark, SCIClose, SCIArrowForward } from './Generic.styled'
 
 type RouteState = { succeeded?: boolean }
 type RouteParams = { token?: string }
@@ -138,7 +138,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
                 message: 'Password only accept word, digit and certain types of special characters',
               },
             })}
-            hasSuffix={errors.password ? SCIX : formState.touched.password ? SCICheck : undefined}
+            hasSuffix={errors.password ? SCIClose : formState.touched.password ? SCICheckmark : undefined}
             hasError={errors.password?.message}
             onChange={() => {
               if (getValues('confirm')) {
@@ -162,7 +162,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
                 }
               },
             })}
-            hasSuffix={errors.confirm ? SCIX : formState.touched.confirm ? SCICheck : undefined}
+            hasSuffix={errors.confirm ? SCIClose : formState.touched.confirm ? SCICheckmark : undefined}
             hasError={errors.confirm?.message}
           />
         </FormItem>
@@ -174,7 +174,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         </FormItem>
 
         <FormItem top="xs">
-          <Button block type="submit" buttonType="primary" loading={processingPasswordReset} icon={SCIRightArrowAlt} />
+          <Button block type="submit" buttonType="primary" loading={processingPasswordReset} icon={SCIArrowForward} />
         </FormItem>
       </Form>
     </>

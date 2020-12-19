@@ -8,7 +8,7 @@ import { Button } from 'components/Form'
 import * as Routes from 'routes'
 
 import { Drawer, Title, PrimaryText, Paragraphs } from './Generic.styled'
-import { Nav, SCILeftArrowAlt, SCIRightArrowAlt } from './Welcome.styled'
+import { Nav } from './Welcome.styled'
 
 // ? Transition config
 const tDuration = 300 // ? ms
@@ -61,11 +61,11 @@ const WelcomeDrawer = () => {
 
             <Nav>
               <Button buttonType="primary" onClick={() => handleSetNextDest(Routes.SIGN_UP)}>
-                <SCILeftArrowAlt /> SIGN UP
+                SIGN UP
               </Button>
 
               <Button buttonType="default" onClick={() => handleSetNextDest(Routes.SIGN_IN)}>
-                SIGN IN <SCIRightArrowAlt />
+                SIGN IN
               </Button>
             </Nav>
           </Drawer>

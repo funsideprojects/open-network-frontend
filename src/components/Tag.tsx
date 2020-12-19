@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { X } from '@styled-icons/boxicons-regular'
+import { Close } from '@styled-icons/ionicons-outline/Close'
 
 export enum TagColor {
   Error = 'error',
@@ -59,7 +59,7 @@ const Tag = ({ tagColor, onClose, children, ...restProps }: TagProps) => {
       {restProps.icon}
       {children}
       {restProps.closable ? (
-        <X className="icon-close" {...(typeof onClose === 'function' ? { onClick: onClose } : {})} />
+        <Close className="icon-close" {...(typeof onClose === 'function' ? { onClick: onClose } : {})} />
       ) : (
         <></>
       )}

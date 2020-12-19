@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { LeftArrowAlt, RightArrowAlt } from '@styled-icons/boxicons-regular'
 
 export const Nav = styled.nav`
   width: 100%;
@@ -27,6 +26,3 @@ export const Nav = styled.nav`
     }
   }
 `
-
-export const SCILeftArrowAlt = styled(LeftArrowAlt)``
-export const SCIRightArrowAlt = styled(RightArrowAlt)``

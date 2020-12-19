@@ -7,7 +7,7 @@ import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
 
-import { Drawer, SCILeftArrowAlt, Title, PrimaryText, Hint } from './Generic.styled'
+import { Drawer, SCIArrowBack, Title, PrimaryText, Hint } from './Generic.styled'
 import SignUpForm from './SignUpForm'
 
 // ? Transition config
@@ -55,7 +55,7 @@ const SignUpDrawer = () => {
             >
               <Button
                 buttonType="default"
-                icon={SCILeftArrowAlt}
+                icon={SCIArrowBack}
                 onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}
               />
 

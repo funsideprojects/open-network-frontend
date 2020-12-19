@@ -7,7 +7,7 @@ import { Button } from 'components/Form'
 
 import * as Routes from 'routes'
 
-import { Drawer, SCIHomeAlt } from './Generic.styled'
+import { Drawer, SCIHome } from './Generic.styled'
 import ResetPasswordForm from './ResetPasswordForm'
 
 // ? Transition config
@@ -51,9 +51,11 @@ const ResetPasswordDrawer = () => {
             float="left"
             style={{ ...defaultStyle, ...transitionStyles[transitionState] }}
           >
-            <Button buttonType="default" onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}>
-              <SCIHomeAlt />
-            </Button>
+            <Button
+              buttonType="default"
+              icon={SCIHome}
+              onClick={() => handleSetNextDest(history.location.state?.from ?? Routes.HOME)}
+            />
 
             {transitionState === 'entered' ? <ResetPasswordForm navigate={handleSetNextDest} /> : <></>}
           </Drawer>

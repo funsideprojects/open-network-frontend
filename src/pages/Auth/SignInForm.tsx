@@ -9,7 +9,7 @@ import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
 
-import { SCIRightArrowAlt, Hint, PrimaryText } from './Generic.styled'
+import { SCIArrowForward, Hint, PrimaryText } from './Generic.styled'
 import { SCIUser, SCIUserCheck, SCIUserX, SCIKey } from './SignIn.styled'
 
 interface FormFields {
@@ -92,7 +92,7 @@ const SignInForm = ({ navigate }: Props) => {
       </FormItem>
 
       <FormItem top="none">
-        <Button block buttonType="primary" type="submit" loading={loading} icon={SCIRightArrowAlt} />
+        <Button block buttonType="primary" type="submit" loading={loading} icon={SCIArrowForward} />
       </FormItem>
     </Form>
   )

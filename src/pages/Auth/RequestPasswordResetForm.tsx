@@ -10,7 +10,7 @@ import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
 
-import { SCICheck, SCIX, SCIRightArrowAlt } from './Generic.styled'
+import { SCICheckmark, SCIClose, SCIArrowForward } from './Generic.styled'
 
 type RouteParams = { emailOrUsername?: string }
 interface FormFields {
@@ -72,7 +72,7 @@ const RequestPasswordResetForm = () => {
           name="emailOrUsername"
           placeholder="Username or Email address"
           ref={register({ required: 'Please enter your email or username' })}
-          hasSuffix={errors.emailOrUsername ? SCIX : formState.touched.emailOrUsername ? SCICheck : undefined}
+          hasSuffix={errors.emailOrUsername ? SCIClose : formState.touched.emailOrUsername ? SCICheckmark : undefined}
           hasError={errors.emailOrUsername?.message}
           onChange={({ target: { value } }) => {
             resetResponse()
@@ -88,7 +88,7 @@ const RequestPasswordResetForm = () => {
       </FormItem>
 
       <FormItem top="xs">
-        <Button block type="submit" buttonType="primary" loading={loading} icon={SCIRightArrowAlt} />
+        <Button block type="submit" buttonType="primary" loading={loading} icon={SCIArrowForward} />
       </FormItem>
     </Form>
   )

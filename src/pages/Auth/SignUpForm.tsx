@@ -9,7 +9,7 @@ import { Form, FormItem, Input, Checkbox, Button } from 'components/Form'
 import Tag, { TagColor } from 'components/Tag'
 import { ModalRefAttributes } from 'components/Modal'
 
-import { SCIRightArrowAlt, SCICheck, SCIX } from './Generic.styled'
+import { SCIArrowForward, SCICheckmark, SCIClose } from './Generic.styled'
 import FlashMessageModal from './FlashMessageModal'
 
 interface FormFields {
@@ -188,7 +188,7 @@ const SignUpForm = ({ navigate }: Props) => {
           <FormItem key={itemProps.name}>
             <Input
               {...itemProps}
-              hasSuffix={itemProps.hasError ? SCIX : formState.touched[itemProps.name] ? SCICheck : undefined}
+              hasSuffix={itemProps.hasError ? SCIClose : formState.touched[itemProps.name] ? SCICheckmark : undefined}
             />
           </FormItem>
         ))}
@@ -198,7 +198,7 @@ const SignUpForm = ({ navigate }: Props) => {
         </FormItem>
 
         <FormItem top="lg">
-          <Button block type="submit" buttonType="primary" loading={loading} icon={SCIRightArrowAlt} />
+          <Button block type="submit" buttonType="primary" loading={loading} icon={SCIArrowForward} />
         </FormItem>
       </Form>
     </>

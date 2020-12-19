@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { LeftArrowAlt, RightArrowAlt } from '@styled-icons/boxicons-regular'
+import { ArrowBack } from '@styled-icons/ionicons-outline/ArrowBack'
+import { ArrowForward } from '@styled-icons/ionicons-outline/ArrowForward'
 
 import { A } from 'components/Text'
 
@@ -65,5 +66,5 @@ export const Pagination = styled(Item)`
   justify-content: space-between;
 `
 
-export const SCILeftArrowAlt = styled(LeftArrowAlt)``
-export const SCIRightArrowAlt = styled(RightArrowAlt)``
+export const SCIArrowBack = styled(ArrowBack)``
+export const SCIArrowForward = styled(ArrowForward)``
