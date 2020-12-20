@@ -9,14 +9,6 @@ import styled from 'styled-components'
 
 // import * as Routes from 'routes'
 
-import CoverImage from './CoverImage'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
 // const ProfileImage = styled.div`
 //   display: flex;
 //   flex-direction: column;
@@ -24,7 +16,7 @@ const Container = styled.div`
 //   margin-top: -140px;
 // `
 
-const ProfileInfo = ({ user }: Props) => {
+const Component = ({ user }: Props) => {
   // const [isUserOnline, setIsUserOnline] = useState(user.isOnline)
 
   // const { data, loading } = useSubscription(IS_USER_ONLINE_SUBSCRIPTION, {
@@ -36,9 +28,7 @@ const ProfileInfo = ({ user }: Props) => {
   // }
 
   return (
-    <Container>
-      <CoverImage coverImage={user?.coverImage} />
-
+    <React.Fragment>
       {/*
       <ProfileImage>
         <ProfileImageUpload username={user.username} userId={user.id} image={user.image} getUserPosts={getUserPosts} />
@@ -57,7 +47,7 @@ const ProfileInfo = ({ user }: Props) => {
           )}
         </FullName>
       </ProfileImage> */}
-    </Container>
+    </React.Fragment>
   )
 }
 
@@ -65,7 +55,7 @@ const componentPropTypes = {
   user: PropTypes.any,
 }
 
-ProfileInfo.propTypes = componentPropTypes
+Component.propTypes = componentPropTypes
 type Props = PropTypes.InferProps<typeof componentPropTypes>
 
-export default ProfileInfo
+export default Component

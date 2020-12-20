@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 // import { useApolloClient } from '@apollo/client'
+import { CloudUpload } from '@styled-icons/ionicons-outline/CloudUpload'
 
 // import { MAX_USER_COVER_IMAGE_SIZE } from 'constants/ImageSize'
 // import { UPDATE_USER_PHOTO } from 'graphql/user'
@@ -24,29 +25,30 @@ const Input = styled.input`
   display: none;
 `
 
-// const Label = styled.label`
-//   cursor: pointer;
-//   width: 36px;
-//   height: 32px;
-//   overflow: hidden;
-//   position: absolute;
-//   top: ${(p) => p.theme.spacing.sm};
-//   left: ${(p) => p.theme.spacing.sm};
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   border-radius: ${(p) => p.theme.radius.sm};
-//   padding: ${(p) => p.theme.spacing.xxs} ${(p) => p.theme.spacing.xs};
-//   transition: background-color 0.4s;
-//   background-color: rgba(0, 0, 0, 0.6);
+const Label = styled.label`
+  cursor: pointer;
+  width: 36px;
+  height: 32px;
+  overflow: hidden;
+  position: absolute;
+  top: ${(p) => p.theme.spacing.sm};
+  left: ${(p) => p.theme.spacing.sm};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${(p) => p.theme.radius.sm};
+  padding: ${(p) => p.theme.spacing.xxs} ${(p) => p.theme.spacing.xs};
+  transition: background-color 0.4s;
+  background-color: rgba(0, 0, 0, 0.6);
 
-//   &:hover {
-//     background-color: rgba(0, 0, 0, 0.8);
-//   }
-// `
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`
 
-const Component = ({ coverImage }: Props) => {
+const Component = ({ isAuthUser, coverImage, ...rest }: Props) => {
+  console.log('Component -> rest', rest)
   // const client = useApolloClient()
 
   // const [loading, setLoading] = useState(false)
@@ -92,31 +94,31 @@ const Component = ({ coverImage }: Props) => {
 
   return (
     <Container imageUrl={getImageLink(coverImage)}>
-      {/* {auth.user.id === userId && (
+      {isAuthUser && (
         <React.Fragment>
-          <Input
-            id="coverImage"
-            name="coverImage"
-            type="file"
-            // onChange={handleImageChange}
-            accept="image/x-png,image/jpeg"
-          />
-          <Label htmlFor="coverImage">
-            <UploadImageIcon width="14" color="white" />
+          <Label>
+            <Input
+              name="coverImage"
+              type="file"
+              // onChange={handleImageChange}
+              accept="image/x-png,image/jpeg"
+            />
+            <CloudUpload />
           </Label>
 
-          {coverImage && (
+          {/* {coverImage && (
             <StyledButton type="danger" onClick={handleDeleteCover}>
               <DeleteOutlined />
             </StyledButton>
-          )}
+          )} */}
         </React.Fragment>
-      )} */}
+      )}
     </Container>
   )
 }
 
 const componentPropTypes = {
+  isAuthUser: PropTypes.bool.isRequired,
   // username: PropTypes.string.isRequired,
   // userId: PropTypes.string.isRequired,
   coverImage: PropTypes.string,

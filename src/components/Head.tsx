@@ -5,19 +5,26 @@ import { Helmet } from 'react-helmet-async'
 import SiteInfo from 'constants/SiteInfo.json'
 
 /**
- * Component that manages changes to document head, currently for editing title only
+ * Component that manages changes to document head
  */
-const Head = ({ title = SiteInfo.name }: HeadPropTypes) => (
-  <Helmet>
-    <title>{title}</title>
-  </Helmet>
-)
+const Component = ({ children, title = SiteInfo.name, suffix }: Props) => {
+  const documentTitle = suffix ? `${SiteInfo.name} - ${suffix}` : title
 
-const headPropTypes = {
-  title: PropTypes.string,
+  return (
+    <Helmet>
+      <title>{documentTitle}</title>
+      {children}
+    </Helmet>
+  )
 }
 
-Head.propTypes = headPropTypes
-type HeadPropTypes = PropTypes.InferProps<typeof headPropTypes>
+const componentPropTypes = {
+  children: PropTypes.any,
+  title: PropTypes.string,
+  suffix: PropTypes.string,
+}
 
-export default Head
+Component.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
+
+export default Component

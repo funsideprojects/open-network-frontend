@@ -62,7 +62,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // ? WebSocket-link
 const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   lazy: true,
-  // timeout: 10000,
+  timeout: 30 * 1000, // ? 30 secs
   // minTimeout: 2000,
   reconnect: true,
   reconnectionAttempts: 50,

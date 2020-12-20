@@ -37,13 +37,13 @@ const Text = styled.span<{ bold?: boolean; small?: boolean; fade?: boolean }>`
   color: ${(props) => props.theme.colors.text[props.fade ? 'secondary' : 'primary']};
 `
 
-export const Component = ({ id, fullName, username, image }: Props) => {
+export const Component = ({ id, fullName, username, image, online }: Props) => {
   const userProfileLink = generatePath(Routes.USER_PROFILE_PATH, { username })
 
   return (
     <React.Fragment>
       <Link to={userProfileLink}>
-        <Avatar size="40px" image={image} username={username} online />
+        <Avatar size="40px" image={image} username={username} online={online} />
       </Link>
 
       <TextContainer>
@@ -65,6 +65,7 @@ const componentPropTypes = {
   fullName: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   image: PropTypes.string,
+  online: PropTypes.bool.isRequired,
 }
 
 Component.propTypes = componentPropTypes

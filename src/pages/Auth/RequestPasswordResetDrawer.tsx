@@ -38,7 +38,7 @@ const RequestPasswordResetDrawer = () => {
 
   return (
     <>
-      <Head title="PrJx - Request Password Reset" />
+      <Head suffix="Request Password Reset" />
 
       <Transition
         appear

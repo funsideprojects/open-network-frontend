@@ -96,7 +96,7 @@ const SearchResult = ({ expand, toMessaging }) => {
             }
           >
             <Item>
-              <Avatar size="40px" image={user.image} username={user.username} />
+              <Avatar size="40px" image={user.image} username={user.username} online={user.online} />
 
               <TextContainer>
                 <Text bold>{user.fullName}</Text>

@@ -1,9 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useRecoilValue } from 'recoil'
 import { useParams } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 
-import HtmlHeader from 'components/Head'
+import Head from 'components/Head'
 import NotFound from 'components/NotFound'
 // import ProfileInfo from './ProfileInfo'
 // import CreatePost from 'components/CreatePost'
@@ -11,10 +12,17 @@ import NotFound from 'components/NotFound'
 // import NotFound from 'components/NotFound'
 
 import Placeholder from './Placeholder'
-import InfoSection from './InfoSection'
+import Cover from './Cover'
+import Information from './Information'
 
 import { GET_USER } from 'graphql/user'
 import { authAtoms } from 'store'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 type RouteParams = { username?: string }
 
@@ -36,7 +44,7 @@ const Component = () => {
   if (!user || loading || error) {
     return (
       <React.Fragment>
-        <HtmlHeader title="..." />
+        <Head />
         {error ? <NotFound message={error.message} /> : <Placeholder />}
       </React.Fragment>
     )
@@ -44,7 +52,8 @@ const Component = () => {
 
   const isAuthUser = username === user.username
   const userObject = isAuthUser ? user : data?.getUser
-  const htmlHeaderTitle = isAuthUser
+  console.log('userObject', userObject)
+  const documentTitle = isAuthUser
     ? `${user.fullName} (@${username})`
     : data?.getUser?.fullName
     ? `${data.getUser.fullName} (@${username})`
@@ -52,9 +61,13 @@ const Component = () => {
 
   return (
     <React.Fragment>
-      <HtmlHeader title={htmlHeaderTitle} />
+      <Head title={documentTitle} />
 
-      <InfoSection {...userObject} />
+      <Container>
+        <Cover isAuthUser={isAuthUser} coverImage={userObject.coverImage} />
+
+        <Information />
+      </Container>
     </React.Fragment>
   )
 }

@@ -10,11 +10,12 @@ import { authAtoms } from 'store'
 import * as Routes from 'routes'
 
 const Link = styled(NavLink)`
+  border: 2px dashed transparent;
+  border-radius: 100%;
   transition: 0.3s;
 
   &.is-active {
-    border: 2px dashed ${(props) => props.theme.colors.primary.light};
-    border-radius: 100%;
+    border-color: ${(props) => props.theme.colors.primary.light};
   }
 `
 

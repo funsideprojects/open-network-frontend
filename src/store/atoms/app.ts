@@ -30,6 +30,7 @@ type SearchResultState = {
       fullName: string
       username: string
       image: string
+      online: boolean
     }>
   }
 }

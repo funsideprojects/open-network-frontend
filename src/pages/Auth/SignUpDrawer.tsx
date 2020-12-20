@@ -36,7 +36,7 @@ const SignUpDrawer = () => {
 
   return (
     <>
-      <Head title="PrJx - Sign Up" />
+      <Head suffix="Sign Up" />
 
       <Transition
         appear
