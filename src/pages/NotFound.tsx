@@ -1,11 +1,8 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Head from 'components/Head'
 import NotFoundContent from 'components/NotFound'
-
-import * as Routes from 'routes'
 
 const Container = styled.div`
   width: 100%;
@@ -14,14 +11,12 @@ const Container = styled.div`
 `
 
 const NotFound = () => {
-  const history = useHistory()
-
   return (
     <>
       <Head title="Page Not Found" />
 
       <Container>
-        <NotFoundContent navigate={() => history.push(Routes.HOME)} />
+        <NotFoundContent />
       </Container>
     </>
   )

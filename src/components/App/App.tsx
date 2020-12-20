@@ -29,7 +29,7 @@ const App = () => {
 
   React.useEffect(() => {
     if (networkStatus === NetworkStatus.ready) {
-      setAuthUser({ user: authUserData.getAuthUser })
+      setAuthUser({ user: authUserData?.getAuthUser })
     }
   }, [setAuthUser, networkStatus, authUserData])
 

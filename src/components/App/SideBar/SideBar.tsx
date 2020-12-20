@@ -9,8 +9,8 @@ import { Container, Divider, Item } from './SideBar.styled'
 
 const SideBar = () => {
   const items = [
-    { to: Routes.NOTFOUND, component: <Flame /> },
-    { to: Routes.HOME, component: <Radio /> },
+    { to: Routes.HOME, component: <Flame /> },
+    { to: Routes.NOTFOUND, component: <Radio /> },
     { to: Routes.HOME, component: <Image /> },
     'divider',
     { to: Routes.HOME, component: <Play /> },

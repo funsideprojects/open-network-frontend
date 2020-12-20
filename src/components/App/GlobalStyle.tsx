@@ -33,6 +33,7 @@ export default createGlobalStyle`
 
   html {
     overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   html, body {
@@ -40,7 +41,7 @@ export default createGlobalStyle`
     height: 100%;
     scroll-behavior: smooth;
     /* Disable web page navigation on swipe(back and forward) */
-    overscroll-behavior-x: none;
+    /* overscroll-behavior-x: none; */
   }
 
   *,

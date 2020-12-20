@@ -47,7 +47,7 @@ export const LoadingIndicator = styled(Spinner3)<{ large?: boolean; size?: numbe
 `
 
 const Loading = ({ overlay, block, radiusBorder }: Props) => {
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (overlay) {
       const now = Date.now()
       document.body.classList.add(`no-scroll-${now}`)

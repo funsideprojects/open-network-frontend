@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.section`
+export const Container = styled.section<{ visible?: boolean }>`
   height: calc(100vh - 100px);
   position: relative;
   display: none;
@@ -8,7 +8,7 @@ export const Container = styled.section`
 
   @media screen and (min-width: ${(props) => props.theme.screen.xl}) {
     width: 230px;
-    display: flex;
+    display: ${(props) => (props.visible ? 'flex' : 'none')};
   }
 `
 

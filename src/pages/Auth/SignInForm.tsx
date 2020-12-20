@@ -30,8 +30,8 @@ const SignInForm = ({ navigate }: Props) => {
     message: undefined,
   })
 
-  const handleSignIn = async (values: FormFields) => {
-    return await signIn({ variables: { input: { ...values } } }).catch((gqlError) => {
+  const handleSignIn = (values: FormFields) => {
+    return signIn({ variables: { input: { ...values } } }).catch((gqlError) => {
       setResponse({ type: TagColor.Error, message: gqlError.message })
     })
   }

@@ -4,21 +4,24 @@ import * as Routes from 'routes'
 
 import { RouteConfig } from 'hooks/usePrefetch'
 
-const AuthLayout = () => import(/* webpackChunkName: "AuthLayout" */ 'pages/Auth/AuthLayout')
-const SignInDrawer = () => import(/* webpackChunkName: "SignInDrawer" */ 'pages/Auth/SignInDrawer')
-
-const Home = () => import(/* webpackChunkName: "Home" */ 'pages/NotFound')
+const Home = () => import(/* webpackChunkName: "Home" */ 'pages/Home')
+const Profile = () => import(/* webpackChunkName: "Profile" */ 'pages/Profile')
 const NotFound = () => import(/* webpackChunkName: "NotFound" */ 'pages/NotFound')
 
 export const routeMap: Array<RouteConfig & { Component: React.LazyExoticComponent<any> }> = [
   {
     path: Routes.HOME,
     Component: React.lazy(Home),
-    relatedRoutes: [SignInDrawer, NotFound],
+    relatedRoutes: [NotFound, Profile],
+  },
+  {
+    path: [Routes.USER_PROFILE, Routes.USER_PROFILE_PATH],
+    Component: React.lazy(Profile),
+    relatedRoutes: [Home, NotFound],
   },
   {
     path: Routes.NOTFOUND,
     Component: React.lazy(NotFound),
-    relatedRoutes: [AuthLayout, SignInDrawer, Home],
+    relatedRoutes: [Home],
   },
 ]

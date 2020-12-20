@@ -62,8 +62,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // ? WebSocket-link
 const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   lazy: true,
-  timeout: 60000,
+  // timeout: 10000,
+  // minTimeout: 2000,
   reconnect: true,
+  reconnectionAttempts: 50,
   connectionParams: () => {
     const accessToken = document.cookie
       .split('; ')
@@ -76,12 +78,24 @@ const subscriptionClient = new SubscriptionClient(websocketApiUrl, {
   },
 })
 // todo - Handle detect user connectivity
-// subscriptionClient.onConnecting(() => {})
-// subscriptionClient.onConnected(() => {})
-// subscriptionClient.onDisconnected(() => {})
-// subscriptionClient.onReconnecting(() => {})
-// subscriptionClient.onReconnected(() => {})
-// subscriptionClient.onError(() => {})
+subscriptionClient.onConnecting(() => {
+  console.debug('connecting')
+})
+subscriptionClient.onConnected(() => {
+  console.debug('connected')
+})
+subscriptionClient.onDisconnected(() => {
+  console.debug('disconnected')
+})
+subscriptionClient.onReconnecting(() => {
+  console.debug('reconnecting')
+})
+subscriptionClient.onReconnected(() => {
+  console.debug('connected')
+})
+subscriptionClient.onError((error) => {
+  console.debug('error', error)
+})
 
 export const closeSubscription = () => {
   subscriptionClient.close()

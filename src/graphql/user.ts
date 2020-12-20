@@ -38,13 +38,28 @@ export const GET_AUTH_USER = {
   },
 }
 
-export const GET_USER = gql`
-  query getUser($username: String, $id: ID) {
-    getUser(username: $username, id: $id) {
-      ${userPayload}
-    }
-  }
-`
+export const GET_USER = {
+  name: 'getUser',
+  get gql() {
+    return gql`
+      query ${this.name}($username: String, $id: ID) {
+        getUser(username: $username, id: $id) {
+          id
+          fullName
+          email
+          username
+          image
+          coverImage
+          statusQuote
+          online
+          lastActiveAt
+
+          createdAt
+        }
+      }
+    `
+  },
+}
 
 export const GET_USERS = gql`
   query($skip: Int, $limit: Int) {
@@ -67,6 +82,7 @@ export const SUGGEST_USERS = {
           fullName
           username
           image
+          online
         }
       }
     `
@@ -82,6 +98,7 @@ export const SEARCH_USERS = gql`
         fullName
         username
         image
+        online
       }
     }
   }

@@ -40,16 +40,16 @@ const SignUpForm = ({ navigate }: Props) => {
     }
   }
 
-  const handleSignUp = async ({ confirm, autoSignIn, ...values }: FormFields) => {
+  const handleSignUp = ({ confirm, autoSignIn, ...values }: FormFields) => {
     resetResponse()
 
-    return await signUp({
+    return signUp({
       variables: {
         input: { ...values, fullName: values.fullName.trim().replace(/\s\s+/g, ' '), autoSignIn },
       },
       ...(autoSignIn ? { refetchQueries: [GET_AUTH_USER.name] } : {}),
     })
-      .then(async () => {
+      .then(() => {
         if (!autoSignIn) {
           modalRef.current?.open()
         }

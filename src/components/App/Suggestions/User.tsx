@@ -64,7 +64,7 @@ const componentPropTypes = {
   id: PropTypes.string.isRequired,
   fullName: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
 }
 
 Component.propTypes = componentPropTypes

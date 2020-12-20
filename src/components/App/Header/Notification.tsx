@@ -10,7 +10,6 @@ import * as Routes from 'routes'
 import { Link } from './Generic.styled'
 
 const Notification = () => {
-  // todo - replace loading by query
   const { loading } = useSubscription(NOTIFICATION_UPDATED, {
     onSubscriptionData(data) {
       console.log(data)

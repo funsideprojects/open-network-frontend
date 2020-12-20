@@ -137,7 +137,7 @@ const Home = () => {
   //   </Root>
   // )
 
-  return <div>sdasd</div>
+  return <div>Home</div>
 }
 
 export default Home

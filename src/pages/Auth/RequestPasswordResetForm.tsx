@@ -36,11 +36,11 @@ const RequestPasswordResetForm = () => {
     }
   }
 
-  const handleRequestPasswordReset = async (values: FormFields) => {
+  const handleRequestPasswordReset = (values: FormFields) => {
     resetResponse()
     const isEmail = emailRegex.test(values.emailOrUsername)
 
-    return await requestPasswordReset({
+    return requestPasswordReset({
       variables: { input: { [isEmail ? 'email' : 'username']: values.emailOrUsername } },
     })
       .then(() => {

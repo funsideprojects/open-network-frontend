@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
-import { useQuery, useMutation } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 
 import { passwordRegex, responsePrefixRegex } from 'constants/RegExr'
 import { VERIFY_TOKEN, RESET_PASSWORD } from 'graphql/user'
 import { Form, FormItem, Input, Button } from 'components/Form'
-import Loading from 'components/Loading'
+import { LoadingIndicator } from 'components/Loading'
 import Tag, { TagColor } from 'components/Tag'
 
 import * as Routes from 'routes'
@@ -24,10 +24,19 @@ interface FormFields {
 const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
   const history = useHistory<RouteState>()
   const { token } = useParams<RouteParams>()
-  const { loading: tokenIsBeingValidating, data: verificationResult } = useQuery(VERIFY_TOKEN, {
+  const [verifyToken, { loading: tokenIsBeingValidated, data: verificationResult }] = useLazyQuery(VERIFY_TOKEN, {
     variables: { token },
     fetchPolicy: 'no-cache',
   })
+
+  // ? Redirects to home immediately if there's no token on params
+  React.useEffect(() => {
+    if (!token) {
+      history.replace(Routes.HOME)
+    } else {
+      verifyToken()
+    }
+  }, [token, history, verifyToken])
 
   const [resetPassword, { loading: processingPasswordReset }] = useMutation(RESET_PASSWORD)
   const { register, handleSubmit, getValues, trigger, setError, errors, formState } = useForm<FormFields>({
@@ -40,12 +49,12 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
     message: undefined,
   })
 
-  const handleResetPassword = async (values: FormFields) => {
+  const handleResetPassword = (values: FormFields) => {
     if (response.message) {
       setResponse({ type: undefined, message: undefined })
     }
 
-    return await resetPassword({ variables: { input: { token, password: values.password } } })
+    return resetPassword({ variables: { input: { token, password: values.password } } })
       .then(() => {
         history.replace(Routes.RESET_PASSWORD, { succeeded: true })
       })
@@ -58,21 +67,11 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
       })
   }
 
-  React.useEffect(() => {
-    if (!token && !history.location.state?.succeeded) {
-      history.replace(Routes.HOME)
-    }
-  }, [token, history])
-
   if (history.location.state?.succeeded) {
     return (
       <>
-        <Title>Congratulation</Title>
-
-        <Tag block visible tagColor={TagColor.Success}>
-          Password changed successfully! You can now sign in with your new password
-        </Tag>
-
+        <Title>Congratulation!</Title>
+        <Paragraphs>Your password has been changed successfully! You can now sign in with your new password</Paragraphs>
         <FormItem top="md">
           <Button block buttonType="primary" onClick={() => navigate(Routes.SIGN_IN)}>
             SIGN IN
@@ -80,30 +79,24 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
         </FormItem>
       </>
     )
-  }
-
-  if (tokenIsBeingValidating) {
+  } else if (tokenIsBeingValidated) {
     return (
-      <>
+      <React.Fragment>
         <Title>Verifying your token...</Title>
-        <Loading block radiusBorder />
-      </>
+        <LoadingIndicator />
+      </React.Fragment>
     )
-  }
-
-  if (!verificationResult?.verifyPasswordResetToken) {
+  } else if (!verificationResult?.verifyPasswordResetToken) {
     return (
-      <>
+      <React.Fragment>
         <Title>Ooops!!</Title>
-        <Tag visible block tagColor={TagColor.Error}>
-          This token is either invalid or expired
-        </Tag>
-      </>
+        <Paragraphs>This token is either invalid or expired</Paragraphs>
+      </React.Fragment>
     )
   }
 
   return (
-    <>
+    <React.Fragment>
       <Title>Set your new password</Title>
 
       <Paragraphs noMargin>
@@ -177,7 +170,7 @@ const ResetPasswordForm = ({ navigate }: ResetPasswordFormProps) => {
           <Button block type="submit" buttonType="primary" loading={processingPasswordReset} icon={SCIArrowForward} />
         </FormItem>
       </Form>
-    </>
+    </React.Fragment>
   )
 }
 

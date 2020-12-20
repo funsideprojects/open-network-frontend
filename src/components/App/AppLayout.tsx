@@ -18,7 +18,6 @@ import { routeMap } from './routeMap'
 // import Notifications from 'pages/Notifications'
 // import People from 'pages/People'
 // import Post from 'pages/Post'
-// import Profile from 'pages/Profile'
 // import Messages from 'pages/Messages'
 
 // import FollowedUsersDrawer from './FollowedUsersDrawer'
@@ -58,6 +57,11 @@ const Main = styled.div`
   padding: ${(props) => props.theme.spacing.sm} 0 0 ${(props) => props.theme.spacing.sm};
 `
 
+const PageContainer = styled.div`
+  position: relative;
+  flex: 1;
+`
+
 const AppLayout = () => {
   usePrefetch(routeMap, 500)
 
@@ -74,13 +78,15 @@ const AppLayout = () => {
               <Chats />
               <Suggestions />
 
-              <Switch>
-                {routeMap.map(({ relatedRoutes, Component, ...restRouteProps }, index) => (
-                  <Route key={index} exact strict {...restRouteProps} component={Component} />
-                ))}
+              <PageContainer>
+                <Switch>
+                  {routeMap.map(({ relatedRoutes, Component, ...restRouteProps }, index) => (
+                    <Route key={index} exact strict {...restRouteProps} component={Component} />
+                  ))}
 
-                <Redirect to={Routes.NOTFOUND} />
-              </Switch>
+                  <Redirect to={Routes.NOTFOUND} />
+                </Switch>
+              </PageContainer>
             </Main>
           </Body>
         </Container>
