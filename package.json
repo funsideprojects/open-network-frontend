@@ -58,6 +58,7 @@
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
     "@types/recoil": "^0.0.1",
+    "@types/styled-components": "5.1.7",
     "babel-plugin-styled-components": "^1.12.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "customize-cra": "^1.0.0",

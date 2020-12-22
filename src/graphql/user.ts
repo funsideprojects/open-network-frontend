@@ -3,25 +3,10 @@ import { gql } from '@apollo/client'
 import { authUserPayload, userPayload } from './types'
 
 // * Queries
+
 export const VERIFY_TOKEN = gql`
   query($token: String!) {
     verifyToken(token: $token)
-  }
-`
-
-export const GET_CONVERSATIONS = gql`
-  query($authUserId: ID!) {
-    getConversations(authUserId: $authUserId) {
-      id
-      username
-      fullName
-      image
-      online
-      seen
-      lastMessage
-      lastMessageSender
-      lastMessageCreatedAt
-    }
   }
 `
 
@@ -136,12 +121,10 @@ export const RESET_PASSWORD = gql`
   }
 `
 
-// DONE:
-/** Upload user photo */
 export const UPDATE_USER_PHOTO = gql`
   mutation($input: UpdateUserPhotoInput!) {
     updateUserPhoto(input: $input) {
-      image
+      ${authUserPayload}
     }
   }
 `

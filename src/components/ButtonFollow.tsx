@@ -11,11 +11,6 @@ import { CREATE_FOLLOW, DELETE_FOLLOW, GET_FOLLOWING_IDS } from 'graphql/follow'
 import { followAtoms } from 'store'
 
 const ButtonFollow = styled(Button)`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: ${(props) => props.theme.radius.round};
   margin-left: ${(props) => props.theme.spacing.xs};
   padding: 0;

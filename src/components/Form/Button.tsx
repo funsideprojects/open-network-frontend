@@ -2,14 +2,7 @@ import React from 'react'
 
 import Loading from 'components/Loading'
 
-import {
-  ButtonBaseProps,
-  ButtonContainer,
-  ButtonDefault,
-  ButtonPrimary,
-  ButtonText,
-  ContentWrapper,
-} from './Button.styled'
+import { ButtonBaseProps, ButtonDefault, ButtonPrimary, ButtonText, ContentWrapper } from './Button.styled'
 
 interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, Omit<ButtonBaseProps, 'isLoading'> {
   icon?: GenericSC
@@ -61,17 +54,16 @@ export const Button = React.forwardRef<ButtonRefAttributes, Props>(
     )
 
     return (
-      <ButtonContainer block={block}>
-        <ButtonToRender
-          type="button"
-          {...buttonProps}
-          isLoading={isLoading}
-          disabled={isLoading || disabled}
-          ref={forwardedRef}
-        >
-          <ContentWrapper>{renderChildren}</ContentWrapper>
-        </ButtonToRender>
-      </ButtonContainer>
+      <ButtonToRender
+        type="button"
+        block={block}
+        {...buttonProps}
+        isLoading={isLoading}
+        disabled={isLoading || disabled}
+        ref={forwardedRef}
+      >
+        <ContentWrapper>{renderChildren}</ContentWrapper>
+      </ButtonToRender>
     )
   }
 )

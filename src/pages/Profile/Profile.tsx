@@ -30,18 +30,18 @@ const Component = () => {
   const { user } = useRecoilValue(authAtoms.userState)
   const { username } = useParams<RouteParams>()
   const [getUser, { loading, data, error }] = useLazyQuery(GET_USER.gql, {
-    fetchPolicy: 'no-cache',
-    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   })
 
   React.useEffect(() => {
-    if (username && username !== user.username) {
+    // ? Trigger query if username from params is not authUser
+    if (user && username && username !== user.username) {
       getUser({ variables: { username } })
     }
   }, [user, username, getUser])
 
   // ? Placeholder
-  if (!user || loading || error) {
+  if (!username || !user || (username !== user.username && !data) || loading || error) {
     return (
       <React.Fragment>
         <Head />
@@ -51,11 +51,10 @@ const Component = () => {
   }
 
   const isAuthUser = username === user.username
-  const userObject = isAuthUser ? user : data?.getUser
-  console.log('userObject', userObject)
+  const userObject = isAuthUser ? user : data.getUser
   const documentTitle = isAuthUser
     ? `${user.fullName} (@${username})`
-    : data?.getUser?.fullName
+    : data.getUser.fullName
     ? `${data.getUser.fullName} (@${username})`
     : username
 

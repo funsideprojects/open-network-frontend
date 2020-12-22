@@ -1,12 +1,5 @@
 import styled from 'styled-components'
 
-// ? Container
-
-export const ButtonContainer = styled.div<ButtonBaseProps>`
-  width: ${(props) => (props.block ? '100%' : 'fit-content')};
-  position: relative;
-`
-
 // ? Base
 
 export interface ButtonBaseProps {
@@ -19,8 +12,8 @@ export interface ButtonBaseProps {
 export const ButtonBase = styled.button<ButtonBaseProps>`
   cursor: pointer;
   user-select: none;
-  width: 100%;
-  height: 100%;
+  width: ${(props) => (props.block ? '100%' : 'fit-content')};
+  position: relative;
   display: inline-block;
   outline: none;
   border: 0;
@@ -68,7 +61,7 @@ export const ButtonText = styled(ButtonBase)`
 `
 
 export const ContentWrapper = styled.span`
-  width: 100%;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
