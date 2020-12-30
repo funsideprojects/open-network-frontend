@@ -1,12 +1,12 @@
-import { useRef, useEffect } from 'react'
+import React from 'react'
 
 export const usePrevious = (value: any) => {
   // ? The ref object is a generic container whose current property is mutable
   // ? and can hold any value, similar to an instance property on a class
-  const ref = useRef()
+  const ref = React.useRef()
 
   // ? Store current value in ref
-  useEffect(() => {
+  React.useEffect(() => {
     ref.current = value
   }, [value]) // ? Only re-run if value changes
 

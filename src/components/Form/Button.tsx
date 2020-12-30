@@ -2,7 +2,14 @@ import React from 'react'
 
 import Loading from 'components/Loading'
 
-import { ButtonBaseProps, ButtonDefault, ButtonPrimary, ButtonText, ContentWrapper } from './Button.styled'
+import {
+  ButtonBaseProps,
+  ButtonDefault,
+  ButtonPrimary,
+  ButtonText,
+  ButtonDanger,
+  ContentWrapper,
+} from './Button.styled'
 
 interface Props extends Omit<JSX.IntrinsicElements['button'], 'ref'>, Omit<ButtonBaseProps, 'isLoading'> {
   icon?: GenericSC
@@ -13,6 +20,7 @@ const AvailButtons = {
   default: ButtonDefault,
   primary: ButtonPrimary,
   text: ButtonText,
+  danger: ButtonDanger,
 }
 
 export interface ButtonRefAttributes extends HTMLButtonElement {
@@ -21,7 +29,7 @@ export interface ButtonRefAttributes extends HTMLButtonElement {
 
 export const Button = React.forwardRef<ButtonRefAttributes, Props>(
   (
-    { buttonType = 'default', icon: Icon, loading: isLoading, block, danger, children, disabled, ...buttonProps },
+    { buttonType = 'default', icon: Icon, loading: isLoading, block, children, disabled, ...buttonProps },
     forwardedRef
   ) => {
     // const [isLoading, setIsLoading] = React.useState(false)

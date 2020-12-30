@@ -16,19 +16,19 @@ import App from 'components/App'
 import * as serviceWorker from './serviceWorker'
 
 render(
-  <ApolloProvider client={apolloClient}>
-    <RecoilRoot>
+  <RecoilRoot>
+    <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <HelmetProvider>
           <App />
         </HelmetProvider>
       </ThemeProvider>
-    </RecoilRoot>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </RecoilRoot>,
   document.getElementById('app-mountpoint')
 )
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+serviceWorker.register()

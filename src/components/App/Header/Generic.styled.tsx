@@ -71,6 +71,7 @@ export const Link = styled(NavLink)<{ badge?: number }>`
 `
 
 export const Text = styled.div`
+  user-select: none;
   height: 24px;
   display: flex;
   align-items: center;

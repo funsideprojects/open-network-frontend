@@ -18,14 +18,15 @@ const Container = styled.div<{ imageUrl?: string }>`
   width: 100%;
   height: 350px;
   position: relative;
+  box-shadow: ${(props) => props.theme.shadows.sm};
+  border-radius: ${(props) => props.theme.radius.lg};
+  margin-bottom: ${(props) => props.theme.spacing.xl};
   background-image: url(${(props) => props.imageUrl ?? defaultCoverImage});
   background-size: cover;
   background-position: center;
-  box-shadow: ${(props) => props.theme.shadows.sm};
-  border-radius: ${(props) => props.theme.radius.lg};
 `
 
-const Toolbar = styled.div`
+const Options = styled.div`
   position: absolute;
   top: ${(props) => props.theme.spacing.sm};
   right: ${(props) => props.theme.spacing.sm};
@@ -43,16 +44,12 @@ const Toolbar = styled.div`
 `
 
 const ButtonDelete = styled(Button)`
-  background: rgba(255, 255, 255, 0.9);
+  color: ${(props) => props.theme.colors.primary.main};
+  background: ${(props) => props.theme.opacityToHex(0.9)};
 
   &:hover {
-    color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.error.main};
   }
-`
-
-const Input = styled.input`
-  display: none;
 `
 
 const ButtonUpload = styled.label`
@@ -65,7 +62,7 @@ const ButtonUpload = styled.label`
   border-radius: ${(props) => props.theme.radius.md};
   padding: ${(props) => props.theme.spacing.xxs} ${(props) => props.theme.spacing.xs};
   color: ${(props) => props.theme.colors.primary.main};
-  background: rgba(255, 255, 255, 0.9);
+  background: ${(props) => props.theme.opacityToHex(0.9)};
   transition: 0.3s;
 
   &:hover {
@@ -74,13 +71,17 @@ const ButtonUpload = styled.label`
   }
 `
 
+const Input = styled.input`
+  display: none;
+`
+
 const SCITrash = styled(Trash)``
 
 const imageTypes = ['image/gif', 'image/jpeg', 'image/png']
 
 const Component = ({ isAuthUser, coverImage }: Props) => {
   const setAuthUser = useSetRecoilState(authAtoms.userState)
-  const [updatePhoto, { loading, data }] = useMutation(UPDATE_USER_PHOTO, { notifyOnNetworkStatusChange: true })
+  const [updatePhoto, { loading, data }] = useMutation(UPDATE_USER_PHOTO)
 
   const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files[0]
@@ -107,16 +108,30 @@ const Component = ({ isAuthUser, coverImage }: Props) => {
   }, [data, setAuthUser])
 
   return (
-    <Container imageUrl={getImageLink(coverImage)}>
+    <Container imageUrl={getImageLink(coverImage)} onContextMenu={(event) => event.preventDefault()}>
       {isAuthUser && (
-        <Toolbar>
-          {coverImage && <ButtonDelete icon={SCITrash} loading={coverImage && loading} onClick={handleDeleteImage} />}
+        <Options>
+          {coverImage && (
+            <ButtonDelete
+              buttonType="danger"
+              title="Remove cover image"
+              icon={SCITrash}
+              loading={coverImage && loading}
+              onClick={handleDeleteImage}
+            />
+          )}
 
-          <ButtonUpload>
-            <Input name="coverImage" type="file" onChange={handleUploadImage} accept={imageTypes.join(',')} />
+          <ButtonUpload title={`${coverImage ? 'Replace' : 'Upload'} cover image`}>
+            <Input
+              name="coverImage"
+              type="file"
+              disabled={loading}
+              onChange={handleUploadImage}
+              accept={imageTypes.join(',')}
+            />
             <CloudUpload />
           </ButtonUpload>
-        </Toolbar>
+        </Options>
       )}
     </Container>
   )
@@ -130,4 +145,4 @@ const componentPropTypes = {
 Component.propTypes = componentPropTypes
 type Props = PropTypes.InferProps<typeof componentPropTypes>
 
-export default Component
+export default React.memo(Component)

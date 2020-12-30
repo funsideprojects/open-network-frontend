@@ -11,9 +11,7 @@ import { CREATE_FOLLOW, DELETE_FOLLOW, GET_FOLLOWING_IDS } from 'graphql/follow'
 import { followAtoms } from 'store'
 
 const ButtonFollow = styled(Button)`
-  border-radius: ${(props) => props.theme.radius.round};
   margin-left: ${(props) => props.theme.spacing.xs};
-  padding: 0;
 `
 
 const SCIAddCircle = styled(AddCircle)``
@@ -33,6 +31,7 @@ const Component = ({ userId }: Props) => {
 
   return (
     <ButtonFollow
+      round
       buttonType={isFollowing ? 'text' : 'primary'}
       icon={isFollowing ? SCICloseCircle : SCIAddCircle}
       loading={loading}

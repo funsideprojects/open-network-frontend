@@ -3,9 +3,9 @@ import styled from 'styled-components'
 // ? Base
 
 export interface ButtonBaseProps {
-  buttonType?: 'default' | 'primary' | 'text'
+  buttonType?: 'default' | 'primary' | 'text' | 'danger'
   block?: boolean
-  danger?: boolean
+  round?: boolean
   isLoading?: boolean
 }
 
@@ -17,9 +17,9 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   display: inline-block;
   outline: none;
   border: 0;
-  border-radius: ${(props) => props.theme.radius.md};
+  border-radius: ${(props) => props.theme.radius[props.round ? 'round' : 'md']};
   margin: 0;
-  padding: ${(props) => props.theme.spacing.xs};
+  padding: ${(props) => props.theme.spacing[props.round ? 'none' : 'xs']};
   font-family: ${(props) => props.theme.font.secondary};
   font-weight: ${(props) => props.theme.font.weight.bold};
   font-size: 1rem;
@@ -28,6 +28,7 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
 
   &:disabled {
     cursor: not-allowed;
+    pointer-events: none;
     color: ${(props) => props.theme.colors.white} !important;
     background: ${(props) => props.theme.colors.grey[props.isLoading ? 200 : 400]} !important;
   }
@@ -38,6 +39,7 @@ export const ButtonDefault = styled(ButtonBase)`
   background: ${(props) => props.theme.colors.white};
 
   &:hover {
+    color: ${(props) => props.theme.colors.primary.main};
     background: ${(props) => props.theme.colors.primary.lighter};
   }
 `
@@ -47,6 +49,7 @@ export const ButtonPrimary = styled(ButtonBase)`
   background: ${(props) => props.theme.colors.primary.main};
 
   &:hover {
+    color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors.primary.light};
   }
 `
@@ -56,10 +59,20 @@ export const ButtonText = styled(ButtonBase)`
   background: ${(props) => props.theme.colors.none};
 
   &:hover {
+    color: ${(props) => props.theme.colors.primary.main};
     background: ${(props) => props.theme.colors.primary.grey};
   }
 `
 
+export const ButtonDanger = styled(ButtonBase)`
+  color: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.error.main};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.white};
+    background: ${(props) => props.theme.colors.error.light};
+  }
+`
 export const ContentWrapper = styled.span`
   position: relative;
   display: flex;

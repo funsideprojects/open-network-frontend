@@ -1,5 +1,23 @@
-/* eslint-disable import/no-anonymous-default-export */
+const opacityToHex = (opacity: number = 1, hexColor: string = '#FFFFFF') => {
+  const decimalValue = Math.round(opacity * 255)
+  let hexValue = hexColor + 'FF' // ? Equal to 1
+
+  if (opacity < 0.07) {
+    hexValue = '0' + decimalValue.toString(16).toUpperCase()
+  } else {
+    hexValue = decimalValue.toString(16).toUpperCase()
+  }
+
+  return hexColor + hexValue
+}
+
 export default {
+  opacityToHex,
+  centeredFlexLayout: `
+    display: flex;
+    justify-content: center;
+    align-items: center
+  `,
   font: {
     primary: `Raleway, sans-serif`,
     secondary: 'Dosis',
@@ -37,8 +55,8 @@ export default {
 
   colors: {
     none: 'transparent',
-    black: '#000',
-    white: '#FFF',
+    black: '#000000',
+    white: '#FFFFFF',
 
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
@@ -53,13 +71,13 @@ export default {
       light: '#84A9AC',
       main: '#3B6978',
       dark: '#204051',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
     secondary: {
       light: '#FF4081',
       main: '#F50057',
       dark: '#C51162',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
 
     error: {
@@ -67,35 +85,35 @@ export default {
       light: '#FFA39E',
       main: '#FF7875',
       dark: '#FF4D4F',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
     warning: {
       lighter: '#FFFBE6',
       light: '#FFF1B8',
       main: '#FFC53D',
       dark: '#FAAD14',
-      contrastText: '#000',
+      contrastText: '#FFFFFF',
     },
     success: {
       lighter: '#D9FFE4',
       light: '#C0EBCD',
       main: '#7DD196',
       dark: '#75BD8A',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
     info: {
       lighter: '#E6F7FF',
       light: '#BAE7FF',
       main: '#40A9FF',
       dark: '#1890FF',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
     default: {
       lighter: '#FAFAFA',
       light: '#F5F5F5',
       main: '#BDBDBD',
-      dark: '#9E9E9E',
-      contrastText: '#000',
+      dark: '#FFFFFF',
+      contrastText: '#000000',
     },
 
     grey: {
@@ -125,10 +143,10 @@ export default {
   },
 
   shadows: {
-    sm: '0px 1px 8px 0px rgba(0, 0, 0, 0.3)',
-    md: 'rgba(0, 0, 0, 0.3) 0px 1px 8px 0px',
-    lg: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-    xl: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    sm: '0 1px 8px 0 rgba(0, 0, 0, 0.3)',
+    md: '0 1px 8px 0 rgba(0, 0, 0, 0.3)',
+    lg: '0 3px 6px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.23)',
+    xl: '0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23)',
   },
 
   screen: {

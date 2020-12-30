@@ -3,8 +3,8 @@
  */
 
 // ? app
-export const APP_MESSAGE = 'appMessage'
 export const SEARCH_RESULT = 'searchResult'
+export const APP_MESSAGE = 'appMessage'
 
 // ? auth
 export const AUTH_USER = 'authUser'

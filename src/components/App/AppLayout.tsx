@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { usePrefetch } from 'hooks/usePrefetch'
 
+import Messages from './Messages'
 import SideBar from './SideBar'
 import Header from './Header'
 import Chats from './Chats'
@@ -66,7 +67,9 @@ const AppLayout = () => {
   usePrefetch(routeMap, 500)
 
   return (
-    <>
+    <React.Fragment>
+      <Messages />
+
       <Background>
         <Container>
           <SideBar />
@@ -91,7 +94,7 @@ const AppLayout = () => {
           </Body>
         </Container>
       </Background>
-    </>
+    </React.Fragment>
   )
 }
 

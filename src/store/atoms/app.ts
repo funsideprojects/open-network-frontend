@@ -1,22 +1,6 @@
 import { atom } from 'recoil'
 
-import { APP_MESSAGE, SEARCH_RESULT } from 'store/keys'
-
-// ? Message
-type AppMessageState = {
-  type?: 'error' | 'warn' | 'info' | 'success'
-  text?: string
-  autoClose: boolean
-}
-
-const appMessageState = atom<AppMessageState>({
-  key: APP_MESSAGE,
-  default: {
-    type: undefined,
-    text: undefined,
-    autoClose: true,
-  },
-})
+import { SEARCH_RESULT, APP_MESSAGE } from 'store/keys'
 
 // ? Search
 type SearchResultState = {
@@ -48,7 +32,13 @@ const searchResultState = atom<SearchResultState>({
   },
 })
 
+// ? Message
+const appMessageState = atom<{ [id: number]: any }>({
+  key: APP_MESSAGE,
+  default: {},
+})
+
 export default {
-  appMessageState,
   searchResultState,
+  appMessageState,
 }

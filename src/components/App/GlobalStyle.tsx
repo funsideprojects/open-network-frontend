@@ -82,5 +82,4 @@ export default createGlobalStyle`
     height: 100%;
     position: relative;
   }
-
 `

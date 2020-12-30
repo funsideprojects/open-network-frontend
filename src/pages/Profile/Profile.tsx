@@ -13,6 +13,8 @@ import NotFound from 'components/NotFound'
 
 import Placeholder from './Placeholder'
 import Cover from './Cover'
+import Avatar from './Avatar'
+import Names from './Names'
 import Information from './Information'
 
 import { GET_USER } from 'graphql/user'
@@ -64,7 +66,8 @@ const Component = () => {
 
       <Container>
         <Cover isAuthUser={isAuthUser} coverImage={userObject.coverImage} />
-
+        <Avatar isAuthUser={isAuthUser} image={userObject.image} />
+        <Names isAuthUser={isAuthUser} username={userObject.username} fullName={userObject.fullName} />
         <Information />
       </Container>
     </React.Fragment>
