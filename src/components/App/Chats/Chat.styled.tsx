@@ -59,7 +59,7 @@ export const Badge = styled.div<{ visible: boolean; count?: number }>`
     line-height: normal;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors.error.dark};
+    background: ${(props) => props.theme.colors.danger.dark};
   }
 
   @media screen and (min-width: ${(props) => props.theme.screen.lg}) {

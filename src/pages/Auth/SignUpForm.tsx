@@ -84,8 +84,7 @@ const SignUpForm = ({ navigate }: Props) => {
       ref: register({
         required: 'Full name is required',
         validate: (value) => {
-          const charsCount = value.length
-          if (charsCount < 1 || charsCount > 40) {
+          if (value.length > 40) {
             return 'Full name cannot exceed 40 characters'
           }
         },

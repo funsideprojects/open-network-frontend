@@ -16,7 +16,7 @@ import defaultCoverImage from 'assets/images/background-desktop.png'
 
 const Container = styled.div<{ imageUrl?: string }>`
   width: 100%;
-  height: 350px;
+  height: 340px;
   position: relative;
   box-shadow: ${(props) => props.theme.shadows.sm};
   border-radius: ${(props) => props.theme.radius.lg};
@@ -48,7 +48,7 @@ const ButtonDelete = styled(Button)`
   background: ${(props) => props.theme.opacityToHex(0.9)};
 
   &:hover {
-    background: ${(props) => props.theme.colors.error.main};
+    background: ${(props) => props.theme.colors.danger.main};
   }
 `
 

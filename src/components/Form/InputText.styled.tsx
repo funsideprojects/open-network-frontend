@@ -101,7 +101,7 @@ export const ALInput = styled(InputBase)<ALInputProps>`
   }
 
   & ~ ${(props) => props.hasPrefix} {
-    color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
+    color: ${(props) => props.theme.colors[props.hasError ? 'danger' : 'primary'].light};
     transition: 0.3s;
   }
 
@@ -116,7 +116,7 @@ export const ALInput = styled(InputBase)<ALInputProps>`
   }
 
   &:focus ~ ${(props) => props.hasPrefix} {
-    color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].main};
+    color: ${(props) => props.theme.colors[props.hasError ? 'danger' : 'primary'].main};
     transition: 0.3s;
   }
 
@@ -147,7 +147,7 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
     `calc(${props.theme.spacing[props.hasSuffix ? 'lg' : 'sm']} - 2px) ` +
     `calc(${props.theme.spacing.xxs} - 2px) ` +
     `calc(${props.theme.spacing[props.hasPrefix ? 'lg' : 'sm']} - 2px)`};
-  background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].lighter};
+  background: ${(props) => props.theme.colors[props.hasError ? 'danger' : 'primary'].lighter};
   transition: 0.3s;
 
   ::placeholder {
@@ -165,7 +165,7 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
   &:enabled {
     &:not(:focus):hover {
       color: ${(props) => props.theme.colors.white};
-      background: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].light};
+      background: ${(props) => props.theme.colors[props.hasError ? 'danger' : 'primary'].light};
 
       ::placeholder {
         color: ${(props) => props.theme.colors.white};
@@ -183,7 +183,7 @@ export const InputPrimary = styled(InputBase)<InputPrimaryProps>`
     }
 
     & ~ ${(props) => props.hasSuffix} {
-      color: ${(props) => props.theme.colors[props.hasError ? 'error' : 'primary'].dark};
+      color: ${(props) => props.theme.colors[props.hasError ? 'danger' : 'primary'].dark};
       transition: 0.3s;
     }
   }
@@ -198,5 +198,5 @@ export const ErrorMessage = styled.span`
   font-size: ${(props) => props.theme.font.size.xxs};
   word-break: break-word;
   box-decoration-break: clone;
-  color: ${(props) => props.theme.colors.error.dark};
+  color: ${(props) => props.theme.colors.danger.dark};
 `

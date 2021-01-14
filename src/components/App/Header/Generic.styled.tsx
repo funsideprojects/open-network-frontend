@@ -55,7 +55,7 @@ export const Link = styled(NavLink)<{ badge?: number }>`
     line-height: normal;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors.error.dark};
+    background: ${(props) => props.theme.colors.danger.dark};
     transform: scale(${(props) => (props.badge ? 1 : 0)});
     transition: 0.3s;
   }

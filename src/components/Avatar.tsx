@@ -41,7 +41,7 @@ const Container = styled.div<{ size: string; border: BorderType; badge: number; 
     line-height: 1;
     text-align: center;
     color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors.error.dark};
+    background: ${(props) => props.theme.colors.danger.dark};
     transform: scale(${(props) => (props.badgeVisible && props.badge ? 1 : 0)});
     transform-origin: center;
     transition: 0.3s;

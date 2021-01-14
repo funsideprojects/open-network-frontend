@@ -15,7 +15,7 @@ const Container = styled.div`
 `
 
 const SCIClose = styled(Close)`
-  color: ${(props) => props.theme.colors.error.main};
+  color: ${(props) => props.theme.colors.danger.main};
 `
 
 const Img = styled.img<{ visible: boolean }>`

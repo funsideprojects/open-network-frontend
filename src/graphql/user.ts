@@ -129,6 +129,14 @@ export const UPDATE_USER_PHOTO = gql`
   }
 `
 
+export const UPDATE_USER_INFO = gql`
+  mutation($input: UpdateUserInfoInput!) {
+    updateUserInfo(input: $input) {
+      ${authUserPayload}
+    }
+  }
+`
+
 // * Subscriptions
 
 // DONE:

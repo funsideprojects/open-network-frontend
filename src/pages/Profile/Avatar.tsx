@@ -74,12 +74,12 @@ const Option = styled.div`
 
 const ButtonDelete = styled(Button)`
   width: 100%;
-  border-radius: ${(props) => props.theme.radius.none};
+  border-radius: 0;
   background: ${(props) => props.theme.opacityToHex(0.1)};
 
   &:hover {
     color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.opacityToHex(0.7, props.theme.colors.error.main)};
+    background: ${(props) => props.theme.opacityToHex(0.7, props.theme.colors.danger.main)};
   }
 `
 

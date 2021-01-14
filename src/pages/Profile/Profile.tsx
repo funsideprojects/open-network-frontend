@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { useParams } from 'react-router-dom'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 
 import Head from 'components/Head'
 import NotFound from 'components/NotFound'
@@ -11,14 +11,15 @@ import NotFound from 'components/NotFound'
 // import ProfilePosts from './ProfilePosts'
 // import NotFound from 'components/NotFound'
 
+import { GET_USER, UPDATE_USER_INFO } from 'graphql/user'
+import { authAtoms } from 'store'
+
 import Placeholder from './Placeholder'
 import Cover from './Cover'
 import Avatar from './Avatar'
 import Names from './Names'
+import StatusQuote from './StatusQuote'
 import Information from './Information'
-
-import { GET_USER } from 'graphql/user'
-import { authAtoms } from 'store'
 
 const Container = styled.div`
   display: flex;
@@ -29,11 +30,29 @@ const Container = styled.div`
 type RouteParams = { username?: string }
 
 const Component = () => {
-  const { user } = useRecoilValue(authAtoms.userState)
+  const [{ user }, setAuthUser] = useRecoilState(authAtoms.userState)
   const { username } = useParams<RouteParams>()
-  const [getUser, { loading, data, error }] = useLazyQuery(GET_USER.gql, {
+  const [getUser, { loading, data: userData, error }] = useLazyQuery(GET_USER.gql, {
     fetchPolicy: 'network-only',
   })
+  const [updateUserInfo, { data: updatedUserData }] = useMutation(UPDATE_USER_INFO, {
+    notifyOnNetworkStatusChange: false,
+  })
+
+  const handleUpdateUserInfo = (changes = {}) => {
+    return updateUserInfo({
+      variables: {
+        input: {
+          email: user.email,
+          fullName: user.fullName,
+          statusQuote: user.statusQuote,
+          visibleToEveryone: user.visibleToEveryone,
+          displayOnlineStatus: user.displayOnlineStatus,
+          ...changes,
+        },
+      },
+    })
+  }
 
   React.useEffect(() => {
     // ? Trigger query if username from params is not authUser
@@ -42,8 +61,15 @@ const Component = () => {
     }
   }, [user, username, getUser])
 
+  // ? Update authUser object
+  React.useEffect(() => {
+    if (updatedUserData?.updateUserInfo) {
+      setAuthUser({ user: updatedUserData.updateUserInfo })
+    }
+  }, [updatedUserData, setAuthUser])
+
   // ? Placeholder
-  if (!username || !user || (username !== user.username && !data) || loading || error) {
+  if (!username || !user || (username !== user.username && !userData) || loading || error) {
     return (
       <React.Fragment>
         <Head />
@@ -53,11 +79,11 @@ const Component = () => {
   }
 
   const isAuthUser = username === user.username
-  const userObject = isAuthUser ? user : data.getUser
+  const userObject = isAuthUser ? user : userData.getUser
   const documentTitle = isAuthUser
     ? `${user.fullName} (@${username})`
-    : data.getUser.fullName
-    ? `${data.getUser.fullName} (@${username})`
+    : userData.getUser.fullName
+    ? `${userData.getUser.fullName} (@${username})`
     : username
 
   return (
@@ -67,7 +93,18 @@ const Component = () => {
       <Container>
         <Cover isAuthUser={isAuthUser} coverImage={userObject.coverImage} />
         <Avatar isAuthUser={isAuthUser} image={userObject.image} />
-        <Names isAuthUser={isAuthUser} username={userObject.username} fullName={userObject.fullName} />
+        <Names
+          isAuthUser={isAuthUser}
+          username={userObject.username}
+          fullName={userObject.fullName}
+          updateUserInfo={handleUpdateUserInfo}
+        />
+        <StatusQuote
+          isAuthUser={isAuthUser}
+          statusQuote={userObject.statusQuote}
+          updateUserInfo={handleUpdateUserInfo}
+        />
+
         <Information />
       </Container>
     </React.Fragment>

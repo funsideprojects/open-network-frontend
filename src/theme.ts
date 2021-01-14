@@ -80,7 +80,7 @@ export default {
       contrastText: '#FFFFFF',
     },
 
-    error: {
+    danger: {
       lighter: '#FFE5E3',
       light: '#FFA39E',
       main: '#FF7875',

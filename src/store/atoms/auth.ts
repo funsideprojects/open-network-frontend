@@ -12,6 +12,7 @@ type UserState = {
     imagePublicId?: string
     coverImage?: string
     coverImagePublicId?: string
+    statusQuote: string
     visibleToEveryone: boolean
     online: boolean
     displayOnlineStatus: boolean

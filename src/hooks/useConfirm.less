@@ -1,0 +1,122 @@
+.ajs-dialog {
+  max-width: 400px !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+}
+
+.ajs-reset {
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ajs-commands,
+.ajs-header,
+.ajs-footer {
+  margin: 0 !important;
+}
+
+.ajs-header {
+  padding: 10px 20px !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+
+  > p {
+    margin: 0 !;
+  }
+}
+
+.ajs-body {
+  font-size: 1.1rem !important;
+  text-align: center !important;
+
+  .ajs-content {
+    padding: 15px !important;
+  }
+}
+
+.ajs-footer {
+  min-height: initial !important;
+  display: flex !important;
+  padding: 0 !important;
+
+  .ajs-buttons {
+    display: flex !important;
+  }
+
+  .ajs-auxiliary {
+    flex: 1 !important;
+  }
+
+  .ajs-primary {
+    flex: 2 !important;
+    display: flex !important;
+    justify-content: flex-end;
+  }
+
+  .ajs-button {
+    cursor: pointer;
+    flex: 1 1 fit-content;
+    outline: 0 !important;
+    border: 1px solid !important;
+    border-radius: 6px !important;
+    margin: 0 5px !important;
+
+    font-size: 1rem !important;
+    transition: 0.3s;
+
+    &.ajs-cancel {
+      border-color: #3b6978 !important;
+      color: #3b6978 !important;
+      background: transparent !important;
+
+      &:hover {
+        border-color: #84a9ac !important;
+        color: #84a9ac !important;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px #84a9ac;
+      }
+    }
+
+    &.ajs-discard {
+      border-color: #ff7875 !important;
+      color: #ff7875;
+      background: transparent !important;
+
+      &:hover {
+        border-color: #ffa39e !important;
+        color: #ffa39e;
+
+        &:focus {
+          box-shadow: 0 0 0 2px #ffe5e3;
+        }
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px #ffa39e;
+      }
+    }
+
+    &.ajs-ok {
+      border-color: #3b6978 !important;
+      color: #ffffff;
+      background: #3b6978 !important;
+
+      &:hover {
+        border-color: #84a9ac !important;
+        background: #84a9ac !important;
+
+        &:focus {
+          box-shadow: 0 0 0 2px #e1f1f2;
+        }
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px #84a9ac;
+      }
+    }
+  }
+}

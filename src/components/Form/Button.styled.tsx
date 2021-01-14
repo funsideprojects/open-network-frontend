@@ -14,7 +14,9 @@ export const ButtonBase = styled.button<ButtonBaseProps>`
   user-select: none;
   width: ${(props) => (props.block ? '100%' : 'fit-content')};
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   outline: none;
   border: 0;
   border-radius: ${(props) => props.theme.radius[props.round ? 'round' : 'md']};
@@ -66,11 +68,11 @@ export const ButtonText = styled(ButtonBase)`
 
 export const ButtonDanger = styled(ButtonBase)`
   color: ${(props) => props.theme.colors.white};
-  background: ${(props) => props.theme.colors.error.main};
+  background: ${(props) => props.theme.colors.danger.main};
 
   &:hover {
     color: ${(props) => props.theme.colors.white};
-    background: ${(props) => props.theme.colors.error.light};
+    background: ${(props) => props.theme.colors.danger.light};
   }
 `
 export const ContentWrapper = styled.span`
