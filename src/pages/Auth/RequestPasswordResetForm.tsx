@@ -53,7 +53,7 @@ const RequestPasswordResetForm = () => {
         if (gqlError.message.startsWith('__INPUT__')) {
           setError('emailOrUsername', { message: gqlError.message.replace(responsePrefixRegex, '') })
         } else {
-          setResponse({ type: TagColor.Error, message: gqlError.message })
+          setResponse({ type: TagColor.Danger, message: gqlError.message })
         }
       })
   }

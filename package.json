@@ -14,7 +14,7 @@
     "lint:css": "stylelint './src/**/*.tsx'"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.4",
+    "@apollo/client": "^3.3.7",
     "@styled-icons/evil": "^10.18.0",
     "@styled-icons/feather": "^10.18.0",
     "@styled-icons/ionicons-outline": "^10.18.0",

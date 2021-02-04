@@ -5,14 +5,14 @@ import styled from 'styled-components'
 import { Close } from '@styled-icons/ionicons-outline/Close'
 
 export enum TagColor {
-  Error = 'error',
+  Danger = 'danger',
   Warning = 'warning',
   Success = 'success',
   Info = 'info',
   Default = 'default',
 }
 
-const TagComponent = styled.span<Partial<TagProps>>`
+const TagComponent = styled.span<Partial<Props>>`
   user-select: none;
   width: ${(props) => (props.block ? '100%' : 'fit-content')};
   min-height: 22px;
@@ -53,25 +53,23 @@ const TagComponent = styled.span<Partial<TagProps>>`
   }
 `
 
-const Tag = ({ tagColor, onClose, children, ...restProps }: TagProps) => {
+const Tag = ({ tagColor, onClose, children, ...restProps }: Props) => {
   return (
     <TagComponent {...restProps} tagColor={tagColor || TagColor.Default}>
       {restProps.icon}
       {children}
-      {restProps.closable ? (
+      {restProps.closable && (
         <Close className="icon-close" {...(typeof onClose === 'function' ? { onClick: onClose } : {})} />
-      ) : (
-        <></>
       )}
     </TagComponent>
   )
 }
 
-const tagProps = {
+const componentPropTypes = {
   children: PropTypes.node,
   visible: PropTypes.bool,
   tagColor: PropTypes.oneOf<TagColor>([
-    TagColor.Error,
+    TagColor.Danger,
     TagColor.Warning,
     TagColor.Success,
     TagColor.Info,
@@ -83,7 +81,7 @@ const tagProps = {
   onClose: PropTypes.func,
 }
 
-Tag.propTypes = tagProps
-type TagProps = PropTypes.InferProps<typeof tagProps>
+Tag.propTypes = componentPropTypes
+type Props = PropTypes.InferProps<typeof componentPropTypes>
 
 export default Tag

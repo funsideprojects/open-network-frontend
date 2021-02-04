@@ -18,22 +18,23 @@ interface FormFields {
 }
 
 const SignInForm = ({ navigate }: Props) => {
-  const [signIn, { loading }] = useMutation(SIGN_IN, {
-    refetchQueries: [GET_AUTH_USER.name],
+  const [signIn, { loading, error }] = useMutation(SIGN_IN, {
+    errorPolicy: 'all',
+    refetchQueries: ({ data }) => {
+      if (data.signin) {
+        return [GET_AUTH_USER.name]
+      } else {
+        return []
+      }
+    },
   })
   const { register, handleSubmit, getValues, errors, formState } = useForm<FormFields>({
     mode: 'onTouched',
     shouldFocusError: true,
   })
-  const [response, setResponse] = React.useState<{ type?: TagColor; message?: string }>({
-    type: undefined,
-    message: undefined,
-  })
 
   const handleSignIn = (values: FormFields) => {
-    return signIn({ variables: { input: { ...values } } }).catch((gqlError) => {
-      setResponse({ type: TagColor.Error, message: gqlError.message })
-    })
+    return signIn({ variables: { input: { ...values } } })
   }
 
   return (
@@ -86,8 +87,8 @@ const SignInForm = ({ navigate }: Props) => {
       </FormItem>
 
       <FormItem top="sm">
-        <Tag block visible={!!response.message} tagColor={response.type}>
-          {response.message}
+        <Tag block visible={!!error?.message} tagColor={TagColor.Danger}>
+          {error?.message}
         </Tag>
       </FormItem>
 

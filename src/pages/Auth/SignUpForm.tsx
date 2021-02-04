@@ -63,7 +63,7 @@ const SignUpForm = ({ navigate }: Props) => {
         if (errField) {
           setError(errField, { message: gqlError.message.replace(responsePrefixRegex, '') })
         } else {
-          setResponse({ type: TagColor.Error, message: gqlError.message })
+          setResponse({ type: TagColor.Danger, message: gqlError.message })
         }
       })
   }

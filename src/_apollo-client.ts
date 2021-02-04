@@ -49,14 +49,21 @@ const authLink = new ApolloLink(
 )
 
 // ? Error-link handles error cases
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors) {
-    console.debug('graphQLErrors', graphQLErrors)
+    graphQLErrors.forEach(({ message }) => {
+      console.debug(`GraphQLError: ${message}`)
+
+      // return Observable.of(operation)
+    })
   }
 
   if (networkError) {
     console.debug('networkError', networkError)
+    // return Observable.of(operation)
   }
+
+  // return forward(operation)
 })
 
 // ? WebSocket-link
@@ -116,13 +123,13 @@ const cache = new InMemoryCache({
 
 const batchHttpLink = new BatchHttpLink({ uri: apiUrl })
 
-// ? Create Upload-link as well as an HTTP link
+// ? Creates Upload-link as well as an HTTP link
 const uploadLink = createUploadLink({ uri: apiUrl })
 
-// ? Persisted-Queries-link that hash query string for optimization purpose
+// ? Creates Persisted-Queries-link that hash query string for optimization purpose
 const persistedQueriesLink = createPersistedQueryLink({ sha256 })
 
-// ? Split links, so we can send data to each link depending on what kind of operation is being sent
+// ? Splits links, so we can send data to each link depending on what kind of operation is being sent
 const terminatingLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
@@ -153,10 +160,10 @@ export const apolloClient = new ApolloClient({
     },
     query: {
       fetchPolicy: 'network-only',
-      errorPolicy: 'all',
+      errorPolicy: 'none',
     },
     mutate: {
-      errorPolicy: 'all',
+      errorPolicy: 'none',
     },
   },
 })
